@@ -17,19 +17,21 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
         public CCHtmlConventions()
         {
             numbers();
-            Editors.Builder<SelectFromEnumerationBuilder>();
-            Editors.Builder<SelectFromIEnumerableBuilder>();
-            Editors.Builder<SelectFromILookupTypeBuilder>();
-            Editors.Builder<GroupSelectedBuilder>();
-           // Editors.Builder<RadioButtonListBuilder>();
-            Editors.Builder<TextAreaBuilder>();
-            Editors.Builder<DatePickerBuilder>();
-            Editors.Builder<TimePickerBuilder>();
-            Editors.Builder<CheckboxBuilder>();
-            Editors.If(x => x.Accessor.Name.ToLowerInvariant().Contains("password")).BuildBy(r => new  PasswordTag().Attr("value", r.RawValue));
-            
-            Editors.Always.BuildBy(TagActionExpression.BuildTextbox);
-            Editors.Always.Modify(AddElementName);
+            EditorsChain();
+            DisplaysChain();
+            LabelsChain();
+            validationAttributes();
+        }
+
+        public virtual void LabelsChain()
+        {
+            Labels.Always.BuildBy(
+                req =>
+                new HtmlTag("label").Attr("for", req.Accessor.Name).Text(req.Accessor.FieldName.ToSeperateWordsFromPascalCase()));
+        }
+
+        public virtual void DisplaysChain()
+        {
             Displays.Builder<ImageBuilder>();
             Displays.Builder<EmailDisplayBuilder>();
             Displays.Builder<ListDisplayBuilder>();
@@ -37,12 +39,28 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
             Displays.Builder<ImageFileDisplayBuilder>();
             Displays.Builder<DateFormatter>();
             Displays.Builder<TimeFormatter>();
-            Displays.If(x => x.Accessor.PropertyType == typeof(DateTime) || x.Accessor.PropertyType == typeof(DateTime?))
-                .BuildBy(req => req.RawValue != null ? new HtmlTag("span").Text(DateTime.Parse(req.RawValue.ToString()).ToLongDateString()) : new HtmlTag("span"));
+            Displays.If(x => x.Accessor.PropertyType == typeof (DateTime) || x.Accessor.PropertyType == typeof (DateTime?))
+                .BuildBy(
+                    req =>
+                    req.RawValue != null
+                        ? new HtmlTag("span").Text(DateTime.Parse(req.RawValue.ToString()).ToLongDateString())
+                        : new HtmlTag("span"));
             Displays.Always.BuildBy(req => new HtmlTag("span").Text(req.StringValue()));
-            Labels.Always.BuildBy(req => new HtmlTag("label").Attr("for", req.Accessor.Name).Text(req.Accessor.FieldName.ToSeperateWordsFromPascalCase()));
-            //Labels.Always.Modify(ModifyLabelForName);
-            validationAttributes();
+        }
+
+        public virtual void EditorsChain()
+        {
+            Editors.Builder<SelectFromEnumerationBuilder>();
+            Editors.Builder<SelectFromIEnumerableBuilder>();
+            Editors.Builder<GroupSelectedBuilder>();
+            Editors.Builder<TextAreaBuilder>();
+            Editors.Builder<DatePickerBuilder>();
+            Editors.Builder<TimePickerBuilder>();
+            Editors.Builder<CheckboxBuilder>();
+            Editors.If(x => x.Accessor.Name.ToLowerInvariant().Contains("password")).BuildBy(
+                r => new PasswordTag().Attr("value", r.RawValue));
+            Editors.Always.BuildBy(TagActionExpression.BuildTextbox);
+            Editors.Always.Modify(AddElementName);
         }
 
         public static void AddElementName(ElementRequest request, HtmlTag tag)
@@ -84,7 +102,7 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
         {
             Editors.IfPropertyIs<Int32>().Attr("max", Int32.MaxValue);
             Editors.IfPropertyIs<Int16>().Attr("max", Int16.MaxValue);
-            //Editors.IfPropertyIs<Int64>().Attr("max", Int64.MaxValue);
+            //Editoin.IfPropertyIs<Int64>().Attr("max", Int64.MaxValue);
             Editors.IfPropertyTypeIs(IsIntegerBased).AddClass("integer");
             Editors.IfPropertyTypeIs(IsFloatingPoint).AddClass("number");
             Editors.IfPropertyTypeIs(IsIntegerBased).Attr("mask", "wholeNumber");

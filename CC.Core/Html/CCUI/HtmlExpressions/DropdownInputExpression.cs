@@ -62,7 +62,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
                                            };
             SelectTag tag = new SelectTag(action);
             string name = string.Empty;
-            request.Accessor.Names.ForEachItem(x => name += x + ".");
+            request.Accessor.PropertyNames.ForEachItem(x => name += x + ".");
             name = name.Substring(0, name.Length-1);
             tag.Attr("name", name);
             addInternalCssClasses(_htmlRoot, tag);

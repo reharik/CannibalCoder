@@ -1042,6 +1042,11 @@
             security systems
             </summary>
         </member>
+        <member name="P:CC.Security.IUser.EntityId">
+            <summary>
+            user id
+            </summary>
+        </member>
         <member name="P:CC.Security.IUser.SecurityInfo">
             <summary>
             Gets or sets the security info for this user

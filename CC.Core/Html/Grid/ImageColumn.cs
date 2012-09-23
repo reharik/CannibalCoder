@@ -40,10 +40,12 @@ namespace CC.Core.Html.Grid
             return divTag.ToString();
         }
 
+
+        //TODO Fix this shit
         protected HtmlTag BuildImage(bool header = false)
         {
             var img = new HtmlTag("img");
-            img.Attr("src", SiteConfig.Settings().ImagesPath + _imageName);
+            img.Attr("src", _imageName); //SiteConfig.Settings().ImagesPath + _imageName);
             if (header)
             {
                 img.Style("cursor", "hand");

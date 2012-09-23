@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CC.Core.CoreViewModelAndDTOs;
-using CC.Core.DomainTools;
-using CC.Core.Services;
 using CC.Security;
 
 namespace CC.Core.Html.Grid
@@ -12,24 +10,18 @@ namespace CC.Core.Html.Grid
     public interface IGrid<T> where T : IGridEnabledClass
     {
         void AddColumnModifications(Action<IGridColumn, T> modification);
-        GridDefinition GetGridDefinition(string url);
-        GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items);
+        GridDefinition GetGridDefinition(string url, IUser user);
+        GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items, IUser user);
     }
 
     public abstract class Grid<T> : IGrid<T> where T : IGridEnabledClass
     {
         protected readonly IGridBuilder<T> GridBuilder;
-        private readonly ICCSessionContext _sessionContext;
-        private readonly IRepository _repository;
         private IList<Action<IGridColumn, T>> _modifications;
 
-        protected Grid(IGridBuilder<T> gridBuilder,
-            ICCSessionContext sessionContext,
-            IRepository repository)
+        protected Grid(IGridBuilder<T> gridBuilder)
         {
             GridBuilder = gridBuilder;
-            _sessionContext = sessionContext;
-            _repository = repository;
             _modifications = new List<Action<IGridColumn, T>>();
         }
 
@@ -59,10 +51,8 @@ namespace CC.Core.Html.Grid
         }
 
 
-        public GridDefinition GetGridDefinition(string url)
+        public GridDefinition GetGridDefinition(string url, IUser user)
         {
-            var userId = _sessionContext.GetUserId();
-            var user = _repository.Find<IUser>(userId);
             return new GridDefinition
             {
                 Url = url,
@@ -70,10 +60,8 @@ namespace CC.Core.Html.Grid
             };
         }
 
-        public GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items)
+        public GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items, IUser user)
         {
-            var userId = _sessionContext.GetUserId();
-            var user = _repository.Find<User>(userId);
             var pager = new Pager<T>();
             var pageAndSort = pager.PageAndSort(items, pageSortFilter);
             var model = new GridItemsViewModel

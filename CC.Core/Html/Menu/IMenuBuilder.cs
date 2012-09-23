@@ -5,17 +5,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using CC.Core.DomainTools;
 using CC.Core.Enumerations;
 using CC.Core.Localization;
-using CC.Core.Services;
+using CC.Security;
 using CC.Security.Interfaces;
 
 namespace CC.Core.Html.Menu
 {
     public interface IMenuBuilder
     {
-        IList<MenuItem> MenuTree(bool withoutPermissions = false);
+        IList<MenuItem> MenuTree(IUser user = null);
         IMenuBuilder HasChildren();
         IMenuBuilder EndChildren();
         IMenuBuilder CreateNode<CONTROLLER>(string urlPreface, Expression<Func<CONTROLLER, object>> action, StringToken text, AreaName areaName = null, string cssClass = null) where CONTROLLER : Controller;
@@ -29,15 +28,11 @@ namespace CC.Core.Html.Menu
 
     public class MenuBuilder : IMenuBuilder
     {
-        private readonly IRepository _repository;
         private readonly IAuthorizationService _authorizationService;
-        private readonly ICCSessionContext _sessionContext;
 
-        public MenuBuilder(IRepository repository, IAuthorizationService authorizationService, ICCSessionContext sessionContext)
+        public MenuBuilder(IAuthorizationService authorizationService)
         {
-            _repository = repository;
             _authorizationService = authorizationService;
-            _sessionContext = sessionContext;
         }
 
         private IList<MenuItem> _items = new List<MenuItem>();
@@ -137,18 +132,16 @@ namespace CC.Core.Html.Menu
             return this;
 
         } 
-        public IList<MenuItem> MenuTree(bool withoutPermissions = false)
+        public IList<MenuItem> MenuTree(IUser user = null)
         {
-            if (withoutPermissions) return _items;
-            IList<MenuItem> permittedItems = modifyListForPermissions();
+            if (user == null) return _items;
+            IList<MenuItem> permittedItems = modifyListForPermissions(user);
             return permittedItems;
         }
 
-        private IList<MenuItem> modifyListForPermissions()
+        private IList<MenuItem> modifyListForPermissions(IUser user)
         {
             var permittedItems = new List<MenuItem>();
-            var userId = _sessionContext.GetUserId();
-            var user = _repository.Find<User>(userId);
             _items.ForEachItem(x =>
             {
                 var operationName = "/MenuItem/" + x.Text.RemoveWhiteSpace();

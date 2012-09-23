@@ -6,7 +6,6 @@ namespace CC.Core.Domain
 {
     public class DomainEntity : Entity
     {
-        public virtual int CompanyId { get; set; }
     }
 
     public class Entity :  IGridEnabledClass, IEquatable<Entity>

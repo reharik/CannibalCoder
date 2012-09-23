@@ -9,6 +9,10 @@ namespace CC.Security
     public interface IUser 
     {
         /// <summary>
+        /// user id
+        /// </summary>
+        int EntityId { get; set; }
+        /// <summary>
         /// Gets or sets the security info for this user
         /// </summary>
         /// <value>The security info.</value>

@@ -5,6 +5,7 @@ using CC.Core.Html.CCUI.Builders;
 using CC.Core.Utilities;
 using CC.UI.Helpers;
 using CC.UI.Helpers.Configuration;
+using CC.UI.Helpers.Tags;
 using HtmlTags;
 
 namespace CC.Core.Html.CCUI.HtmlConventionRegistries
@@ -13,21 +14,28 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
     {
         public CCHtmlConventions2()
         {
-            Editors.Builder<SelectFromEnumerationBuilder2>();
-            Editors.Builder<SelectFromIEnumerableBuilder2>();
-            Editors.Builder<GroupSelectedBuilder2>();
-            Editors.Builder<TextAreaBuilder2>();
-            Editors.Builder<DatePickerBuilder2>();
-//            Editors.Builder<TimePickerBuilder2>();
-            Editors.Builder<CheckboxBuilder2>();
-            Editors.Builder<PasswordBuilder2>();
-            Editors.Builder<MultiSelectBuilder2>();
-//            Editors.Builder<PictureGallery>();
-            Editors.Builder<FileUploader>();
-            // default builder
-            Editors.Builder<TextboxBuilder2>();
-            Editors.Always.Modify(AddElementName);
-            ///
+            EditorsChain();
+            DisplaysChain();
+            LabelsChain();
+            
+            numbers();
+            validationAttributes();
+
+        }
+
+        public virtual void LabelsChain()
+        {
+           Labels.Always.BuildBy(req =>
+                                      {
+                                          var htmlTag = new HtmlTag("label").Attr("for", req.Accessor.Name);
+                                          var display = req.Accessor.FieldName;
+                                          htmlTag.Text(display.ToSeperateWordsFromPascalCase());
+                                          return htmlTag;
+                                      });
+        }
+
+        public virtual void DisplaysChain()
+        {
             Displays.Builder<ImageBuilder2>();
             Displays.Builder<EmailDisplayBuilder2>();
             Displays.Builder<ListDisplayBuilder>();
@@ -37,19 +45,28 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
             Displays.Always.BuildBy(req =>
                                         {
                                             var placeHolder = new HtmlTag("span").Text(" ");
-                                            placeHolder.Children.Add(new HtmlTag("span").Attr("data-bind", "text:" + DeriveElementName(req)));
+                                            placeHolder.Children.Add(new HtmlTag("span").Attr("data-bind",
+                                                                                              "text:" + DeriveElementName(req)));
                                             return placeHolder;
                                         });
-            Labels.Always.BuildBy(req =>
-                                      {
-                                          var htmlTag = new HtmlTag("label").Attr("for", req.Accessor.Name);
-                                          var display = req.Accessor.FieldName;
-                                          htmlTag.Text(display.ToSeperateWordsFromPascalCase());
-                                          return htmlTag;
-                                      });
-            numbers();
-            validationAttributes();
+        }
 
+        public virtual void EditorsChain()
+        {
+            Editors.Builder<SelectFromEnumerationBuilder2>();
+            Editors.Builder<SelectFromIEnumerableBuilder2>();
+            Editors.Builder<GroupSelectedBuilder2>();
+            Editors.Builder<TextAreaBuilder2>();
+            Editors.Builder<DatePickerBuilder2>();
+//            EditorsChain.Builder<TimePickerBuilder2>();
+            Editors.Builder<CheckboxBuilder2>();
+            Editors.Builder<PasswordBuilder2>();
+            Editors.Builder<MultiSelectBuilder2>();
+//            EditorsChain.Builder<PictureGallery>();
+            Editors.Builder<FileUploader>();
+            // default builder
+            Editors.Builder<TextboxBuilder2>();
+            Editors.Always.Modify(AddElementName);
         }
 
         public static void AddElementName(ElementRequest request, HtmlTag tag)
@@ -83,7 +100,7 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
         {
             Editors.IfPropertyIs<Int32>().Modify(x=>{if(x.TagName()==new TextboxTag().TagName()) x.Attr("max", Int32.MaxValue);});
             Editors.IfPropertyIs<Int16>().Modify(x=>{if(x.TagName()==new TextboxTag().TagName()) x.Attr("max", Int16.MaxValue);});
-            //Editors.IfPropertyIs<Int64>().Attr("max", Int64.MaxValue);
+            //EditorsChain.IfPropertyIs<Int64>().Attr("max", Int64.MaxValue);
             Editors.IfPropertyTypeIs(IsIntegerBased).Modify(x=>{if(x.TagName()==new TextboxTag().TagName()) x.AddClass("integer");});
             Editors.IfPropertyTypeIs(IsFloatingPoint).Modify(x=>{if(x.TagName()==new TextboxTag().TagName()) x.AddClass("number");});
             Editors.IfPropertyTypeIs(IsIntegerBased).Modify(x => { if (x.TagName() == new TextboxTag().TagName()) x.Attr("mask", "wholeNumber"); });
