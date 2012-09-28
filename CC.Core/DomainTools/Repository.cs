@@ -13,7 +13,6 @@ namespace CC.Core.DomainTools
 {
     public class Repository : IRepository
     {
-        private readonly IContainer _container;
         private IUnitOfWork _unitOfWork;
         private readonly ISystemClock _clock;
 
@@ -21,20 +20,6 @@ namespace CC.Core.DomainTools
         {
             get { return _unitOfWork; }
             set { _unitOfWork = value; }
-        }
-
-        //No Filters
-        public Repository()
-        {
-            _unitOfWork = ObjectFactory.Container.GetInstance<IUnitOfWork>("NoFilters");
-            _unitOfWork.Initialize();
-        }
-
-        //No Filters or Interceptor
-        public Repository(bool noFiltersOrInterceptor)
-        {
-            _unitOfWork = ObjectFactory.Container.GetInstance<IUnitOfWork>("NoFiltersOrInterceptor");
-            _unitOfWork.Initialize();
         }
        
         public Repository(IUnitOfWork unitOfWork, ISystemClock clock)

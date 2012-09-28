@@ -4,7 +4,7 @@ using Castle.Components.Validator;
 namespace CC.Core.Domain
 {
     [Serializable]
-    public class LocalizedEnumeration : DomainEntity, ILocalizedItem
+    public class LocalizedEnumeration : Entity, ILocalizedItem
     {
         [ValidateLength(500)]
         public virtual string Name { get; set; }

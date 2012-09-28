@@ -68,7 +68,7 @@ namespace CC.Core.Services
         {
             if (comparer == null)
             {
-                comparer = (entity, entity1) => entity1!=null && entity.EntityId == entity1.EntityId;
+                comparer = (entity, entity1) => entity1 != null && entity.EntityId == entity1.EntityId;
             }
             var newItems = new List<ENTITY>();
             if (tokenInputViewModel != null && tokenInputViewModel.selectedItems != null)
@@ -77,7 +77,7 @@ namespace CC.Core.Services
             var remove = new List<ENTITY>();
             if (newItems.Any())
             {
-                origional.Where(x =>!comparer(x, newItems.FirstOrDefault(i => i.EntityId == x.EntityId))).ForEachItem(remove.Add);
+                origional.Where(x => !comparer(x, newItems.FirstOrDefault(i => i.EntityId == x.EntityId))).ForEachItem(remove.Add);
             }
             else
             {

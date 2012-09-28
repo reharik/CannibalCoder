@@ -152,11 +152,6 @@
   <ItemGroup>
     <Compile Include="Impl\JetBrains.Annotations.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Model\Operation.hbm.xml" />
-    <EmbeddedResource Include="Model\Permission.hbm.xml" />
-    <EmbeddedResource Include="Model\UsersGroup.hbm.xml" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

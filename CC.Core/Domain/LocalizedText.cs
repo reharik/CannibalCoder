@@ -10,7 +10,7 @@ namespace CC.Core.Domain
     }
 
     [Serializable]
-    public class LocalizedText : DomainEntity, ILocalizedItem
+    public class LocalizedText : Entity, ILocalizedItem
     {
         public virtual string Name { get; set; }
         public virtual string Culture { get; set; }

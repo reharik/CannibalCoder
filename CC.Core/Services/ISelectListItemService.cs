@@ -45,6 +45,7 @@ namespace CC.Core.Services
             where ENTITY : ILookupType;
 
         string SetModelValueBySelected(IEnumerable<SelectListItem> list, string value);
+        IEnumerable<SelectListItem> CreateList<ENUM>(bool onlyKey = false, bool addSelectItem = false, ENUM defaultEnum = null) where ENUM : Enumeration, new();
     }
 
     public class SelectListItemService : ISelectListItemService

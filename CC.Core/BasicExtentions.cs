@@ -253,7 +253,7 @@ namespace CC.Core
 
         public static bool IsEntity(this Type type)
         {
-            return typeof(DomainEntity).IsAssignableFrom(type);
+            return typeof(Entity).IsAssignableFrom(type);
         }
 
         public static bool IsDecimal(this string stringValue)

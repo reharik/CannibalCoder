@@ -4,10 +4,6 @@ using CC.Core.Html.Grid;
 
 namespace CC.Core.Domain
 {
-    public class DomainEntity : Entity
-    {
-    }
-
     public class Entity :  IGridEnabledClass, IEquatable<Entity>
     {
         public virtual int EntityId { get; set; }
