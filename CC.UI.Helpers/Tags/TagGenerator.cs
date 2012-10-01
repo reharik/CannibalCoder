@@ -17,12 +17,12 @@ namespace CC.UI.Helpers.Tags
         private TagProfile _profile;
 
         public TagGenerator(TagProfileLibrary library, IElementNamingConvention namingConvention,
-                            IServiceLocator services, Stringifier stringifier)
+                             Stringifier stringifier)
         {
             ElementPrefix = string.Empty;
             _library = library;
             _namingConvention = namingConvention;
-            _services = services;
+//            _services = services;
             _stringifier = stringifier;
             _profile = _library.DefaultProfile;
         }
@@ -54,7 +54,7 @@ namespace CC.UI.Helpers.Tags
 
         public ElementRequest GetRequest(Accessor accessor)
         {
-            var request = new ElementRequest(_model, accessor, _services,
+            var request = new ElementRequest(_model, accessor,
                                              _stringifier);
             determineElementName(request);
             return request;
@@ -64,7 +64,7 @@ namespace CC.UI.Helpers.Tags
         {
             var request = new ElementRequest(_model,
                                              ReflectionHelper.GetAccessor(expression),
-                                             _services, _stringifier);
+                                             _stringifier);
             determineElementName(request);
             return request;
         }

@@ -11,12 +11,12 @@ namespace CC.UI.Helpers.Configuration
         private bool _hasFetched;
         private object _rawValue;
 
-        public ElementRequest(object model, Accessor accessor, IServiceLocator services, Stringifier stringifier)
+        public ElementRequest(object model, Accessor accessor, Stringifier stringifier)
         {
             _stringifier = stringifier;
             Model = model;
             Accessor = accessor;
-            _services = services;
+//            _services = services;
         }
 
         public string ElementId { get; set; }
@@ -49,7 +49,7 @@ namespace CC.UI.Helpers.Configuration
 
         public T Get<T>()
         {
-            return _services.GetInstance<T>();
+            return ServiceLocator.Current.GetInstance<T>();
         }
 
         public T Value<T>()

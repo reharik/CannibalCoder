@@ -34,7 +34,7 @@ namespace CC.UI.Helpers.Tags
         {
             TagBuilder initialCreator = null;
 
-            _sources.First(x =>
+            _sources.FirstOrDefault(x =>
                 {
                     var tagBuilder = x.CreateInitial(accessorDef);
                     if (tagBuilder == null) { return false; }
