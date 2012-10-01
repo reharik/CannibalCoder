@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.UI.Helpers", "CC.UI.Help
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlTags", "HtmlTags\HtmlTags\HtmlTags.csproj", "{F01C84F2-6E41-404C-AC8D-BF189A9EC05B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Core", "CC.Core\CC.Core.csproj", "{5E0B0CA2-BD5E-4953-A336-2AADC00CD81B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Security", "CC.Security\CC.Security.csproj", "{DBA372FE-3D52-45B3-AF82-B37696328764}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{F01C84F2-6E41-404C-AC8D-BF189A9EC05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F01C84F2-6E41-404C-AC8D-BF189A9EC05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F01C84F2-6E41-404C-AC8D-BF189A9EC05B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E0B0CA2-BD5E-4953-A336-2AADC00CD81B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E0B0CA2-BD5E-4953-A336-2AADC00CD81B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E0B0CA2-BD5E-4953-A336-2AADC00CD81B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E0B0CA2-BD5E-4953-A336-2AADC00CD81B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA372FE-3D52-45B3-AF82-B37696328764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA372FE-3D52-45B3-AF82-B37696328764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA372FE-3D52-45B3-AF82-B37696328764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA372FE-3D52-45B3-AF82-B37696328764}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
