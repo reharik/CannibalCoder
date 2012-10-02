@@ -13,8 +13,12 @@ namespace CC.Core.DomainTools
 {
     public class Repository : IRepository
     {
-        private IUnitOfWork _unitOfWork;
-        private readonly ISystemClock _clock;
+        protected IUnitOfWork _unitOfWork;
+        protected readonly ISystemClock _clock;
+
+        protected Repository()
+        {
+        }
 
         public IUnitOfWork UnitOfWork
         {

@@ -6,10 +6,14 @@ namespace CC.Core.DomainTools
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ITransaction _transaction;
+        protected ITransaction _transaction;
         private bool _isDisposed;
-        private readonly ISession _session;
+        protected ISession _session;
         private bool _isInitialized;
+
+        protected UnitOfWork()
+        {
+        }
 
         public UnitOfWork(ISession session)
         {
