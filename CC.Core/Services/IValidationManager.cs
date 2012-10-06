@@ -64,7 +64,7 @@ namespace CC.Core.Services
                     if (notification.Errors == null)
                         notification.Errors = x.GetErrorInfos().ToList();
                     else
-                        BasicExtentions.ForEachItem(x.GetErrorInfos(), notification.Errors.Add).ToList();
+                        BasicExtensions.ForEachItem(x.GetErrorInfos(), notification.Errors.Add).ToList();
                 }else
                 {
                     x.SuccessAction(x.entity);
@@ -92,7 +92,7 @@ namespace CC.Core.Services
                     if (notification.Errors == null)
                         notification.Errors = x.GetErrorInfos().ToList();
                     else
-                        BasicExtentions.ForEachItem(x.GetErrorInfos(), notification.Errors.Add).ToList();
+                        BasicExtensions.ForEachItem(x.GetErrorInfos(), notification.Errors.Add).ToList();
                 }
             });
             if (notification.Success)

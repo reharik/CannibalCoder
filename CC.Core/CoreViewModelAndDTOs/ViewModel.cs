@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using CC.Core.Html.Grid;
+using CC.Security;
 
 namespace CC.Core.CoreViewModelAndDTOs
 {
     public class ViewModel
     {
+        public IUser User { get; set; }
         public int EntityId { get; set; }
         public int ParentId { get; set; }
         public int RootId { get; set; }
@@ -12,6 +14,8 @@ namespace CC.Core.CoreViewModelAndDTOs
         public string addUpdateUrl { get; set; }
         public string _saveUrl { get; set; }
         public string DateCreated { get; set; }
+        public string Var { get; set; }
+        public bool Popup { get; set; }
     }
 
     public class ListViewModel :ViewModel

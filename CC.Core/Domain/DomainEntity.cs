@@ -1,28 +1,27 @@
 using System;
 using CC.Core.CustomAttributes;
 using CC.Core.Html.Grid;
+using CC.Security;
 
 namespace CC.Core.Domain
 {
     public class Entity :  IGridEnabledClass, IEquatable<Entity>
     {
         public virtual int EntityId { get; set; }
-        
-        [ValidateSqlDateTime]
-        public virtual DateTime? CreateDate { get; set; }
 
+        public virtual IUser CreatedBy { get; set; }
+        [ValidateSqlDateTime]
+        public virtual DateTime? CreatedDate { get; set; }
+
+        public virtual IUser ChangedBy { get; set; }
         [ValidateSqlDateTime]
         public virtual DateTime? ChangeDate { get; set; }
-
         
-        public virtual int ChangedBy { get; set; }
-
         [System.ComponentModel.DefaultValue(0)] //pzt
-        public virtual bool Archived { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
         public Entity()
         {
-            
         }
 
         public virtual bool IsNew()

@@ -60,7 +60,7 @@ namespace CC.Core.DomainTools
 
         public void Delete<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
         {
-            entity.Archived = true;
+            entity.IsDeleted = true;
             _unitOfWork.CurrentSession.SaveOrUpdate(entity);
         }
 

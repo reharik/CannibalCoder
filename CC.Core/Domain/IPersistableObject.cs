@@ -2,7 +2,7 @@
 {
     public interface IPersistableObject
     {
-        bool Archived { get; set; }
+        bool IsDeleted { get; set; }
     }
 
     public interface ILookupType

@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicExtentions.cs" />
+    <Compile Include="BasicExtensions.cs" />
     <Compile Include="CCCoreLocalizationKeys.cs" />
     <Compile Include="CoreViewModelAndDTOs\GridItemViewModel.cs" />
     <Compile Include="CoreViewModelAndDTOs\GroupSelectViewModel.cs" />
@@ -168,6 +168,9 @@
       <Project>{0DBFB19C-E106-4807-AA4B-FC8D128A3438}</Project>
       <Name>CC.UI.Helpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ActionFilters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

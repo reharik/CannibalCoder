@@ -13,7 +13,7 @@ using NHibernate.Proxy;
 
 namespace CC.Core
 {
-    public static class BasicExtentions
+    public static class BasicExtensions
     {
 
         public static bool IsEmpty(this string stringValue)
