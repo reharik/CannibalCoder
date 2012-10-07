@@ -15,7 +15,7 @@ namespace CC.Core.Domain
 
         public virtual IUser ChangedBy { get; set; }
         [ValidateSqlDateTime]
-        public virtual DateTime? ChangeDate { get; set; }
+        public virtual DateTime? ChangedDate { get; set; }
         
         [System.ComponentModel.DefaultValue(0)] //pzt
         public virtual bool IsDeleted { get; set; }

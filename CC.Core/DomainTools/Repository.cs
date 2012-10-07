@@ -35,7 +35,7 @@ namespace CC.Core.DomainTools
 
         public void DisableFilter(string FilterName)
         {
-            _unitOfWork.DisableFilter(FilterName);
+            _unitOfWork.DisableFilter(FilterName); 
         }
 
         public void EnableFilter(string FilterName, string field, object value)

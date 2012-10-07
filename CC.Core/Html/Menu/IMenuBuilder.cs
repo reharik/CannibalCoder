@@ -12,7 +12,7 @@ using CC.Security.Interfaces;
 
 namespace CC.Core.Html.Menu
 {
-    public interface IMenuBuilder
+    public interface IMenuBuilder 
     {
         IList<MenuItem> MenuTree(IUser user = null);
         IMenuBuilder HasChildren();
@@ -28,16 +28,16 @@ namespace CC.Core.Html.Menu
 
     public class MenuBuilder : IMenuBuilder
     {
-        private readonly IAuthorizationService _authorizationService;
+        protected readonly IAuthorizationService _authorizationService;
 
         public MenuBuilder(IAuthorizationService authorizationService)
         {
             _authorizationService = authorizationService;
         }
 
-        private IList<MenuItem> _items = new List<MenuItem>();
-        private IList<MenuItem> _parentItems = new List<MenuItem>();
-        public IMenuBuilder HasChildren()
+        protected IList<MenuItem> _items = new List<MenuItem>();
+        protected IList<MenuItem> _parentItems = new List<MenuItem>();
+        public virtual IMenuBuilder HasChildren()
         {
             var _itemList = getList();
             var lastItem = _itemList.LastOrDefault();
@@ -46,14 +46,14 @@ namespace CC.Core.Html.Menu
             return this;
         }
 
-        public IMenuBuilder EndChildren()
+        public virtual IMenuBuilder EndChildren()
         {
             var lastItem = _parentItems.LastOrDefault();
             _parentItems.Remove(lastItem);
             return this;
         }
 
-        public IMenuBuilder CreateNode<CONTROLLER>(string urlPreface, Expression<Func<CONTROLLER, object>> action, StringToken text, AreaName areaName = null, string cssClass = null) where CONTROLLER : Controller
+        public virtual IMenuBuilder CreateNode<CONTROLLER>(string urlPreface, Expression<Func<CONTROLLER, object>> action, StringToken text, AreaName areaName = null, string cssClass = null) where CONTROLLER : Controller
         {
             
             var _itemList = getList();
@@ -66,7 +66,7 @@ namespace CC.Core.Html.Menu
             return this;
         }
 
-        public IMenuBuilder CreateNode(StringToken text, string cssClass=null)
+        public virtual IMenuBuilder CreateNode(StringToken text, string cssClass = null)
         {
             var _itemList = getList();
             _itemList.Add(new MenuItem
@@ -79,7 +79,7 @@ namespace CC.Core.Html.Menu
             return this;
         }
 
-        public IMenuBuilder CreateTagNode<CONTROLLER>(StringToken text) where CONTROLLER : Controller
+        public virtual IMenuBuilder CreateTagNode<CONTROLLER>(StringToken text) where CONTROLLER : Controller
         {
             var _itemList = getList();
             var type = typeof(CONTROLLER).Name.ToLowerInvariant();
@@ -92,18 +92,18 @@ namespace CC.Core.Html.Menu
             return this;
         }
 
-        private IList<MenuItem> getList()
+        protected IList<MenuItem> getList()
         {
             var lastParentItem = _parentItems.LastOrDefault();
             return lastParentItem != null ? lastParentItem.Children : _items;
         }
 
-        public IMenuBuilder CreateNode<CONTROLLER>(Expression<Func<CONTROLLER, object>> action, StringToken text, AreaName areaName = null, string cssClass=null) where CONTROLLER : Controller
+        public virtual IMenuBuilder CreateNode<CONTROLLER>(Expression<Func<CONTROLLER, object>> action, StringToken text, AreaName areaName = null, string cssClass = null) where CONTROLLER : Controller
         {
             return CreateNode(action, text, "",areaName,cssClass);
         }
 
-        public IMenuBuilder CreateNode<CONTROLLER>(Expression<Func<CONTROLLER, object>> action, StringToken text, string urlParam, AreaName areaName = null, string cssClass = null) where CONTROLLER : Controller
+        public virtual IMenuBuilder CreateNode<CONTROLLER>(Expression<Func<CONTROLLER, object>> action, StringToken text, string urlParam, AreaName areaName = null, string cssClass = null) where CONTROLLER : Controller
         {
             string param;
             if (urlParam.Contains("="))
@@ -124,22 +124,22 @@ namespace CC.Core.Html.Menu
             });
             return this;
         }
-        public IMenuBuilder Route(string route)
+        public virtual IMenuBuilder Route(string route)
         {
             var _itemList = getList();
             var lastItem = _itemList.LastOrDefault();
             lastItem.Url=route;
             return this;
 
-        } 
-        public IList<MenuItem> MenuTree(IUser user = null)
+        }
+        public virtual IList<MenuItem> MenuTree(IUser user = null)
         {
             if (user == null) return _items;
             IList<MenuItem> permittedItems = modifyListForPermissions(user);
             return permittedItems;
         }
 
-        private IList<MenuItem> modifyListForPermissions(IUser user)
+        protected IList<MenuItem> modifyListForPermissions(IUser user)
         {
             var permittedItems = new List<MenuItem>();
             _items.ForEachItem(x =>
@@ -153,7 +153,7 @@ namespace CC.Core.Html.Menu
             return permittedItems;
         }
 
-        private void getLinksOnly(IEnumerable<MenuItem> items, IList<MenuItem> result)
+        protected void getLinksOnly(IEnumerable<MenuItem> items, IList<MenuItem> result)
         {
             foreach (var x in items)
             {
@@ -170,7 +170,7 @@ namespace CC.Core.Html.Menu
             }
         }
 
-        public string OutputFlatJson()
+        public virtual string OutputFlatJson()
         {
             var result = new List<MenuItem>();
             getLinksOnly(_items,result);

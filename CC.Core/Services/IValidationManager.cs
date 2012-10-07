@@ -1,24 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CC.Core.Domain;
 using CC.Core.DomainTools;
 using xVal.ServerSide;
 
 namespace CC.Core.Services
 {
-    public interface IValidationManager<ENTITY> 
+    public interface IValidationManager 
     {
-        IEnumerable<ValidationReport<ENTITY>> GetValidationReports();
-        ValidationReport<ENTITY> GetLastValidationReport();
-        void RemoveValidationReport(ValidationReport<ENTITY> validationReport);
-        void AddValidationReport(ValidationReport<ENTITY> validationReport);
+        IEnumerable<ValidationReport> GetValidationReports();
+        ValidationReport GetLastValidationReport();
+        void RemoveValidationReport(ValidationReport validationReport);
+        void AddValidationReport(ValidationReport validationReport);
         Notification Finish(string successMessage = "");
         bool HasFailed();
         Notification FinishWithAction(string successMessage = "");
     }
 
-    public class ValidationManager<ENTITY> : IValidationManager<ENTITY> 
-    {
+    public class ValidationManager : IValidationManager    {
         private readonly IRepository _repository;
 
         public ValidationManager(IRepository repository)
@@ -27,17 +27,17 @@ namespace CC.Core.Services
         }
 
         #region Collections
-        private readonly IList<ValidationReport<ENTITY>> _validationReports = new List<ValidationReport<ENTITY>>();
-        public IEnumerable<ValidationReport<ENTITY>> GetValidationReports() { return _validationReports; }
-        public ValidationReport<ENTITY> GetLastValidationReport()
+        private readonly IList<ValidationReport> _validationReports = new List<ValidationReport>();
+        public IEnumerable<ValidationReport> GetValidationReports() { return _validationReports; }
+        public ValidationReport GetLastValidationReport()
         {
             return _validationReports.Last();
         }
-        public void RemoveValidationReport(ValidationReport<ENTITY> validationReport)
+        public void RemoveValidationReport(ValidationReport validationReport)
         {
             _validationReports.Remove(validationReport);
         }
-        public void AddValidationReport(ValidationReport<ENTITY> validationReport)
+        public void AddValidationReport(ValidationReport validationReport)
         {
             _validationReports.Add(validationReport);
         }
@@ -64,7 +64,7 @@ namespace CC.Core.Services
                     if (notification.Errors == null)
                         notification.Errors = x.GetErrorInfos().ToList();
                     else
-                        BasicExtensions.ForEachItem(x.GetErrorInfos(), notification.Errors.Add).ToList();
+                        x.GetErrorInfos().ForEachItem(notification.Errors.Add).ToList();
                 }else
                 {
                     x.SuccessAction(x.entity);
@@ -92,7 +92,7 @@ namespace CC.Core.Services
                     if (notification.Errors == null)
                         notification.Errors = x.GetErrorInfos().ToList();
                     else
-                        BasicExtensions.ForEachItem(x.GetErrorInfos(), notification.Errors.Add).ToList();
+                        x.GetErrorInfos().ForEachItem(notification.Errors.Add).ToList();
                 }
             });
             if (notification.Success)
@@ -106,10 +106,10 @@ namespace CC.Core.Services
         }
     }
 
-    public class ValidationReport<ENTITY> 
+    public class ValidationReport 
     {
-        public ENTITY entity { get; set; }
-        public Action<ENTITY> SuccessAction { get; set; }
+        public Entity entity { get; set; }
+        public Action<Entity> SuccessAction { get; set; }
         public bool Success { get; set; }
         #region Collections
         private readonly IList<ErrorInfo> _errorInfos = new List<ErrorInfo>();

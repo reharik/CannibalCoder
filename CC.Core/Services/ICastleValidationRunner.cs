@@ -10,7 +10,7 @@ namespace CC.Core.Services
     public interface ICastleValidationRunner
     {
         IEnumerable<ErrorInfo> GetErrors<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject;
-        ValidationReport<ENTITY> Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject;
+        ValidationReport Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject;
     }
 
     public class DummyCastleValidationRunnerSuccess : ICastleValidationRunner
@@ -22,9 +22,9 @@ namespace CC.Core.Services
             throw new NotImplementedException();
         }
 
-        public ValidationReport<ENTITY> Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
+        public ValidationReport Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
         {
-            var crudReport = new ValidationReport<ENTITY> { Success = true };
+            var crudReport = new ValidationReport { Success = true };
             return crudReport;
         }
 
@@ -40,9 +40,9 @@ namespace CC.Core.Services
             throw new NotImplementedException();
         }
 
-        public ValidationReport<ENTITY> Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
+        public ValidationReport Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
         {
-            var crudReport = new ValidationReport<ENTITY> { Success = false };
+            var crudReport = new ValidationReport { Success = false };
             crudReport.AddErrorInfo(new ErrorInfo("test", "test error"));
             return crudReport;
         }
@@ -69,9 +69,9 @@ namespace CC.Core.Services
             return result;
         }
 
-        public ValidationReport<ENTITY> Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
+        public ValidationReport Validate<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject
         {
-            var crudReport = new ValidationReport<ENTITY>();
+            var crudReport = new ValidationReport();
             var runner = new ValidatorRunner(registry);
             if (runner.IsValid(entity))
             {
