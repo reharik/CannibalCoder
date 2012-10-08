@@ -15,8 +15,8 @@ namespace CC.Core.Html.Grid
         DisplayColumn<ENTITY> DisplayFor(Expression<Func<ENTITY, object>> expression);
         HiddenColumn<ENTITY> HideColumnFor(Expression<Func<ENTITY, object>> expression);
         ImageColumn<ENTITY> ImageColumn();
-        ImageButtonColumn<ENTITY> ImageButtonColumn();
-        LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "");
+        ImageButtonColumn<ENTITY> ImageButtonColumn(string JSApplicationName);
+        LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string JSApplicationName, string gridName = "");
         GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression);
     }
 
@@ -78,14 +78,14 @@ namespace CC.Core.Html.Grid
             return AddColumn(new ImageColumn<ENTITY>());
         }
 
-        public ImageButtonColumn<ENTITY> ImageButtonColumn()
+        public ImageButtonColumn<ENTITY> ImageButtonColumn(string JSApplicationName)
         {
-            return AddColumn(new ImageButtonColumn<ENTITY>());
+            return AddColumn(new ImageButtonColumn<ENTITY>(JSApplicationName));
         }
 
-        public LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "")
+        public LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression,string JSApplicationName, string gridName = "")
         {
-            return AddColumn(new LinkColumn<ENTITY>(expression, gridName));
+            return AddColumn(new LinkColumn<ENTITY>(expression,JSApplicationName, gridName));
         }
 
         public GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression)

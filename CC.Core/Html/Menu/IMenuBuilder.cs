@@ -92,7 +92,7 @@ namespace CC.Core.Html.Menu
             return this;
         }
 
-        protected IList<MenuItem> getList()
+        protected virtual IList<MenuItem> getList()
         {
             var lastParentItem = _parentItems.LastOrDefault();
             return lastParentItem != null ? lastParentItem.Children : _items;

@@ -7,6 +7,7 @@ namespace CC.Core.Html.Grid
 {
     public class ImageButtonColumn<ENTITY> : ImageColumn<ENTITY> where ENTITY : IGridEnabledClass
     {
+        private readonly string _jsApplicationName;
         private string _actionUrl;
         public string ActionUrl
         {
@@ -17,6 +18,11 @@ namespace CC.Core.Html.Grid
         private string _jsonData;
         private string _gridName;
         private string _id;
+
+        public ImageButtonColumn(string JSApplicationName)
+        {
+            _jsApplicationName = JSApplicationName;
+        }
 
         public ImageButtonColumn<ENTITY> ForAction<CONTROLLER>(Expression<Func<CONTROLLER, object>> expression, string gridName = "") where CONTROLLER : Controller
         {
@@ -58,7 +64,7 @@ namespace CC.Core.Html.Grid
             {
                 data = "," + _jsonData;
             }
-            anchor.Attr("onclick", "MF.vent.trigger('" + id + _action + "'," + item.EntityId + data + ")");
+            anchor.Attr("onclick", _jsApplicationName+".vent.trigger('" + id + _action + "'," + item.EntityId + data + ")");
 
             return anchor;
         }

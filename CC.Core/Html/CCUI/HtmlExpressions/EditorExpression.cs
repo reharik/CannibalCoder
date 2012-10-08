@@ -177,7 +177,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
 
         private HtmlTag renderInlineReverse()
         {
-            _htmlRoot = new HtmlTag("div").AddClass("MF_editor_root");
+            _htmlRoot = new HtmlTag("div").AddClass("CC_editor_root");
             if (_rootId.IsNotEmpty()) _htmlRoot.Id(_rootId);
             if (_rootClasses != null && _rootClasses.Any()) _htmlRoot.AddClasses(_rootClasses);
             EditorLabelExpression<VIEWMODEL> labelBuilder = new EditorLabelExpression<VIEWMODEL>(_generator, _expression);
