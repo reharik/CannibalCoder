@@ -42,8 +42,7 @@ namespace CC.Core.Html.Grid
             var value = propertyValue;
             if (propertyValue != null)
             {
-                var instanceOfEnum = propertyAccessor.GetLocalizedEnum(propertyValue.ToString());
-                value = instanceOfEnum != null ? instanceOfEnum.Key : propertyValue;
+                value = propertyValue;
                 if (value.GetType() == typeof(DateTime) || value.GetType() == typeof(DateTime?))
                 {
                     value = propertyAccessor.Name.ToLowerInvariant().Contains("time")
@@ -61,13 +60,6 @@ namespace CC.Core.Html.Grid
             return this;
         }
 
-        public ColumnBase<ENTITY> DisplayHeader(StringToken header)
-        {
-            Properties[GridColumnProperties.header.ToString()] = header.ToString();
-            return this;
-        }
-
-
         public ColumnBase<ENTITY> DisplayHeader(string header)
         {
             Properties[GridColumnProperties.header.ToString()] = header;
@@ -80,9 +72,9 @@ namespace CC.Core.Html.Grid
             return this;
         }
 
-        public ColumnBase<ENTITY> ToolTip(StringToken toolTip)
+        public ColumnBase<ENTITY> ToolTip(string toolTip)
         {
-            _toolTip = toolTip.ToString();
+            _toolTip = toolTip;
             return this;
         }
 

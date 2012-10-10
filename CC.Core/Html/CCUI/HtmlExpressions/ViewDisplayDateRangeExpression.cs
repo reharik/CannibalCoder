@@ -47,7 +47,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
 
             if (isPresent)
             {
-                strTo = CCCoreLocalizationKeys.PRESENT.ToString();
+                strTo = "To Present";
             }
             else
             {

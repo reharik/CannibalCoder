@@ -26,7 +26,7 @@ namespace CC.Core.Html.CCUI.Builders
                                                x.Attr("data-bind", "groupedSelect:_" + elementName + "List," +
                                                                     "optionsText:'Text'," +
                                                                     "optionsValue:'Value'," +
-                                                                    "optionsCaption:'" + CCCoreLocalizationKeys.SELECT_ITEM.ToString() + "'," +
+                                                                    "optionsCaption:'" + "Select Item" + "'," +
                                                                     "value:" + elementName);
 
 

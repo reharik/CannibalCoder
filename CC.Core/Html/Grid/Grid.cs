@@ -81,12 +81,12 @@ namespace CC.Core.Html.Grid
 
     public interface IGridEnabledClass
     {
-        int EntityId { get; set; }
+        Guid EntityId { get; set; }
     }
 
     public class GridRow
     {
-        public int id { get; set; }
+        public Guid id { get; set; }
         public string[] cell { get; set; }
     }
 }

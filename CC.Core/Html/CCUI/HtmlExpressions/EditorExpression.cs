@@ -218,12 +218,6 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             return this;
         }
 
-        public EditorExpression<VIEWMODEL> LabelDisplay(StringToken display)
-        {
-            _labelDisplay = display.ToString();
-            return this;
-        }
-
         public EditorExpression<VIEWMODEL> LabelDisplay(string display)
         {
             _labelDisplay = display;

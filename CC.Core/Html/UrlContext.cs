@@ -2,7 +2,6 @@ using System;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
-using CC.Core.Enumerations;
 using CC.Core.Utilities;
 
 namespace CC.Core.Html
@@ -69,24 +68,24 @@ namespace CC.Core.Html
             return ToFull(path);
         }
 
-        public static string GetUrlForAction<CONTROLLER>(string action, AreaName areaName = null) where CONTROLLER : Controller
+        public static string GetUrlForAction<CONTROLLER>(string action, string areaName = null) where CONTROLLER : Controller
         {
             string controllerName = typeof (CONTROLLER).Name.Replace("Controller", "");
-            string _area = areaName != null ? areaName.Key + "/" : "/";
+            string _area = areaName != null ? areaName + "/" : "/";
             return ToAbsolute(Combine("~/", _area + controllerName + "/" + action));
         }
 
-        public static string GetUrlForAction<CONTROLLER>(Expression<Func<CONTROLLER, object>> expression, AreaName areaName = null)
+        public static string GetUrlForAction<CONTROLLER>(Expression<Func<CONTROLLER, object>> expression, string areaName = null)
         {
             string controllerName = typeof(CONTROLLER).Name.Replace("Controller", "");
             string action = ReflectionHelper.GetMethod(expression).Name;
-            string _area = areaName!=null? areaName.Key + "/" : "/";
+            string _area = areaName!=null? areaName + "/" : "/";
             return ToAbsolute(Combine("~/", _area + controllerName + "/" + action));
         }
 
-        public static string GetUrlForAction(string controllerName, string action, AreaName areaName = null)
+        public static string GetUrlForAction(string controllerName, string action, string areaName = null)
         {
-            var area = areaName != null ? areaName.Key + "/" : "/";
+            var area = areaName != null ? areaName + "/" : "/";
             return ToAbsolute(Combine("~/", area + controllerName + "/" + action));
         }
     }

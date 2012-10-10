@@ -8,25 +8,6 @@ using HtmlTags;
 
 namespace CC.Core.Html.CCUI.Builders
 {
-    public class SelectFromEnumerationBuilder2 : ElementBuilder
-    {
-        protected override bool matches(AccessorDef def)
-        {
-            return def.Accessor.HasAttribute<ValueOfAttribute>();
-        }
-
-        public override HtmlTag Build(ElementRequest request)
-        {
-            var selectTag = new SelectTag();
-            var elementName = CCHtmlConventions2.DeriveElementName(request);
-            selectTag.Attr("data-bind", "options:_" + elementName + "List," +
-                                        "optionsText:'Text'," +
-                                        "optionsValue:'Value'," +
-                                        "value:" + elementName );
-            return selectTag;
-        }
-    }
-
     public class SelectFromIEnumerableBuilder2 : ElementBuilder
     {
         protected override bool matches(AccessorDef def)

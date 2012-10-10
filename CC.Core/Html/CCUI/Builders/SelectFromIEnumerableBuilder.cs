@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using CC.Core.Domain;
 using CC.UI.Helpers.Configuration;
 using HtmlTags;
 
@@ -20,7 +19,7 @@ namespace CC.Core.Html.CCUI.Builders
         {
             Action<SelectTag> action = x =>
                                            {
-                                               var value = request.RawValue is Entity ? ((Entity)request.RawValue).EntityId : request.RawValue;
+                                               var value = request.RawValue;//request.RawValue is Entity ? ((Entity)request.RawValue).EntityId : request.RawValue;
                                                
                                                 var propertyName = request.ToAccessorDef().Accessor.FieldName;
                                                 var listPropertyInfo = request.ToAccessorDef().ModelType.GetProperty(propertyName+"List");

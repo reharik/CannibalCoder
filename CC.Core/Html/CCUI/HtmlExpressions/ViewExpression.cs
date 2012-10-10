@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using CC.Core.Localization;
 using CC.UI.Helpers.Tags;
 using HtmlTags;
 
@@ -105,12 +104,6 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         }
 
         #region Extensions
-
-        public ViewExpression<VIEWMODEL> LabelDisplay(StringToken display)
-        {
-            _labelDisplay = display.ToString();
-            return this;
-        }
 
         public ViewExpression<VIEWMODEL> AddUrlToDisplayAnchor(string url)
         {

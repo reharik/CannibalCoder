@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using CC.Core.Domain;
 using CC.Core.Html.Grid;
 
 namespace CC.Core.CoreViewModelAndDTOs
 {
     public class ViewModel
     {
-        public IUser User { get; set; }
         public int EntityId { get; set; }
         public int ParentId { get; set; }
         public int RootId { get; set; }

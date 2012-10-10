@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using CC.Core.Domain;
-using CC.Core.Html.CCUI.Builders;
 using CC.Core.Html.CCUI.Builders;
 using CC.Core.Html.CCUI.Tags;
 using CC.Core.Utilities;
@@ -50,7 +48,6 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
 
         public virtual void EditorsChain()
         {
-            Editors.Builder<SelectFromEnumerationBuilder>();
             Editors.Builder<SelectFromIEnumerableBuilder>();
             Editors.Builder<GroupSelectedBuilder>();
             Editors.Builder<TextAreaBuilder>();
@@ -71,8 +68,8 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
                 if (request.Accessor is PropertyChain)
                 {
                     name = ((PropertyChain)(request.Accessor)).PropertyNames.Aggregate((current, next) => current + "." + next);
-                    if (new InheritsFromDomainEntity().execute(request.Accessor.PropertyType))
-                        name += ".EntityId";
+//                    if (new InheritsFromDomainEntity().execute(request.Accessor.PropertyType))
+//                        name += ".EntityId";
                 }
                 //var name = request.Accessor.Name.Substring(0, request.Accessor.Name.IndexOf(request.Accessor.FieldName)) + "." + request.Accessor.FieldName; 
                 //tag.Attr("name", name);
@@ -80,23 +77,23 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
             }
         }
         // I understand this is a retarded way to do it but I can't figure it rigt now
-        private class InheritsFromDomainEntity
-        {
-            private bool check(Type type)
-            {
-                if (type == typeof(Entity) || type.BaseType == typeof(Entity))
-                    return true;
-                return type.BaseType != null && check(type.BaseType);
-            }
-
-            public bool execute(Type type)
-            {
-                var result = false;
-                if (type.BaseType != null)
-                    result = check(type.BaseType);
-                return result;
-            }
-        }
+//        private class InheritsFromDomainEntity
+//        {
+//            private bool check(Type type)
+//            {
+//                if (type == typeof(Entity) || type.BaseType == typeof(Entity))
+//                    return true;
+//                return type.BaseType != null && check(type.BaseType);
+//            }
+//
+//            public bool execute(Type type)
+//            {
+//                var result = false;
+//                if (type.BaseType != null)
+//                    result = check(type.BaseType);
+//                return result;
+//            }
+//        }
 
         private void numbers()
         {
@@ -116,7 +113,7 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
             Editors.Modifier<NumberModifier>();
             Editors.Modifier<UrlModifier>();
             Editors.Modifier<DateModifier>();
-            Editors.Modifier<RangeModifier>();
+//            Editors.Modifier<RangeModifier>();
         }
 
         public static bool IsIntegerBased(Type type)

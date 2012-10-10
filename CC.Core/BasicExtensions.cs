@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using CC.Core.Domain;
 using CC.Core.Html;
 using CC.Core.Utilities;
 using NHibernate.Proxy;
@@ -251,10 +250,10 @@ namespace CC.Core
             }
         }
 
-        public static bool IsEntity(this Type type)
-        {
-            return typeof(Entity).IsAssignableFrom(type);
-        }
+//        public static bool IsEntity(this Type type)
+//        {
+//            return typeof(Entity).IsAssignableFrom(type);
+//        }
 
         public static bool IsDecimal(this string stringValue)
         {

@@ -123,12 +123,6 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             return this;
         }
 
-        public ViewDisplayExpression<VIEWMODEL> AddDisplayNameForHref(StringToken hrefDisplayName)
-        {
-            _hrefDisplayName = hrefDisplayName.ToString();
-            return this;
-        }
-
         public ViewDisplayExpression<VIEWMODEL> DateFormat(string dateFormat)
         {
             _dateFormat = dateFormat;

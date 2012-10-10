@@ -25,7 +25,7 @@ namespace CC.Core.Html.CCUI.Builders
                 var listPropertyInfo = request.ToAccessorDef().ModelType.GetProperty(propertyName + "List");
                 var dictionary = listPropertyInfo.GetValue(request.Model, null) as IDictionary<string, IEnumerable<SelectListItem>>;
                 if (dictionary == null) return;
-                x.Option(CCCoreLocalizationKeys.SELECT_ITEM.ToString(),"");
+                x.Option("Select Item", "");
                 dictionary.Keys.ForEachItem(key =>
                 {
                     x.OptionGroup(key);

@@ -1,6 +1,5 @@
 using System;
 using CC.Core.CustomAttributes;
-using CC.Core.Enumerations;
 using CC.Core.Utilities;
 using CC.UI.Helpers.Configuration;
 using Castle.Components.Validator;
@@ -13,7 +12,7 @@ namespace CC.Core.Html.CCUI.Builders
         public TagModifier CreateModifier(AccessorDef accessorDef)
         {
             if (!accessorDef.Accessor.HasAttribute<ValidateNonEmptyAttribute>()) return null;
-            TagModifier modifier = (request, tag) => tag.AddClass(ValidationRule.Required.ToString());
+            TagModifier modifier = (request, tag) => tag.AddClass("required");
             //                                   tag.AddValidationHelper(ValidationRule.Required + ":true",
             //                                                           ValidationRule.Required + ": '" +
             //                                                           CoreLocalizationKeys.FIELD_REQUIRED.ToFormat(request.Accessor.FieldName.ToSeperateWordsFromPascalCase()) +"'");
@@ -31,7 +30,7 @@ namespace CC.Core.Html.CCUI.Builders
             TagModifier modifier = (request, tag) =>
                                    tag.AddValidationHelper("equalTo:'[name$=\"Password\"]'",
                                                            "equalTo: '" +
-                                                           CCCoreLocalizationKeys.CONFIRMATION_PASSWORD_MUST_MATCH.ToString() + "'");
+                                                            "Confirmation Password must match" + "'");
             return modifier;
         }
     }
@@ -41,7 +40,7 @@ namespace CC.Core.Html.CCUI.Builders
         public TagModifier CreateModifier(AccessorDef accessorDef)
         {
             if (!accessorDef.Accessor.HasAttribute<ValidateUrlAttribute>()) return null;
-            TagModifier modifier = (request, tag) => tag.AddClass(ValidationRule.Url.ToString());
+            TagModifier modifier = (request, tag) => tag.AddClass("url");
             
 //            TagModifier modifier = (request, tag) =>
 //                                   tag.AddValidationHelper(ValidationRule.Url + ":true",
@@ -56,7 +55,7 @@ namespace CC.Core.Html.CCUI.Builders
         public TagModifier CreateModifier(AccessorDef accessorDef)
         {
             if (!accessorDef.Accessor.HasAttribute<ValidateEmailAttribute>()) return null;
-            TagModifier modifier = (request, tag) => tag.AddClass(ValidationRule.Email.ToString());
+            TagModifier modifier = (request, tag) => tag.AddClass("email");
 //            
 //            TagModifier modifier = (request, tag) =>
 //                                   tag.AddValidationHelper(ValidationRule.Email + ":true",
@@ -71,7 +70,7 @@ namespace CC.Core.Html.CCUI.Builders
         public TagModifier CreateModifier(AccessorDef accessorDef)
         {
             if (!accessorDef.Accessor.HasAttribute<ValidateSqlDateTimeAttribute>()) return null;
-            TagModifier modifier = (request, tag) => tag.AddClass(ValidationRule.Date.ToString());
+            TagModifier modifier = (request, tag) => tag.AddClass("date");
 
 //            TagModifier modifier = (request, tag) =>
 //                                   tag.AddValidationHelper(ValidationRule.Date + ":true",
@@ -81,20 +80,20 @@ namespace CC.Core.Html.CCUI.Builders
         }
     }
 
-    public class RangeModifier : IElementModifier
-    {
-        public TagModifier CreateModifier(AccessorDef accessorDef)
-        {
-            if (!accessorDef.Accessor.HasAttribute<ValidateMFRangeAttribute>()) return null;
-            var maxInt = accessorDef.Accessor.GetAttribute<ValidateMFRangeAttribute>().MaxInt;
-            var minInt = accessorDef.Accessor.GetAttribute<ValidateMFRangeAttribute>().MinInt;
-            TagModifier modifier = (request, tag) =>
-                                   tag.AddValidationHelper(ValidationRule.Range + ":["+minInt+","+maxInt+"]",
-                                                           ValidationRule.Range + ": '" +
-                                                           CCCoreLocalizationKeys.VALID_RANGE.ToFormat(request.Accessor.FieldName.ToSeperateWordsFromPascalCase(),minInt,maxInt) + "'");
-            return modifier;
-        }
-    }
+//    public class RangeModifier : IElementModifier
+//    {
+//        public TagModifier CreateModifier(AccessorDef accessorDef)
+//        {
+//            if (!accessorDef.Accessor.HasAttribute<ValidateMFRangeAttribute>()) return null;
+//            var maxInt = accessorDef.Accessor.GetAttribute<ValidateMFRangeAttribute>().MaxInt;
+//            var minInt = accessorDef.Accessor.GetAttribute<ValidateMFRangeAttribute>().MinInt;
+//            TagModifier modifier = (request, tag) =>
+//                                   tag.AddValidationHelper(ValidationRule.Range + ":["+minInt+","+maxInt+"]",
+//                                                           ValidationRule.Range + ": '" +
+//                                                           CCCoreLocalizationKeys.VALID_RANGE.ToFormat(request.Accessor.FieldName.ToSeperateWordsFromPascalCase(),minInt,maxInt) + "'");
+//            return modifier;
+//        }
+//    }
 
     public class NumberModifier : IElementModifier
     {

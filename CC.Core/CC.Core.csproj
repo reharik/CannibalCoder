@@ -66,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicExtensions.cs" />
-    <Compile Include="CCCoreLocalizationKeys.cs" />
     <Compile Include="CoreViewModelAndDTOs\GridItemViewModel.cs" />
     <Compile Include="CoreViewModelAndDTOs\GroupSelectViewModel.cs" />
     <Compile Include="CoreViewModelAndDTOs\TokenInputDto.cs" />
@@ -78,21 +77,6 @@
     <Compile Include="CustomAttributes\ValidateDCIRangeAttribute.cs" />
     <Compile Include="CustomAttributes\ValidateSqlDateTimeAttribute.cs" />
     <Compile Include="CustomAttributes\ValidateUrlAttribute.cs" />
-    <Compile Include="DomainTools\IRepository.cs" />
-    <Compile Include="DomainTools\IUnitOfWork.cs" />
-    <Compile Include="DomainTools\Notification.cs" />
-    <Compile Include="DomainTools\Repository.cs" />
-    <Compile Include="DomainTools\SqlStatementInterceptor.cs" />
-    <Compile Include="DomainTools\StructuremapGridConvention.cs" />
-    <Compile Include="DomainTools\TextAreaConvention.cs" />
-    <Compile Include="DomainTools\UnitOfWork.cs" />
-    <Compile Include="Domain\DomainEntity.cs" />
-    <Compile Include="Domain\IPersistableObject.cs" />
-    <Compile Include="Domain\IUser.cs" />
-    <Compile Include="Domain\LocalizedEnumeration.cs" />
-    <Compile Include="Domain\LocalizedProperty.cs" />
-    <Compile Include="Domain\LocalizedText.cs" />
-    <Compile Include="Enumerations\Enumerations.cs" />
     <Compile Include="Html\CCUI\Builders\DatePickerBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\DatePickerBuilder2.cs" />
     <Compile Include="Html\CCUI\Builders\DateTimeDisplayBuilder2.cs" />
@@ -103,7 +87,6 @@
     <Compile Include="Html\CCUI\Builders\LinkDisplayBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\ListDisplayBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\ListDisplayBuilder2.cs" />
-    <Compile Include="Html\CCUI\Builders\SelectFromEnumerationBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\SelectFromEnumerationBuilder2.cs" />
     <Compile Include="Html\CCUI\Builders\SelectFromIEnumerableBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\TextAreaBuilder.cs" />
@@ -142,22 +125,11 @@
     <Compile Include="Html\Grid\Pager.cs" />
     <Compile Include="Html\Grid\PageSortFilter.cs" />
     <Compile Include="Html\UrlContext.cs" />
-    <Compile Include="Localization\Enumeration.cs" />
     <Compile Include="Localization\Header.cs" />
     <Compile Include="Localization\LocalizationDataProvider.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
-    <Compile Include="Localization\LocalizedEnum.cs" />
-    <Compile Include="Localization\LocalizedEnumRegistry.cs" />
-    <Compile Include="Localization\StringToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ICastleValidationRunner.cs" />
-    <Compile Include="Services\IDynamicExpressionBuilder.cs" />
-    <Compile Include="Services\IDynamicExpressionQuery.cs" />
-    <Compile Include="Services\ISaveEntityService.cs" />
     <Compile Include="Services\ISelectListItemService.cs" />
-    <Compile Include="Services\IUpdateCollectionService.cs" />
-    <Compile Include="Services\IValidationManager.cs" />
-    <Compile Include="Services\SystemClock.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CC.Core.Utils\CC.Core.Utilities.csproj">

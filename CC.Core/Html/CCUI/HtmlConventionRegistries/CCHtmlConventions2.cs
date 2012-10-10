@@ -53,7 +53,6 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
 
         public virtual void EditorsChain()
         {
-            Editors.Builder<SelectFromEnumerationBuilder2>();
             Editors.Builder<SelectFromIEnumerableBuilder2>();
             Editors.Builder<GroupSelectedBuilder2>();
             Editors.Builder<TextAreaBuilder2>();

@@ -25,15 +25,15 @@ namespace CC.Core.Localization
             return GetHeader(expression.ToAccessor());
         }
 
-        public static string GetTextForKey(StringToken token)
-        {
-            return Localization.GetTextForKey(token);
-        }
-
-        public static string GetText(Enumeration localizedEnum)
-        {
-            return Localization.GetText(localizedEnum);
-        }
+//        public static string GetTextForKey(StringToken token)
+//        {
+//            return Localization.GetTextForKey(token);
+//        }
+//
+//        public static string GetText(Enumeration localizedEnum)
+//        {
+//            return Localization.GetText(localizedEnum);
+//        }
 
         public static string GetLocalString<T>(Expression<Func<T, object>> expression)
         {

@@ -33,7 +33,7 @@ namespace CC.Core.CustomAttributes
     [Serializable()]
     public class UrlValidator : AbstractValidator
     {
-        private string defaultErrorMessage = CCCoreLocalizationKeys.VALID_URL_FORMAT.ToString();
+        private string defaultErrorMessage = "Please use a valid Url format";
 
         public override bool IsValid(object instance, object fieldValue)
         {
