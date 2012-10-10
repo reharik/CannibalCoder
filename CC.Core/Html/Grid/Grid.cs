@@ -10,7 +10,7 @@ namespace CC.Core.Html.Grid
     {
         void AddColumnModifications(Action<IGridColumn, T> modification);
         GridDefinition GetGridDefinition(string url);
-        GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items);
+        GridItemsViewModel GetGridItemsViewModel(GridItemsDetail pageDetail, IQueryable<T> items);
     }
 
     public abstract class Grid<T> : IGrid<T> where T : IGridEnabledClass
@@ -49,7 +49,6 @@ namespace CC.Core.Html.Grid
             _modifications.Add(modification);
         }
 
-
         public GridDefinition GetGridDefinition(string url)
         {
             return new GridDefinition
@@ -59,16 +58,14 @@ namespace CC.Core.Html.Grid
             };
         }
 
-        public GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items)
+        public GridItemsViewModel GetGridItemsViewModel(GridItemsDetail pageDetail, IQueryable<T> items)
         {
-            var pager = new Pager<T>();
-            var pageAndSort = pager.PageAndSort(items, pageSortFilter);
             var model = new GridItemsViewModel
             {
-                items = BuildGrid().GetGridRows(pageAndSort.Items),
-                page = pageAndSort.Page,
-                records = pageAndSort.TotalRows,
-                total = pageAndSort.TotalPages
+                items = BuildGrid().GetGridRows(items),
+                page = pageDetail.Page,
+                records = pageDetail.TotalRows,
+                total = pageDetail.TotalPages
             };
             return model;
         }
