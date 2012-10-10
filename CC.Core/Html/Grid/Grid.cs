@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CC.Core.CoreViewModelAndDTOs;
-using CC.Security;
 
 namespace CC.Core.Html.Grid
 {
     public interface IGrid<T> where T : IGridEnabledClass
     {
         void AddColumnModifications(Action<IGridColumn, T> modification);
-        GridDefinition GetGridDefinition(string url, IUser user);
-        GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items, IUser user);
+        GridDefinition GetGridDefinition(string url);
+        GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items);
     }
 
     public abstract class Grid<T> : IGrid<T> where T : IGridEnabledClass
@@ -25,16 +24,16 @@ namespace CC.Core.Html.Grid
             _modifications = new List<Action<IGridColumn, T>>();
         }
 
-        private IList<IDictionary<string, string>> GetGridColumns(IUser user)
+        private IList<IDictionary<string, string>> GetGridColumns()
         {
-            return GridBuilder.ToGridColumns(user);
+            return GridBuilder.ToGridColumns();
         }
 
-        private IEnumerable GetGridRows(IEnumerable rawResults, IUser user)
+        private IEnumerable GetGridRows(IEnumerable rawResults)
         {
             foreach (T x in rawResults)
             {
-                yield return new GridRow { id = x.EntityId, cell = GridBuilder.ToGridRow(x, user, _modifications) };
+                yield return new GridRow { id = x.EntityId, cell = GridBuilder.ToGridRow(x,_modifications) };
             }
         }
 
@@ -51,22 +50,22 @@ namespace CC.Core.Html.Grid
         }
 
 
-        public GridDefinition GetGridDefinition(string url, IUser user)
+        public GridDefinition GetGridDefinition(string url)
         {
             return new GridDefinition
             {
                 Url = url,
-                Columns = BuildGrid().GetGridColumns(user)
+                Columns = BuildGrid().GetGridColumns()
             };
         }
 
-        public GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items, IUser user)
+        public GridItemsViewModel GetGridItemsViewModel(PageSortFilter pageSortFilter, IQueryable<T> items)
         {
             var pager = new Pager<T>();
             var pageAndSort = pager.PageAndSort(items, pageSortFilter);
             var model = new GridItemsViewModel
             {
-                items = BuildGrid().GetGridRows(pageAndSort.Items, user),
+                items = BuildGrid().GetGridRows(pageAndSort.Items),
                 page = pageAndSort.Page,
                 records = pageAndSort.TotalRows,
                 total = pageAndSort.TotalPages

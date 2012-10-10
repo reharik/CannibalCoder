@@ -1,7 +1,6 @@
 using System;
 using CC.Core.CustomAttributes;
 using CC.Core.Html.Grid;
-using CC.Security;
 
 namespace CC.Core.Domain
 {

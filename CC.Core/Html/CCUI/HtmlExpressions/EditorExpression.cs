@@ -5,8 +5,6 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using CC.Core.Html.CCUI.Tags;
 using CC.Core.Localization;
-using CC.Core.Services;
-using CC.Security.Interfaces;
 using CC.UI.Helpers.Tags;
 using HtmlTags;
 using StructureMap;
@@ -37,8 +35,6 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         private bool _radioButton;
         private bool _inline;
         private string _operation;
-        private IAuthorizationService _authorizationService;
-        private ICCSessionContext _sessionContext;
         private string _elType;
         private List<string> _rootClasses;
         private bool _readOnly;
@@ -69,10 +65,8 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
 
         private bool checkAuthentication()
         {
-            _authorizationService = ObjectFactory.Container.GetInstance<IAuthorizationService>();
-            _sessionContext = ObjectFactory.Container.GetInstance<ICCSessionContext>();
-            var user = _sessionContext.GetCurrentUser();
-            return _authorizationService.IsAllowed(user, _operation);
+            //TODO put security here 
+            return true;
         }
 
         private HtmlTag renderStandard()

@@ -30,6 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>HSTM.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Components.Validator">
       <HintPath>..\Lib\Castle.Components.Validator.dll</HintPath>
@@ -82,6 +88,7 @@
     <Compile Include="DomainTools\UnitOfWork.cs" />
     <Compile Include="Domain\DomainEntity.cs" />
     <Compile Include="Domain\IPersistableObject.cs" />
+    <Compile Include="Domain\IUser.cs" />
     <Compile Include="Domain\LocalizedEnumeration.cs" />
     <Compile Include="Domain\LocalizedProperty.cs" />
     <Compile Include="Domain\LocalizedText.cs" />
@@ -134,8 +141,6 @@
     <Compile Include="Html\Grid\LinkColumn.cs" />
     <Compile Include="Html\Grid\Pager.cs" />
     <Compile Include="Html\Grid\PageSortFilter.cs" />
-    <Compile Include="Html\Menu\IMenuBuilder.cs" />
-    <Compile Include="Html\Menu\MenuExpression.cs" />
     <Compile Include="Html\UrlContext.cs" />
     <Compile Include="Localization\Enumeration.cs" />
     <Compile Include="Localization\Header.cs" />
@@ -146,7 +151,6 @@
     <Compile Include="Localization\StringToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICastleValidationRunner.cs" />
-    <Compile Include="Services\ICCSessionContext.cs" />
     <Compile Include="Services\IDynamicExpressionBuilder.cs" />
     <Compile Include="Services\IDynamicExpressionQuery.cs" />
     <Compile Include="Services\ISaveEntityService.cs" />
@@ -160,10 +164,6 @@
       <Project>{54970D60-6123-4227-9C72-04CA09BAF7B9}</Project>
       <Name>CC.Core.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CC.Security\CC.Security.csproj">
-      <Project>{DBA372FE-3D52-45B3-AF82-B37696328764}</Project>
-      <Name>CC.Security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CC.UI.Helpers\CC.UI.Helpers.csproj">
       <Project>{0DBFB19C-E106-4807-AA4B-FC8D128A3438}</Project>
       <Name>CC.UI.Helpers</Name>
@@ -171,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ActionFilters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HSTM.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

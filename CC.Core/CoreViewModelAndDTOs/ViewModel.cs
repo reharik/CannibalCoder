@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using CC.Core.Domain;
 using CC.Core.Html.Grid;
-using CC.Security;
 
 namespace CC.Core.CoreViewModelAndDTOs
 {

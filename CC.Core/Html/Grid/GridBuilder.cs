@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using CC.Security;
-using CC.Security.Interfaces;
 
 namespace CC.Core.Html.Grid
 {
     public interface IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
     {
         List<IGridColumn> columns { get; }
-        IList<IDictionary<string, string>> ToGridColumns(IUser user);
-        string[] ToGridRow(ENTITY item, IUser user, IEnumerable<Action<IGridColumn, ENTITY>> modifications, string gridName = "");
+        IList<IDictionary<string, string>> ToGridColumns();
+        string[] ToGridRow(ENTITY item, IEnumerable<Action<IGridColumn, ENTITY>> modifications, string gridName = "");
 
         DisplayColumn<ENTITY> DisplayFor(Expression<Func<ENTITY, object>> expression);
         HiddenColumn<ENTITY> HideColumnFor(Expression<Func<ENTITY, object>> expression);
@@ -22,11 +20,9 @@ namespace CC.Core.Html.Grid
 
     public class GridBuilder<ENTITY> : IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
     {
-        private readonly IAuthorizationService _authorizationService;
 
-        public GridBuilder(IAuthorizationService authorizationService)
+        public GridBuilder()
         {
-            _authorizationService = authorizationService;
         }
 
         private List<IGridColumn> _columns = new List<IGridColumn>();
@@ -35,29 +31,25 @@ namespace CC.Core.Html.Grid
             get { return _columns; }
         }
 
-        public string[] ToGridRow(ENTITY item, IUser user, IEnumerable<Action<IGridColumn, ENTITY>> modifications, string gridName = "")
+        public string[] ToGridRow(ENTITY item, IEnumerable<Action<IGridColumn, ENTITY>> modifications, string gridName = "")
         {
             var cellValues = new List<string>();
             foreach (var column in columns)
             {
-                bool isAllowed = !column.Operation.IsNotEmpty() || _authorizationService.IsAllowed(user, column.Operation);
-                if (isAllowed)
-                {
+               //TODO put security here
                     modifications.ForEachItem(x => x.Invoke(column, item));
                     string value = column.BuildColumn(item, gridName);
                     cellValues.Add(value ?? string.Empty);
-                }
             }
             return cellValues.ToArray();
         }
 
-        public IList<IDictionary<string, string>> ToGridColumns(IUser user)
+        public IList<IDictionary<string, string>> ToGridColumns()
         {
             var values = new List<IDictionary<string, string>>();
             foreach (var column in columns)
             {
-                bool isAllowed = !column.Operation.IsNotEmpty() || _authorizationService.IsAllowed(user, column.Operation);
-                if (!isAllowed) continue;
+                //TODO put security here
                 values.Add(column.Properties);
             }
             return values;
