@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using CC.Core.Utilities;
-using StructureMap;
+using Microsoft.Practices.ServiceLocation;
 
 namespace CC.Core.Localization
 {
@@ -15,7 +15,7 @@ namespace CC.Core.Localization
 
         public static Header GetHeader(Accessor accessor)
         {
-            ILocalizationDataProvider provider = ObjectFactory.Container.GetInstance<ILocalizationDataProvider>();
+            ILocalizationDataProvider provider = ServiceLocator.Current.GetInstance<ILocalizationDataProvider>();
             return provider.GetHeader(accessor);
         }
 
@@ -43,7 +43,7 @@ namespace CC.Core.Localization
 
         public static ILocalizationDataProvider Localization
         {
-            get { return ObjectFactory.GetInstance<ILocalizationDataProvider>(); }
+            get { return ServiceLocator.Current.GetInstance<ILocalizationDataProvider>(); }
         }
 
         public static void Clear()

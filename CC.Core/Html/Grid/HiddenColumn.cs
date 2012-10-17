@@ -11,8 +11,8 @@ namespace CC.Core.Html.Grid
         {
             propertyAccessor = ReflectionHelper.GetAccessor(expression);
             Properties[GridColumnProperties.hidden.ToString()] = "true";
-            Properties[GridColumnProperties.name.ToString()] = LocalizationManager.GetLocalString(expression);
-            Properties[GridColumnProperties.header.ToString()] = LocalizationManager.GetHeader(expression).HeaderText;
+            Properties[GridColumnProperties.name.ToString()] = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
+            Properties[GridColumnProperties.header.ToString()] = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
         }
     }
 }

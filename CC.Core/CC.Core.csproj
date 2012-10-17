@@ -43,11 +43,9 @@
     <Reference Include="HtmlTags">
       <HintPath>..\HtmlTags\HtmlTags\bin\Debug\HtmlTags.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0ecfe41405c30fb3, processorArchitecture=MSIL" />
     <Reference Include="NHibernate">
       <HintPath>..\Lib\fluentnhibernate\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\Lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -94,7 +92,7 @@
     <Compile Include="Html\CCUI\Builders\TextAreaBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\TextAreaBuilder2.cs" />
     <Compile Include="Html\CCUI\Builders\ValidationModifier.cs" />
-    <Compile Include="Html\CCUI\FubuUIHtmlExtensions.cs" />
+    <Compile Include="Html\CCUI\CCUIHtmlExtensions.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CustomTagActionExpressions.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CCElementNamingConvention.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CCHtmlConventions.cs" />

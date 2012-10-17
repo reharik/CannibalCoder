@@ -12,8 +12,8 @@ namespace CC.Core.Html.Grid
         public GroupingColumn(Expression<Func<ENTITY, object>> expression)
         {
             propertyAccessor = ReflectionHelper.GetAccessor(expression);
-            Properties[GridColumnProperties.name.ToString()] = LocalizationManager.GetLocalString(expression);
-            Properties[GridColumnProperties.header.ToString()] = LocalizationManager.GetHeader(expression).HeaderText;
+            Properties[GridColumnProperties.name.ToString()] = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
+            Properties[GridColumnProperties.header.ToString()] = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
         }
 
         public GroupingColumn<ENTITY> FormatValue(GridColumnFormatter formatter)

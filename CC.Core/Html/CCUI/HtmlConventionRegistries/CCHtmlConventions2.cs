@@ -57,13 +57,10 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
             Editors.Builder<GroupSelectedBuilder2>();
             Editors.Builder<TextAreaBuilder2>();
             Editors.Builder<DatePickerBuilder2>();
-//            EditorsChain.Builder<TimePickerBuilder2>();
             Editors.Builder<CheckboxBuilder2>();
             Editors.Builder<PasswordBuilder2>();
             Editors.Builder<MultiSelectBuilder2>();
-//            EditorsChain.Builder<PictureGallery>();
             Editors.Builder<FileUploader>();
-            // default builder
             Editors.Builder<TextboxBuilder2>();
             Editors.Always.Modify(AddElementName);
         }

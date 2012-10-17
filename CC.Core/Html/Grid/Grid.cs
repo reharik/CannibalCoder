@@ -10,7 +10,7 @@ namespace CC.Core.Html.Grid
     {
         void AddColumnModifications(Action<IGridColumn, T> modification);
         GridDefinition GetGridDefinition(string url);
-        GridItemsViewModel GetGridItemsViewModel(GridItemsDetail pageDetail, IQueryable<T> items);
+        GridItemsViewModel GetGridItemsViewModel(GridItemsDetail pageDetail, IEnumerable<T> items);
     }
 
     public abstract class Grid<T> : IGrid<T> where T : IGridEnabledClass
@@ -58,7 +58,7 @@ namespace CC.Core.Html.Grid
             };
         }
 
-        public GridItemsViewModel GetGridItemsViewModel(GridItemsDetail pageDetail, IQueryable<T> items)
+        public GridItemsViewModel GetGridItemsViewModel(GridItemsDetail pageDetail, IEnumerable<T> items)
         {
             var model = new GridItemsViewModel
             {

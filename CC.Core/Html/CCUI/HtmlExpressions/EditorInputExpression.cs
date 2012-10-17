@@ -17,6 +17,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         IEditorInputExpression<VIEWMODEL> ElementId(string id);
         IEditorInputExpression<VIEWMODEL> CustomLabel(string labelDisplay);
         IEditorInputExpression<VIEWMODEL> ReadOnly();
+        IEditorInputExpression<VIEWMODEL> RemoveClassFromInputRoot(string inputRootRemoveClass);
     }
 
     public class EditorInputExpression<VIEWMODEL> : IEditorInputExpression<VIEWMODEL> where VIEWMODEL : class
@@ -30,6 +31,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         private string _elementId;
         private string _labelDisplay;
         private bool _readOnly;
+        private List<string> _inputRootRemoveClasses;
 
         public EditorInputExpression(ITagGenerator<VIEWMODEL> generator, Expression<Func<VIEWMODEL, object>> expression)
         {
@@ -58,6 +60,8 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             }
             if (_inputRootClasses!=null&&_inputRootClasses.Any()) root.AddClasses(_inputRootClasses);
             if (_inputClasses!=null&&_inputClasses.Any()) input.AddClasses(_inputClasses);
+            if (_inputRootRemoveClasses != null && _inputRootRemoveClasses.Any()) _inputRootRemoveClasses.ForEachItem(x => root.RemoveClass(x));
+
         }
 
         public IEditorInputExpression<VIEWMODEL> AddClassToInputRoot(string cssClass)
@@ -105,7 +109,24 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             _readOnly = true;
             return this;
         }
-        
+
+        public IEditorInputExpression<VIEWMODEL> RemoveClassFromInputRoot(string cssClass)
+        {
+            if (_inputRootRemoveClasses == null)
+            {
+                _inputRootRemoveClasses = new List<string>();
+            }
+            if (cssClass.Contains(" "))
+            {
+                cssClass.Split(' ').ForEachItem(x=>_inputRootRemoveClasses.Add(x));
+            }
+            else
+            {
+                _inputRootRemoveClasses.Add(cssClass);
+            }
+            return this;
+        }
+
         public IEditorInputExpression<VIEWMODEL> ElementId(string id)
         {
             _elementId = id;

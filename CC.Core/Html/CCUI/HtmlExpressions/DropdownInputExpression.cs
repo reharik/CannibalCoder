@@ -22,6 +22,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         private string _elementId;
         private string _labelDisplay;
         private bool _readOnly;
+        private List<string> _inputRootRemoveClasses;
 
         public DropdownInputExpression(ITagGenerator<VIEWMODEL> generator, Expression<Func<VIEWMODEL, object>> expression, IEnumerable<SelectListItem> items)
         {
@@ -115,6 +116,23 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         public IEditorInputExpression<VIEWMODEL> ReadOnly()
         {
             _readOnly = true;
+            return this;
+        }
+
+        public IEditorInputExpression<VIEWMODEL> RemoveClassFromInputRoot(string cssClass)
+        {
+            if (_inputRootRemoveClasses == null)
+            {
+                _inputRootRemoveClasses = new List<string>();
+            }
+            if (cssClass.Contains(" "))
+            {
+                cssClass.Split(' ').ForEachItem(x => _inputRootRemoveClasses.Remove(x));
+            }
+            else
+            {
+                _inputRootRemoveClasses.Remove(cssClass);
+            }
             return this;
         }
     }

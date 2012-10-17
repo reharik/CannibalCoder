@@ -6,6 +6,7 @@ using CC.Core.Html.CCUI.HtmlExpressions;
 using CC.Core.Utilities;
 using CC.UI.Helpers.Tags;
 using HtmlTags;
+using Microsoft.Practices.ServiceLocation;
 
 namespace CC.Core.Html.CCUI
 {
@@ -13,7 +14,7 @@ namespace CC.Core.Html.CCUI
     {
         private static ITagGenerator<T> GetGenerator<T>(HtmlHelper<T> helper, Expression<Func<T, object>> expression) where T : class
         {
-            TagGenerator<T> generator = DependencyResolver.Current.GetService<ITagGenerator<T>>() as TagGenerator<T>;
+            TagGenerator<T> generator = ServiceLocator.Current.GetInstance<ITagGenerator<T>>() as TagGenerator<T>;
             generator.Model = helper.ViewData.Model;
             if (helper.ViewData.TemplateInfo.HtmlFieldPrefix.IsNotEmpty())
             {

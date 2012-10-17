@@ -33,18 +33,15 @@ namespace CC.Core.Html.Grid
             _gridName = gridName;
             _divCssClasses = new List<string>();
             propertyAccessor = ReflectionHelper.GetAccessor(expression);
-            var name = LocalizationManager.GetLocalString(expression);
+            var name = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
             if (propertyAccessor is PropertyChain)
             {
                 name = ((PropertyChain)(propertyAccessor)).PropertyNames.Aggregate((current, next) => current + "." + next);
             }
             Properties[GridColumnProperties.name.ToString()] = name;
 
-            var headerText = LocalizationManager.GetHeader(expression).HeaderText;
-            if (headerText == "Name")
-            {
-                headerText = typeof(ENTITY).Name.ToSeperateWordsFromPascalCase() + " " + headerText;
-            }
+            var headerText = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();  //LocalizationManager.GetHeader(expression).HeaderText;
+           
             Properties[GridColumnProperties.header.ToString()] = headerText;
         }
         //used for getting controller from a field value like "InstantiatingType"
@@ -126,7 +123,7 @@ namespace CC.Core.Html.Grid
             var anchor = new HtmlTag("a");
             var extraValues = getCSVofExtraValues(item, expressions);
             var id = _id.IsNotEmpty() ? _id + ":" : "";
-            anchor.Attr("onclick", _jsApplicationName + ".vent.trigger('" + id + _action + "'," + item.EntityId + extraValues + ")");
+            anchor.Attr("onclick", _jsApplicationName + ".vent.trigger('" + id + _action + "','" + item.EntityId+"'" + extraValues + ")");
             return anchor;
         }
         private string getCSVofExtraValues(ENTITY item, IEnumerable<TriggerValueDto<ENTITY>> expressions)

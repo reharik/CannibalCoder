@@ -51,7 +51,8 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             }
             if (ReflectionHelper.GetProperty(_expression).HasAttribute<ValidateNonEmptyAttribute>())
             {
-                label.Text(label.Text()+"*");
+                var astrix = new HtmlTag("img").Title("Required").Attr("src", "/hlc/Images/requiredStar.gif");
+                label.Children.Add(astrix);
             }
             _htmlRoot.Append(label);
             return _htmlRoot;

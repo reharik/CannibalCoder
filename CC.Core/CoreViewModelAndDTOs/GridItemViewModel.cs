@@ -34,7 +34,7 @@ namespace CC.Core.CoreViewModelAndDTOs
         public int rows { get; set; }
         public string SortColumn { get; set; }
         public string SortOrder { get; set; }
-        public Filter Filter { get; set; }
+        public Filter filter { get; set; }
     }
 
     [DataContract]
@@ -90,7 +90,7 @@ namespace CC.Core.CoreViewModelAndDTOs
                     rows = int.Parse(request["rows"] ?? "10"),
                     SortColumn = request["sidx"] ?? "",
                     SortOrder = request["sord"] ?? "asc",
-                    Filter = Filter.Create(request["filters"] ?? "")
+                    filter = Filter.Create(request["filter"] ?? "")
                 };
             }
             catch

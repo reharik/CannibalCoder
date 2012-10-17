@@ -15,7 +15,7 @@ namespace CC.UI.Helpers.Tags
         private readonly IList<IElementModifier> _modifiers = new List<IElementModifier>();
         private readonly IList<IElementBuilder> _sources = new List<IElementBuilder>();
 
-        public TagFactory()
+        public Tag  Factory()
         {
             _creators.OnMissing = resolveCreator;
         }

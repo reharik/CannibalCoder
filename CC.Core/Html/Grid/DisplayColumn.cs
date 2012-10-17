@@ -11,13 +11,13 @@ namespace CC.Core.Html.Grid
         public DisplayColumn(Expression<Func<ENTITY, object>> expression)
         {
             propertyAccessor = ReflectionHelper.GetAccessor(expression);
-            var name = LocalizationManager.GetLocalString(expression);
+            var name = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
             if(propertyAccessor is PropertyChain)
             {
                 name = ((PropertyChain)(propertyAccessor)).PropertyNames.Aggregate((current, next) => current + "." + next);
             }
             Properties[GridColumnProperties.name.ToString()] = name;
-            Properties[GridColumnProperties.header.ToString()] = LocalizationManager.GetHeader(expression).HeaderText;
+            Properties[GridColumnProperties.header.ToString()] = ReflectionHelper.GetProperty(expression).Name.ToSeperateWordsFromPascalCase();
         }
 
         public DisplayColumn<ENTITY> FormatValue(GridColumnFormatter formatter)

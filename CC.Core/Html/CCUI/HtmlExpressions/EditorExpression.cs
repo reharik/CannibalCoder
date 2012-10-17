@@ -7,7 +7,6 @@ using CC.Core.Html.CCUI.Tags;
 using CC.Core.Localization;
 using CC.UI.Helpers.Tags;
 using HtmlTags;
-using StructureMap;
 
 namespace CC.Core.Html.CCUI.HtmlExpressions
 {
@@ -38,6 +37,8 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         private string _elType;
         private List<string> _rootClasses;
         private bool _readOnly;
+        private List<string> _rootRemoveClasses;
+        private string _inputRootRemoveClass;
 
         public EditorExpression(ITagGenerator<VIEWMODEL> generator, Expression<Func<VIEWMODEL, object>> expression)
         {
@@ -75,6 +76,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             _htmlRoot.AddClass(_noClear ? "editor_root_no_clear" : "editor_root");
             if (_rootId.IsNotEmpty()) _htmlRoot.Id(_rootId);
             if (_rootClasses != null && _rootClasses.Any()) _htmlRoot.AddClasses(_rootClasses);
+            if (_rootRemoveClasses != null && _rootRemoveClasses.Any()) _rootRemoveClasses.ForEachItem(x=>_htmlRoot.RemoveClass(x));
             EditorLabelExpression<VIEWMODEL> labelBuilder = new EditorLabelExpression<VIEWMODEL>(_generator, _expression);
             IEditorInputExpression<VIEWMODEL> inputBuilder;
             if (_dropdown)
@@ -200,6 +202,7 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             if (_labelClass.IsNotEmpty()) labelBuilder.AddClassToLabel(_labelClass);
             if (_inputRootClass.IsNotEmpty()) inputBuilder.AddClassToInputRoot(_inputRootClass);
             if (_inputClass.IsNotEmpty()) inputBuilder.AddClassToInput(_inputClass);
+            if (_inputRootRemoveClass.IsNotEmpty()) inputBuilder.RemoveClassFromInputRoot(_inputRootRemoveClass);
         }
 
         #region Extensions
@@ -264,6 +267,23 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             }
             return this;
         }
+
+        public EditorExpression<VIEWMODEL> RemoveClassFromRoot(string cssClass)
+        {
+            if (_rootRemoveClasses == null)
+            {
+                _rootRemoveClasses = new List<string>();
+            }
+            if (cssClass.Contains(" "))
+            {
+                cssClass.Split(' ').ForEachItem(_rootRemoveClasses.Add);
+            }
+            else
+            {
+                _rootRemoveClasses.Add(cssClass);
+            }
+            return this;
+        }
        
         public EditorExpression<VIEWMODEL> AddClassToLabelRoot(string cssClass)
         {
@@ -274,6 +294,11 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
         public EditorExpression<VIEWMODEL> AddClassToLabel(string cssClass)
         {
             _labelClass = cssClass;
+            return this;
+        }
+        public EditorExpression<VIEWMODEL> RemoveClassFromInputRoot(string cssClass)
+        {
+            _inputRootRemoveClass = cssClass;
             return this;
         }
 
