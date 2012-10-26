@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using CC.Core.CoreViewModelAndDTOs;
 using CC.Core.Html.CCUI.HtmlConventionRegistries;
 using CC.Core.Html.CCUI.HtmlConventionRegistries;
 using CC.Core.Html.CCUI.Tags;
@@ -122,21 +124,21 @@ namespace CC.Core.Html.CCUI.Builders
         }
     }
 
-//    public class PictureGallery : ElementBuilder
-//    {
-//        protected  override  bool matches(AccessorDef def)
-//        {
-//            return def.Accessor.PropertyType == typeof(IEnumerable<PhotoDto>);
-//        }
-//        public override HtmlTag Build(ElementRequest request)
-//        {
-//            var ul = new HtmlTag("ul").Attr("data-bind", "foreach:" + CCHtmlConventions2.DeriveElementName(request));
-//            var li = new HtmlTag("li");
-//            li.Children.Add(new HtmlTag("image").Attr("data-bind", "attr:{src:FileUrl}"));
-//            ul.Children.Add(li);
-//            return ul;
-//        }
-//    }
+    public class PictureGallery : ElementBuilder
+    {
+        protected  override  bool matches(AccessorDef def)
+        {
+            return def.Accessor.PropertyType == typeof(IEnumerable<PhotoDto>);
+        }
+        public override HtmlTag Build(ElementRequest request)
+        {
+            var ul = new HtmlTag("ul").Attr("data-bind", "foreach:" + CCHtmlConventions2.DeriveElementName(request));
+            var li = new HtmlTag("li");
+            li.Children.Add(new HtmlTag("image").Attr("data-bind", "attr:{src:FileUrl}"));
+            ul.Children.Add(li);
+            return ul;
+        }
+    }
 
     public class FileUploader : ElementBuilder
     {

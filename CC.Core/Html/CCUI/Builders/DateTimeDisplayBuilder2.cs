@@ -1,6 +1,5 @@
 using System;
 using CC.Core.Html.CCUI.HtmlConventionRegistries;
-using CC.Core.Html.CCUI.HtmlConventionRegistries;
 using CC.UI.Helpers.Configuration;
 using HtmlTags;
 

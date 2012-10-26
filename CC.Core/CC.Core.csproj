@@ -63,6 +63,7 @@
     <Compile Include="CCCoreLocalizationKeys.cs" />
     <Compile Include="CoreViewModelAndDTOs\GridItemViewModel.cs" />
     <Compile Include="CoreViewModelAndDTOs\GroupSelectViewModel.cs" />
+    <Compile Include="CoreViewModelAndDTOs\PhotoDto.cs" />
     <Compile Include="CoreViewModelAndDTOs\TokenInputDto.cs" />
     <Compile Include="CoreViewModelAndDTOs\ViewModel.cs" />
     <Compile Include="CustomAttributes\LinkDisplayAttribute.cs" />
