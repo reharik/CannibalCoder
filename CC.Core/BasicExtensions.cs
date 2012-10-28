@@ -326,6 +326,11 @@ namespace CC.Core
         {
             return DateTime.Parse(date.Value.ToShortDateString() + " " + time);
         }
+
+        public static string AddImageSizeToName(this string imageNameOrUrl, string imageSize)
+        {
+            return imageNameOrUrl.Insert(imageNameOrUrl.LastIndexOf("."), "_" + imageSize);
+        }
             //public static Continuation ToContinuation(this Result result, Continuation continuation)
         //{
         //    List<ErrorInfo> errors = new List<ErrorInfo>();

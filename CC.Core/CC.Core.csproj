@@ -37,6 +37,9 @@
     <Reference Include="HtmlTags">
       <HintPath>..\HtmlTags\HtmlTags\bin\Debug\HtmlTags.dll</HintPath>
     </Reference>
+    <Reference Include="ImageResizer">
+      <HintPath>..\Lib\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\Lib\fluentnhibernate\NHibernate.dll</HintPath>
     </Reference>
@@ -150,6 +153,8 @@
     <Compile Include="Services\ICCSessionContext.cs" />
     <Compile Include="Services\IDynamicExpressionBuilder.cs" />
     <Compile Include="Services\IDynamicExpressionQuery.cs" />
+    <Compile Include="Services\IFileHandlerService.cs" />
+    <Compile Include="Services\IInjectableSiteConfig.cs" />
     <Compile Include="Services\ISaveEntityService.cs" />
     <Compile Include="Services\ISelectListItemService.cs" />
     <Compile Include="Services\IUpdateCollectionService.cs" />

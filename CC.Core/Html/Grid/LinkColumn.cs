@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using CC.Core.Localization;
+using CC.Core.Services;
 using CC.Core.Utilities;
 using HtmlTags;
 
@@ -20,17 +21,16 @@ namespace CC.Core.Html.Grid
         }
 
         private string _action;
-        private readonly string _jsApplicationName;
         private string _gridName;
+        private readonly SiteConfigurationBase _config;
         private List<TriggerValueDto<ENTITY>> _returnValueWithTriggerList;
         private string _id;
 
-        public LinkColumn(Expression<Func<ENTITY, object>> expression, string JSApplicationName, string gridName = "")
+        public LinkColumn(Expression<Func<ENTITY, object>> expression, SiteConfigurationBase config, string gridName = "")
         {
             _id = "gridContainer";
-
-            _jsApplicationName = JSApplicationName;
             _gridName = gridName;
+            _config = config;
             _divCssClasses = new List<string>();
             propertyAccessor = ReflectionHelper.GetAccessor(expression);
             var name = LocalizationManager.GetLocalString(expression);
@@ -126,7 +126,7 @@ namespace CC.Core.Html.Grid
             var anchor = new HtmlTag("a");
             var extraValues = getCSVofExtraValues(item, expressions);
             var id = _id.IsNotEmpty() ? _id + ":" : "";
-            anchor.Attr("onclick", _jsApplicationName + ".vent.trigger('" + id + _action + "'," + item.EntityId + extraValues + ")");
+            anchor.Attr("onclick", _config.jsApplicationName + ".vent.trigger('" + id + _action + "'," + item.EntityId + extraValues + ")");
             return anchor;
         }
         private string getCSVofExtraValues(ENTITY item, IEnumerable<TriggerValueDto<ENTITY>> expressions)

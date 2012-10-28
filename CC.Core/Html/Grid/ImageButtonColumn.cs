@@ -1,13 +1,14 @@
 using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using CC.Core.Services;
 using HtmlTags;
 
 namespace CC.Core.Html.Grid
 {
     public class ImageButtonColumn<ENTITY> : ImageColumn<ENTITY> where ENTITY : IGridEnabledClass
     {
-        private readonly string _jsApplicationName;
+        private readonly SiteConfigurationBase _config;
         private string _actionUrl;
         public string ActionUrl
         {
@@ -19,9 +20,9 @@ namespace CC.Core.Html.Grid
         private string _gridName;
         private string _id;
 
-        public ImageButtonColumn(string JSApplicationName)
+        public ImageButtonColumn(SiteConfigurationBase config) : base(config)
         {
-            _jsApplicationName = JSApplicationName;
+            _config = config;
         }
 
         public ImageButtonColumn<ENTITY> ForAction<CONTROLLER>(Expression<Func<CONTROLLER, object>> expression, string gridName = "") where CONTROLLER : Controller
@@ -64,7 +65,7 @@ namespace CC.Core.Html.Grid
             {
                 data = "," + _jsonData;
             }
-            anchor.Attr("onclick", _jsApplicationName+".vent.trigger('" + id + _action + "'," + item.EntityId + data + ")");
+            anchor.Attr("onclick", _config.jsApplicationName+".vent.trigger('" + id + _action + "'," + item.EntityId + data + ")");
 
             return anchor;
         }

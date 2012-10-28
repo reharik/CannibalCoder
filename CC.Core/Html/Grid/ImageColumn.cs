@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CC.Core.Services;
 using CC.Core.Utilities;
 using HtmlTags;
 
@@ -6,10 +7,12 @@ namespace CC.Core.Html.Grid
 {
     public class ImageColumn<ENTITY> : ColumnBase<ENTITY> where ENTITY : IGridEnabledClass
     {
+        private readonly SiteConfigurationBase _config;
         protected List<string> _divCssClasses;
         protected string _imageName;
-        public ImageColumn()
+        public ImageColumn(SiteConfigurationBase config)
         {
+            _config = config;
             _divCssClasses = new List<string>();
             propertyAccessor = ReflectionHelper.GetAccessor<ENTITY>(x => x.EntityId);
             Properties[GridColumnProperties.sortable.ToString()] = "false";
@@ -45,7 +48,7 @@ namespace CC.Core.Html.Grid
         protected HtmlTag BuildImage(bool header = false)
         {
             var img = new HtmlTag("img");
-            img.Attr("src", _imageName); //SiteConfig.Settings().ImagesPath + _imageName);
+            img.Attr("src",_config.ImagesPath + _imageName);
             if (header)
             {
                 img.Style("cursor", "hand");

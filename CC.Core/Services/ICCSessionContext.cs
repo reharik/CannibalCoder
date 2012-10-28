@@ -6,5 +6,6 @@ namespace CC.Core.Services
     {
         IUser GetCurrentUser();
         int GetUserId();
+        string MapPath(string url);
     }
 }

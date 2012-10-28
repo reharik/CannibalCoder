@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CC.Core.Services;
 using CC.Security;
 using CC.Security.Interfaces;
 
@@ -15,18 +16,20 @@ namespace CC.Core.Html.Grid
         DisplayColumn<ENTITY> DisplayFor(Expression<Func<ENTITY, object>> expression);
         HiddenColumn<ENTITY> HideColumnFor(Expression<Func<ENTITY, object>> expression);
         ImageColumn<ENTITY> ImageColumn();
-        ImageButtonColumn<ENTITY> ImageButtonColumn(string JSApplicationName);
-        LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string JSApplicationName, string gridName = "");
+        ImageButtonColumn<ENTITY> ImageButtonColumn();
+        LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "");
         GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression);
     }
 
     public class GridBuilder<ENTITY> : IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
     {
         private readonly IAuthorizationService _authorizationService;
+        private readonly IInjectableSiteConfig _config;
 
-        public GridBuilder(IAuthorizationService authorizationService)
+        public GridBuilder(IAuthorizationService authorizationService, IInjectableSiteConfig config)
         {
             _authorizationService = authorizationService;
+            _config = config;
         }
 
         private List<IGridColumn> _columns = new List<IGridColumn>();
@@ -75,17 +78,17 @@ namespace CC.Core.Html.Grid
 
         public ImageColumn<ENTITY> ImageColumn()
         {
-            return AddColumn(new ImageColumn<ENTITY>());
+            return AddColumn(new ImageColumn<ENTITY>(_config.Settings()));
         }
 
-        public ImageButtonColumn<ENTITY> ImageButtonColumn(string JSApplicationName)
+        public ImageButtonColumn<ENTITY> ImageButtonColumn()
         {
-            return AddColumn(new ImageButtonColumn<ENTITY>(JSApplicationName));
+            return AddColumn(new ImageButtonColumn<ENTITY>(_config.Settings()));
         }
 
-        public LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression,string JSApplicationName, string gridName = "")
+        public LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "")
         {
-            return AddColumn(new LinkColumn<ENTITY>(expression,JSApplicationName, gridName));
+            return AddColumn(new LinkColumn<ENTITY>(expression, _config.Settings(), gridName));
         }
 
         public GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression)
