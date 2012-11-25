@@ -149,6 +149,12 @@
     <Compile Include="Impl\JetBrains.Annotations.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y CC.Security.dll ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Security.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Security.dll ..\..\..\..\MethodFitness\lib\
+xcopy /y CC.Security.pdb ..\..\..\..\MethodFitness\lib\</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="AfterBuild">

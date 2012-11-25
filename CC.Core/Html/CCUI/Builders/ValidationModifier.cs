@@ -5,6 +5,7 @@ using CC.Core.Utilities;
 using CC.UI.Helpers.Configuration;
 using Castle.Components.Validator;
 using HtmlTags;
+using System.Linq;
 
 namespace CC.Core.Html.CCUI.Builders
 {
@@ -17,6 +18,24 @@ namespace CC.Core.Html.CCUI.Builders
             //                                   tag.AddValidationHelper(ValidationRule.Required + ":true",
             //                                                           ValidationRule.Required + ": '" +
             //                                                           CoreLocalizationKeys.FIELD_REQUIRED.ToFormat(request.Accessor.FieldName.ToSeperateWordsFromPascalCase()) +"'");
+            return modifier;
+        }
+    }
+
+    public class FileRequiredModifier : IElementModifier
+    {
+        public TagModifier CreateModifier(AccessorDef accessorDef)
+        {
+            if (!accessorDef.Accessor.HasAttribute<ValidateFileNotEmptyAttribute>()) return null;
+            // dig down in tag and find input type=file to add class to 
+            TagModifier modifier = (request, tag) =>
+                                       {
+                                           var fileInput = tag.Children[1].Children[0];
+                                           if(fileInput!=null)
+                                           {
+                                               fileInput.AddClass(ValidationRule.FileRequired.ToString());
+                                           }
+                                       };
             return modifier;
         }
     }

@@ -16,6 +16,7 @@ namespace CC.Core
 
         public static readonly StringToken FIELD_REQUIRED = new CCCoreLocalizationKeys("FIELD_REQUIRED", "{0} Field is Required");
         public static readonly StringToken CONFIRMATION_PASSWORD_MUST_MATCH = new CCCoreLocalizationKeys("CONFIRMATION_PASSWORD_MUST_MATCH", "Confirmation password must match");
+        public static readonly StringToken FILE_IS_REQUIRED = new CCCoreLocalizationKeys("FILE_IS_REQUIRED", "You must select a file");
         public static readonly StringToken VALID_EMAIL_FORMAT = new CCCoreLocalizationKeys("VALID_EMAIL_FORMAT", "{0} Must be a valid Email Address");
         public static readonly StringToken VALID_DATE_FORMAT = new CCCoreLocalizationKeys("VALID_DATE_FORMAT", "{0} Must be a valid Date");
         public static readonly StringToken VALID_RANGE = new CCCoreLocalizationKeys("VALID_RANGE", "{0} Must be between {1} and {2}");

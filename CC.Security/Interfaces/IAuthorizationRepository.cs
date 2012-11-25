@@ -151,5 +151,11 @@ namespace CC.Security.Interfaces
 	    /// <param name="usersGroup"></param>
 	    /// <returns></returns>
 	    UsersGroup UpdateUsersGroup(UsersGroup usersGroup);
+
+	    /// <summary>
+	    /// Removes the user from all groups
+	    /// </summary>
+	    /// <param name="user">The user.</param>
+	    void DetachUserFromAllGroups(IUser user);
 	}
 }

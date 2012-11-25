@@ -77,7 +77,15 @@ namespace CC.Core.Services
             var remove = new List<ENTITY>();
             if (newItems.Any())
             {
-                origional.Where(x => !comparer(x, newItems.FirstOrDefault(i => i.EntityId == x.EntityId))).ForEachItem(remove.Add);
+                if (origional.Any())
+                {
+                    var enumerable = origional.Where(x =>
+                                                         {
+                                                             var newItem = newItems.FirstOrDefault(i => i.EntityId == x.EntityId);
+                                                             return newItem == null || !comparer(x, newItem);
+                                                         });
+                    enumerable.ForEachItem(remove.Add);
+                }
             }
             else
             {

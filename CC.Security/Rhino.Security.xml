@@ -4,41 +4,10 @@
         <name>CC.Security</name>
     </assembly>
     <members>
-        <member name="T:CC.Security.SecurityTableStructure">
+        <member name="T:CC.Security.Model.Permission">
             <summary>
-            A flag that determains how the security tables should be treated.
-            In a separate schema or using a naming convention.
-            The default is to put them in a separate schema.
-            </summary>
-        </member>
-        <member name="F:CC.Security.SecurityTableStructure.Schema">
-            <summary>
-            Use a "security" schema
-            </summary>
-        </member>
-        <member name="F:CC.Security.SecurityTableStructure.Prefix">
-            <summary>
-            Use a "security_" prefix
-            </summary>
-        </member>
-        <member name="T:CC.Security.SecurityKeyType">
-            <summary>
-            What type the security key is
-            </summary>
-        </member>
-        <member name="F:CC.Security.SecurityKeyType.Type">
-            <summary>
-            A type
-            </summary>
-        </member>
-        <member name="F:CC.Security.SecurityKeyType.Instance">
-            <summary>
-            An instance
-            </summary>
-        </member>
-        <member name="T:CC.Security.Model.NamedEntity`1">
-            <summary>
-            An entity with a name
+            Represent a permission on the system, allow (or denying) 
+            [operation] for [someone] on [something]
             </summary>
         </member>
         <member name="T:CC.Security.Model.EqualityAndHashCodeProvider`1">
@@ -93,80 +62,214 @@
             </summary>
             <value>The id.</value>
         </member>
-        <member name="M:CC.Security.Model.NamedEntity`1.ToString">
+        <member name="P:CC.Security.Model.Permission.Operation">
             <summary>
-            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            Gets or sets the operation this permission applies to
             </summary>
-            <returns>
-            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-            </returns>
+            <value>The operation.</value>
         </member>
-        <member name="P:CC.Security.Model.NamedEntity`1.Name">
+        <member name="P:CC.Security.Model.Permission.Allow">
             <summary>
-            Gets or sets the name of this entity.
+            Gets or sets a value indicating whether this <see cref="T:CC.Security.Model.Permission"/> is allowing 
+            or denying the operation.
             </summary>
-            <value>The name.</value>
-            <remarks>
-            The name can be set only on creation, and is not changed
-            afterward.
-            </remarks>
+            <value><c>true</c> if allow; otherwise, <c>false</c>.</value>
         </member>
-        <member name="T:CC.Security.Impl.Util.Strings">
+        <member name="P:CC.Security.Model.Permission.User">
             <summary>
-            String utility methods
+            Gets or sets the user this permission belongs to.
+            </summary>
+            <value>The user.</value>
+        </member>
+        <member name="P:CC.Security.Model.Permission.UsersGroup">
+            <summary>
+            Gets or sets the users group this permission belongs to
+            </summary>
+            <value>The users group.</value>
+        </member>
+        <member name="P:CC.Security.Model.Permission.Level">
+            <summary>
+            Gets or sets the level of this permission
+            </summary>
+            <value>The level.</value>
+        </member>
+        <member name="P:CC.Security.Model.Permission.Description">
+            <summary>
+            Gets or sets the Description of this permission
+            </summary>
+            <value>The Description.</value>
+        </member>
+        <member name="T:CC.Security.Interfaces.IOnPermissionBuilder">
+            <summary>
+            Define who this permission is on
             </summary>
         </member>
-        <member name="M:CC.Security.Impl.Util.Strings.GetParentOperationName(System.String)">
+        <member name="M:CC.Security.Interfaces.IOnPermissionBuilder.OnEverything">
             <summary>
-            Gets the name of the parent operation.
+            Set this permission to be application to everything
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CC.Security.Services.SecurityCriterions">
+            <summary>
+            A factory for common DetachedCriteria.
+            </summary>
+        </member>
+        <member name="T:CC.Security.Interfaces.IPermissionBuilder">
+            <summary>
+            Save the created permission
+            </summary>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Description(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="description">the description for this permission</param>
+            <returns>IPermissionBuilder</returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Save">
+            <summary>
+            Save the created permission
+            </summary>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Build">
+            <summary>
+            Builds a permission without saving
+            </summary>
+        </member>
+        <member name="T:CC.Security.TextAreaAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CC.Security.Impl.MappingRewriting.SchemaChanger">
+            <summary>
+            Modify the NH configuration to set the correct schema
+            </summary>
+        </member>
+        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.#ctor(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.SchemaChanger"/> class.
+            </summary>
+            <param name="cfg">The NHibernte configuration.</param>
+            <param name="tableStructure">The table structure.</param>
+        </member>
+        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.Change">
+            <summary>
+            Modify the configuration so it would set the schema or prefix based on the selected
+            table structure
+            </summary>
+        </member>
+        <member name="T:CC.Security.Services.PermissionsService">
+            <summary>
+            Allow to retrieve and remove permissions
+            on users, user groups, entities groups and entities.
+            </summary>
+        </member>
+        <member name="T:CC.Security.Interfaces.IPermissionsService">
+            <summary>
+            Allow to retrieve and remove permissions
+            on users, user groups, entities groups and entities.
+            </summary>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.IUser)">
+            <summary>
+            Gets the permissions for the specified user
+            </summary>
+            <param name="user">The user.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetGlobalPermissionsFor(CC.Security.IUser,System.String)">
+            <summary>
+            Gets the permissions for the specified entity
+            </summary>
+            <param name="user">The user.</param>
+            <param name="operationName">Name of the operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(System.String)">
+            <summary>
+            Gets all permissions for the specified operation
             </summary>
             <param name="operationName">Name of the operation.</param>
-            <remarks>
-            Assumes that there is a '/' in the string
-            </remarks>
+            <returns></returns>
         </member>
-        <member name="M:CC.Security.Impl.Util.Strings.GetHierarchicalOperationNames(System.String)">
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.Model.UsersGroup)">
             <summary>
-            Gets the names of all the parent operations (including the current one)
+            Gets the permissions for the specified usergroup
+            </summary>
+            <param name="userGroup">The usersGroup.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermission(System.Int32)">
+            <summary>
+            RH 4/9/12
+            Gets permissions By Permission id
+            </summary>
+            <param name="permissionId">Guid EntityId for Permission </param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Services.PermissionsService.#ctor(CC.Security.Interfaces.IAuthorizationRepository,NHibernate.ISession)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CC.Security.Services.PermissionsService"/> class.
+            </summary>
+            <param name="authorizationRepository">The authorization editing service.</param>
+            <param name="session">The NHibernate session</param>
+        </member>
+        <member name="M:CC.Security.Services.PermissionsService.GetPermissionsFor(CC.Security.IUser)">
+            <summary>
+            Gets the permissions for the specified user
+            </summary>
+            <param name="user">The user.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Services.PermissionsService.GetPermissionsFor(CC.Security.Model.UsersGroup)">
+            <summary>
+            Gets the permissions for the specified usergroup
+            </summary>
+            <param name="userGroup">The usersGroup.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Services.PermissionsService.GetGlobalPermissionsFor(CC.Security.IUser,System.String)">
+            <summary>
+            Gets the permissions for the specified entity
+            </summary>
+            <param name="user">The user.</param>
+            <param name="operationName">Name of the operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Services.PermissionsService.GetPermission(System.Int32)">
+            <summary>
+            RH 4/9/12
+            Gets permissions By Permission id
+            </summary>
+            <param name="permissionId">Guid EntityId for Permission </param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Services.PermissionsService.GetPermissionsFor(System.String)">
+            <summary>
+            Gets all permissions for the specified operation
             </summary>
             <param name="operationName">Name of the operation.</param>
-            <remarks>
-            Assumes that there is a '/' in the string
-            </remarks>
-        </member>
-        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[],System.String)">
-            <summary>
-            Joins the names of all the specified entities.
-            </summary>
-            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
-            <param name="entities">The entities.</param>
-            <param name="separator">The separator.</param>
             <returns></returns>
         </member>
-        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[])">
+        <member name="T:CC.Security.IUser">
             <summary>
-            Joins the names of all the specified entities.
-            </summary>
-            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
-            <param name="entities">The entities.</param>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.Security">
-            <summary>
-            This class allows to configure the security system
+            Provide a way to get the security information from a user instance.
+            Used to separate the domain model's user from the requirements of the 
+            security systems
             </summary>
         </member>
-        <member name="M:CC.Security.Security.GetSecurityKeyProperty(System.Type)">
+        <member name="P:CC.Security.IUser.EntityId">
             <summary>
-            Gets the security key property for the specified entity type
+            user id
             </summary>
-            <param name="entityType">Type of the entity.</param>
-            <returns></returns>
         </member>
-        <member name="M:CC.Security.Security.Configure``1(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
+        <member name="P:CC.Security.IUser.SecurityInfo">
             <summary>
-             Setup NHibernate to include Rhino Security configuration
+            Gets or sets the security info for this user
             </summary>
+            <value>The security info.</value>
         </member>
         <member name="T:CC.Security.SecurityInfo">
             <summary>
@@ -192,6 +295,21 @@
             Gets the name.
             </summary>
             <value>The name.</value>
+        </member>
+        <member name="T:CC.Security.SecurityKeyType">
+            <summary>
+            What type the security key is
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityKeyType.Type">
+            <summary>
+            A type
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityKeyType.Instance">
+            <summary>
+            An instance
+            </summary>
         </member>
         <member name="T:CC.Security.Services.AuthorizationService">
             <summary>
@@ -253,38 +371,11 @@
             <param name="operation">The operation.</param>
             <returns></returns>
         </member>
-        <member name="T:CC.Security.TextAreaAttribute">
+        <member name="T:CC.Security.Services.AuthorizationRepository">
             <summary>
-            
+            Allows to edit the security information of the 
+            system
             </summary>
-        </member>
-        <member name="T:CC.Security.Model.Operation">
-            <summary>
-            Represent an operation in the system
-            </summary>
-        </member>
-        <member name="M:CC.Security.Model.Operation.#ctor">
-            <summary>
-             Create instance of <c>Operation</c>
-            </summary>
-        </member>
-        <member name="P:CC.Security.Model.Operation.Comment">
-            <summary>
-            Gets or sets the comment for this operation
-            </summary>
-            <value>The comment.</value>
-        </member>
-        <member name="P:CC.Security.Model.Operation.Parent">
-            <summary>
-            Gets or sets the parent of this operation
-            </summary>
-            <value>The parent.</value>
-        </member>
-        <member name="P:CC.Security.Model.Operation.Children">
-            <summary>
-            Gets or sets the children of this operation
-            </summary>
-            <value>The children.</value>
         </member>
         <member name="T:CC.Security.Interfaces.IAuthorizationRepository">
             <summary>
@@ -433,11 +524,11 @@
             <param name="usersGroup"></param>
             <returns></returns>
         </member>
-        <member name="T:CC.Security.Services.AuthorizationRepository">
+        <member name="M:CC.Security.Interfaces.IAuthorizationRepository.DetachUserFromAllGroups(CC.Security.IUser)">
             <summary>
-            Allows to edit the security information of the 
-            system
+            Removes the user from all groups
             </summary>
+            <param name="user">The user.</param>
         </member>
         <member name="M:CC.Security.Services.AuthorizationRepository.#ctor(NHibernate.ISession)">
             <summary>
@@ -567,6 +658,12 @@
             <param name="user">The user.</param>
             <param name="usersGroupName">Name of the users group.</param>
         </member>
+        <member name="M:CC.Security.Services.AuthorizationRepository.DetachUserFromAllGroups(CC.Security.IUser)">
+            <summary>
+            Removes the user from all groups
+            </summary>
+            <param name="user">The user.</param>
+        </member>
         <member name="M:CC.Security.Services.AuthorizationRepository.RemoveUser(CC.Security.IUser)">
             <summary>
             Removes the user from rhino security.
@@ -582,6 +679,11 @@
             Removes the specified permission.
             </summary>
             <param name="permission">The permission.</param>
+        </member>
+        <member name="T:CC.Security.Services.PermissionsBuilderService">
+            <summary>
+            Allow to define permissions using a fluent interface
+            </summary>
         </member>
         <member name="T:CC.Security.Interfaces.IPermissionsBuilderService">
             <summary>
@@ -633,77 +735,6 @@
             Save Permission with out using fluent interface
             </summary>
             <param name="permission">The permission.</param>
-        </member>
-        <member name="T:CC.Security.Services.SecurityCriterions">
-            <summary>
-            A factory for common DetachedCriteria.
-            </summary>
-        </member>
-        <member name="T:CC.Security.Impl.MappingRewriting.UserMapper">
-            <summary>
-            Map <seealso cref="T:CC.Security.IUser"/> to the domain model implementation of the User entity.
-            </summary>
-        </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.#ctor(NHibernate.Cfg.Configuration,System.Type)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.UserMapper"/> class.
-            </summary>
-            <param name="cfg">The NHibernate configuration.</param>
-            <param name="userType">Type of the user.</param>
-        </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.Map">
-            <summary>
-            Modify the configuration so it would set all the references to <see cref="T:CC.Security.IUser"/>
-            to userEntityName.
-            </summary>
-        </member>
-        <member name="T:CC.Security.Interfaces.IPermissionsService">
-            <summary>
-            Allow to retrieve and remove permissions
-            on users, user groups, entities groups and entities.
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.IUser)">
-            <summary>
-            Gets the permissions for the specified user
-            </summary>
-            <param name="user">The user.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetGlobalPermissionsFor(CC.Security.IUser,System.String)">
-            <summary>
-            Gets the permissions for the specified entity
-            </summary>
-            <param name="user">The user.</param>
-            <param name="operationName">Name of the operation.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(System.String)">
-            <summary>
-            Gets all permissions for the specified operation
-            </summary>
-            <param name="operationName">Name of the operation.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.Model.UsersGroup)">
-            <summary>
-            Gets the permissions for the specified usergroup
-            </summary>
-            <param name="userGroup">The usersGroup.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermission(System.Int32)">
-            <summary>
-            RH 4/9/12
-            Gets permissions By Permission id
-            </summary>
-            <param name="permissionId">Guid EntityId for Permission </param>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.Services.PermissionsBuilderService">
-            <summary>
-            Allow to define permissions using a fluent interface
-            </summary>
         </member>
         <member name="M:CC.Security.Services.PermissionsBuilderService.#ctor(NHibernate.ISession,CC.Security.Interfaces.IAuthorizationRepository)">
             <summary>
@@ -765,28 +796,6 @@
             Builds a permission
             </summary>
         </member>
-        <member name="T:CC.Security.Interfaces.IPermissionBuilder">
-            <summary>
-            Save the created permission
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Description(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="description">the description for this permission</param>
-            <returns>IPermissionBuilder</returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Save">
-            <summary>
-            Save the created permission
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Build">
-            <summary>
-            Builds a permission without saving
-            </summary>
-        </member>
         <member name="T:CC.Security.Interfaces.IForPermissionBuilder">
             <summary>
             Define who this permission is for
@@ -811,17 +820,6 @@
             Set the users group that this permission is built for
             </summary>
             <param name="usersGroupName">Name of the users group.</param>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.Interfaces.IOnPermissionBuilder">
-            <summary>
-            Define who this permission is on
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IOnPermissionBuilder.OnEverything">
-            <summary>
-            Set this permission to be application to everything
-            </summary>
             <returns></returns>
         </member>
         <member name="T:CC.Security.Interfaces.ILevelPermissionBuilder">
@@ -938,6 +936,109 @@
             <param name="format">The format.</param>
             <param name="args">The args.</param>
         </member>
+        <member name="T:CC.Security.Impl.MappingRewriting.UserMapper">
+            <summary>
+            Map <seealso cref="T:CC.Security.IUser"/> to the domain model implementation of the User entity.
+            </summary>
+        </member>
+        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.#ctor(NHibernate.Cfg.Configuration,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.UserMapper"/> class.
+            </summary>
+            <param name="cfg">The NHibernate configuration.</param>
+            <param name="userType">Type of the user.</param>
+        </member>
+        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.Map">
+            <summary>
+            Modify the configuration so it would set all the references to <see cref="T:CC.Security.IUser"/>
+            to userEntityName.
+            </summary>
+        </member>
+        <member name="T:CC.Security.SecurityTableStructure">
+            <summary>
+            A flag that determains how the security tables should be treated.
+            In a separate schema or using a naming convention.
+            The default is to put them in a separate schema.
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityTableStructure.Schema">
+            <summary>
+            Use a "security" schema
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityTableStructure.Prefix">
+            <summary>
+            Use a "security_" prefix
+            </summary>
+        </member>
+        <member name="T:CC.Security.Model.Operation">
+            <summary>
+            Represent an operation in the system
+            </summary>
+        </member>
+        <member name="T:CC.Security.Model.NamedEntity`1">
+            <summary>
+            An entity with a name
+            </summary>
+        </member>
+        <member name="M:CC.Security.Model.NamedEntity`1.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="P:CC.Security.Model.NamedEntity`1.Name">
+            <summary>
+            Gets or sets the name of this entity.
+            </summary>
+            <value>The name.</value>
+            <remarks>
+            The name can be set only on creation, and is not changed
+            afterward.
+            </remarks>
+        </member>
+        <member name="M:CC.Security.Model.Operation.#ctor">
+            <summary>
+             Create instance of <c>Operation</c>
+            </summary>
+        </member>
+        <member name="P:CC.Security.Model.Operation.Comment">
+            <summary>
+            Gets or sets the comment for this operation
+            </summary>
+            <value>The comment.</value>
+        </member>
+        <member name="P:CC.Security.Model.Operation.Parent">
+            <summary>
+            Gets or sets the parent of this operation
+            </summary>
+            <value>The parent.</value>
+        </member>
+        <member name="P:CC.Security.Model.Operation.Children">
+            <summary>
+            Gets or sets the children of this operation
+            </summary>
+            <value>The children.</value>
+        </member>
+        <member name="T:CC.Security.Security">
+            <summary>
+            This class allows to configure the security system
+            </summary>
+        </member>
+        <member name="M:CC.Security.Security.GetSecurityKeyProperty(System.Type)">
+            <summary>
+            Gets the security key property for the specified entity type
+            </summary>
+            <param name="entityType">Type of the entity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Security.Configure``1(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
+            <summary>
+             Setup NHibernate to include Rhino Security configuration
+            </summary>
+        </member>
         <member name="T:CC.Security.Model.UsersGroup">
             <summary>
             A named group for users, which we 
@@ -984,74 +1085,6 @@
             Gets or sets the Description of this users group
             </summary>
             <value>The Description.</value>
-        </member>
-        <member name="T:CC.Security.Services.PermissionsService">
-            <summary>
-            Allow to retrieve and remove permissions
-            on users, user groups, entities groups and entities.
-            </summary>
-        </member>
-        <member name="M:CC.Security.Services.PermissionsService.#ctor(CC.Security.Interfaces.IAuthorizationRepository,NHibernate.ISession)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.Services.PermissionsService"/> class.
-            </summary>
-            <param name="authorizationRepository">The authorization editing service.</param>
-            <param name="session">The NHibernate session</param>
-        </member>
-        <member name="M:CC.Security.Services.PermissionsService.GetPermissionsFor(CC.Security.IUser)">
-            <summary>
-            Gets the permissions for the specified user
-            </summary>
-            <param name="user">The user.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Services.PermissionsService.GetPermissionsFor(CC.Security.Model.UsersGroup)">
-            <summary>
-            Gets the permissions for the specified usergroup
-            </summary>
-            <param name="userGroup">The usersGroup.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Services.PermissionsService.GetGlobalPermissionsFor(CC.Security.IUser,System.String)">
-            <summary>
-            Gets the permissions for the specified entity
-            </summary>
-            <param name="user">The user.</param>
-            <param name="operationName">Name of the operation.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Services.PermissionsService.GetPermission(System.Int32)">
-            <summary>
-            RH 4/9/12
-            Gets permissions By Permission id
-            </summary>
-            <param name="permissionId">Guid EntityId for Permission </param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Services.PermissionsService.GetPermissionsFor(System.String)">
-            <summary>
-            Gets all permissions for the specified operation
-            </summary>
-            <param name="operationName">Name of the operation.</param>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.IUser">
-            <summary>
-            Provide a way to get the security information from a user instance.
-            Used to separate the domain model's user from the requirements of the 
-            security systems
-            </summary>
-        </member>
-        <member name="P:CC.Security.IUser.EntityId">
-            <summary>
-            user id
-            </summary>
-        </member>
-        <member name="P:CC.Security.IUser.SecurityInfo">
-            <summary>
-            Gets or sets the security info for this user
-            </summary>
-            <value>The security info.</value>
         </member>
         <member name="T:CC.Security.Properties.Resources">
             <summary>
@@ -1161,66 +1194,45 @@
             </code>
             </example>
         </member>
-        <member name="T:CC.Security.Impl.MappingRewriting.SchemaChanger">
+        <member name="T:CC.Security.Impl.Util.Strings">
             <summary>
-            Modify the NH configuration to set the correct schema
+            String utility methods
             </summary>
         </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.#ctor(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
+        <member name="M:CC.Security.Impl.Util.Strings.GetParentOperationName(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.SchemaChanger"/> class.
+            Gets the name of the parent operation.
             </summary>
-            <param name="cfg">The NHibernte configuration.</param>
-            <param name="tableStructure">The table structure.</param>
+            <param name="operationName">Name of the operation.</param>
+            <remarks>
+            Assumes that there is a '/' in the string
+            </remarks>
         </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.Change">
+        <member name="M:CC.Security.Impl.Util.Strings.GetHierarchicalOperationNames(System.String)">
             <summary>
-            Modify the configuration so it would set the schema or prefix based on the selected
-            table structure
+            Gets the names of all the parent operations (including the current one)
             </summary>
+            <param name="operationName">Name of the operation.</param>
+            <remarks>
+            Assumes that there is a '/' in the string
+            </remarks>
         </member>
-        <member name="T:CC.Security.Model.Permission">
+        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[],System.String)">
             <summary>
-            Represent a permission on the system, allow (or denying) 
-            [operation] for [someone] on [something]
+            Joins the names of all the specified entities.
             </summary>
+            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
+            <param name="entities">The entities.</param>
+            <param name="separator">The separator.</param>
+            <returns></returns>
         </member>
-        <member name="P:CC.Security.Model.Permission.Operation">
+        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[])">
             <summary>
-            Gets or sets the operation this permission applies to
+            Joins the names of all the specified entities.
             </summary>
-            <value>The operation.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Allow">
-            <summary>
-            Gets or sets a value indicating whether this <see cref="T:CC.Security.Model.Permission"/> is allowing 
-            or denying the operation.
-            </summary>
-            <value><c>true</c> if allow; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.User">
-            <summary>
-            Gets or sets the user this permission belongs to.
-            </summary>
-            <value>The user.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.UsersGroup">
-            <summary>
-            Gets or sets the users group this permission belongs to
-            </summary>
-            <value>The users group.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Level">
-            <summary>
-            Gets or sets the level of this permission
-            </summary>
-            <value>The level.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Description">
-            <summary>
-            Gets or sets the Description of this permission
-            </summary>
-            <value>The Description.</value>
+            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
+            <param name="entities">The entities.</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

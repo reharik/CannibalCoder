@@ -80,6 +80,12 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y HtmlTags.dll ..\..\..\..\KnowYourTurf\lib\
+xcopy /y HtmlTags.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y HtmlTags.dll ..\..\..\..\MethodFitness\lib\
+xcopy /y HtmlTags.pdb ..\..\..\..\MethodFitnesslib\</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

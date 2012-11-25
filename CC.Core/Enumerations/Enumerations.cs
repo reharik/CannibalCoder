@@ -10,6 +10,7 @@ namespace CC.Core.Enumerations
     {
         public static readonly ValidationRule Empty = new ValidationRule { IsActive = false, Key = "" };
         public static readonly ValidationRule Required = new ValidationRule { IsActive = true, Key = "required" };
+        public static readonly ValidationRule FileRequired = new ValidationRule { IsActive = true, Key = "fileRequired" };
         public static readonly ValidationRule Digits = new ValidationRule { IsActive = true, Key = "digits" };
         public static readonly ValidationRule Range = new ValidationRule { IsActive = true, Key = "range" };
         public static readonly ValidationRule Number = new ValidationRule { IsActive = true, Key = "number" };
