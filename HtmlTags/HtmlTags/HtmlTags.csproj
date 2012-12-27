@@ -83,8 +83,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y HtmlTags.dll ..\..\..\..\KnowYourTurf\lib\
 xcopy /y HtmlTags.pdb ..\..\..\..\KnowYourTurf\lib\
-xcopy /y HtmlTags.dll ..\..\..\..\MethodFitness\lib\
-xcopy /y HtmlTags.pdb ..\..\..\..\MethodFitnesslib\</PostBuildEvent>
+xcopy /y HtmlTags.dll ..\..\..\..\MethodFitness\src\lib\
+xcopy /y HtmlTags.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

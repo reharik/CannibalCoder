@@ -79,9 +79,28 @@ namespace CC.Core.DomainTools
             return _unitOfWork.CurrentSession.Query<ENTITY>();
         }
 
-        public IQueryable<ENTITY> Query<ENTITY>(Expression<Func<ENTITY, bool>> where)
+        public IQueryable<ENTITY> Query<ENTITY>(Expression<Func<ENTITY, bool>> where) 
         {
             return _unitOfWork.CurrentSession.Query<ENTITY>().Where(where);
+        }
+
+        public IEnumerable<ENTITY> ExecuteQueryOver<ENTITY>(QueryOver<ENTITY> query) where ENTITY : class, IPersistableObject
+        {
+            return query.GetExecutableQueryOver(_unitOfWork.CurrentSession).List();
+        }
+
+        public IFutureValue<ENTITY> CreateQueryOverFuture<ENTITY>(QueryOver<ENTITY> query) where ENTITY : class, IPersistableObject
+        {
+            return query.GetExecutableQueryOver(_unitOfWork.CurrentSession).FutureValue();
+        }
+
+        public IEnumerable<ENTITY> ExecuteSproc<ENTITY>()
+        {
+            return _unitOfWork.CurrentSession
+                .GetNamedQuery("GetTrainerSessions")
+                .SetInt32("trainerId", 1)
+                .SetDateTime("appDate", DateTime.Now)
+                .List<ENTITY>().ToList();
         }
 
         public T FindBy<T>(Expression<Func<T, bool>> where)

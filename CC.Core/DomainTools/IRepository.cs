@@ -22,6 +22,7 @@ namespace CC.Core.DomainTools
             where ENTITY : IPersistableObject;
 
         IQueryable<T> Query<T>(Expression<Func<T, bool>> where);
+        IEnumerable<ENTITY> ExecuteQueryOver<ENTITY>(QueryOver<ENTITY> query) where ENTITY : class, IPersistableObject;
 
         T FindBy<T>(Expression<Func<T, bool>> where);
 
@@ -43,5 +44,7 @@ namespace CC.Core.DomainTools
         void DisableFilter(string FilterName);
         void EnableFilter(string FilterName, string field, object value);
         IUnitOfWork UnitOfWork { get; set; }
+        IFutureValue<ENTITY> CreateQueryOverFuture<ENTITY>(QueryOver<ENTITY> query) where ENTITY : class, IPersistableObject;
+        IEnumerable<ENTITY> ExecuteSproc<ENTITY>();
     }
 }
