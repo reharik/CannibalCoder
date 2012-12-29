@@ -196,7 +196,7 @@ namespace CC.Core.Enumerations
         public static readonly Time NineFourtyFiveAM = new Time { IsActive = true, Key = "9:45 AM", Index = 40 };
         public static readonly Time TenAM = new Time { IsActive = true, Key = "10:00 AM", Index = 41 };
         public static readonly Time TenFifteenAM = new Time { IsActive = true, Key = "10:15 AM", Index = 42 };
-        public static readonly Time TenThirtyAM = new Time { IsActive = true, Key = "11:30 AM", Index = 43 };
+        public static readonly Time TenThirtyAM = new Time { IsActive = true, Key = "10:30 AM", Index = 43 };
         public static readonly Time TenFourtyFiveAM = new Time { IsActive = true, Key = "10:45 AM", Index = 44 };
         public static readonly Time ElevinAM = new Time { IsActive = true, Key = "11:00 AM", Index = 45 };
         public static readonly Time ElevinFifteenAM = new Time { IsActive = true, Key = "11:15 AM", Index = 46 };
@@ -245,7 +245,7 @@ namespace CC.Core.Enumerations
         public static readonly Time NineFourtyFivePM = new Time { IsActive = true, Key = "9:45 PM", Index = 88 };
         public static readonly Time TenPM = new Time { IsActive = true, Key = "10:00 PM", Index = 89 };
         public static readonly Time TenFifteenPM = new Time { IsActive = true, Key = "10:15 PM", Index = 90 };
-        public static readonly Time TenThirtyPM = new Time { IsActive = true, Key = "11:30 PM", Index = 91 };
+        public static readonly Time TenThirtyPM = new Time { IsActive = true, Key = "10:30 PM", Index = 91 };
         public static readonly Time TenFourtyFivePM = new Time { IsActive = true, Key = "10:45 PM", Index = 92 };
         public static readonly Time ElevinPM = new Time { IsActive = true, Key = "11:00 PM", Index = 93 };
         public static readonly Time ElevinFifteenPM = new Time { IsActive = true, Key = "11:15 PM", Index = 94 };

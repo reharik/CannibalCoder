@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Web.Script.Serialization;
 using CC.Core.Domain;
 using CC.Core.DomainTools;
+using CC.Core.Html.Grid;
 
 namespace CC.Core.Services
 {
@@ -12,7 +13,7 @@ namespace CC.Core.Services
     {
         IQueryable<ENTITY> PerformQuery<ENTITY>(string json = null,
                                                 Expression<Func<ENTITY, bool>> extraFilters = null,
-                                                bool isNullCheck = false) where ENTITY : IPersistableObject;
+                                                bool isNullCheck = false) where ENTITY : IGridEnabledClass;
 
         Expression<Func<ENTITY, bool>> PrepareExpression<ENTITY>(string json,
                                                                  Expression<Func<ENTITY, bool>> extraFilters = null);
@@ -35,7 +36,7 @@ namespace CC.Core.Services
 
         public IQueryable<ENTITY> PerformQuery<ENTITY>(string json = null,
                                                         Expression<Func<ENTITY, bool>> extraFilters = null,
-                                                        bool isNullCheck = false) where ENTITY : IPersistableObject
+                                                        bool isNullCheck = false) where ENTITY : IGridEnabledClass
         {
             var expression = PrepareExpression(json, extraFilters);
             return expression == null ? _repository.Query<ENTITY>() : _repository.Query(expression);

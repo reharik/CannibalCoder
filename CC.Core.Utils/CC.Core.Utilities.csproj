@@ -65,8 +65,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y CC.Core.Utilities.dll ..\..\..\..\KnowYourTurf\lib\
 xcopy /y CC.Core.Utilities.pdb ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.Core.Utilities.dll ..\..\..\..\MethodFitness\lib\
-xcopy /y CC.Core.Utilities.pdb ..\..\..\..\MethodFitness\lib\</PostBuildEvent>
+xcopy /y CC.Core.Utilities.dll ..\..\..\..\MethodFitness\src\lib\
+xcopy /y CC.Core.Utilities.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
