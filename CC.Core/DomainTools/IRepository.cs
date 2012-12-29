@@ -16,19 +16,19 @@ namespace CC.Core.DomainTools
             where ENTITY : IPersistableObject;
 
         ENTITY Load<ENTITY>(int id)
-            where ENTITY : IPersistableObject;
+            where ENTITY : IReadableObject;
 
         IQueryable<ENTITY> Query<ENTITY>()
-            where ENTITY : IPersistableObject;
+            where ENTITY : IReadableObject;
 
         IQueryable<T> Query<T>(Expression<Func<T, bool>> where);
-        IEnumerable<ENTITY> ExecuteQueryOver<ENTITY>(QueryOver<ENTITY> query) where ENTITY : class, IPersistableObject;
+        IEnumerable<ENTITY> ExecuteQueryOver<ENTITY>(QueryOver<ENTITY> query) where ENTITY : IReadableObject;
 
         T FindBy<T>(Expression<Func<T, bool>> where);
 
-        T Find<T>(int id) where T : IPersistableObject;
+        T Find<T>(int id) where T : IReadableObject;
 
-        IEnumerable<T> FindAll<T>() where T : IPersistableObject;
+        IEnumerable<T> FindAll<T>() where T : IReadableObject;
 
         void Delete<ENTITY>(ENTITY entity) where ENTITY : IPersistableObject;
 
@@ -38,13 +38,13 @@ namespace CC.Core.DomainTools
         void Commit();
         void Rollback();
         void Initialize();
-        IList<ENTITY> ExecuteCriteria<ENTITY>(DetachedCriteria criteria) where ENTITY : IPersistableObject;
+        IList<ENTITY> ExecuteCriteria<ENTITY>(DetachedCriteria criteria) where ENTITY : IReadableObject;
 
         IList<T> GetNamedQuery<T>(string sprocName);
         void DisableFilter(string FilterName);
         void EnableFilter(string FilterName, string field, object value);
         IUnitOfWork UnitOfWork { get; set; }
-        IFutureValue<ENTITY> CreateQueryOverFuture<ENTITY>(QueryOver<ENTITY> query) where ENTITY : class, IPersistableObject;
+        IFutureValue<ENTITY> CreateQueryOverFuture<ENTITY>(QueryOver<ENTITY> query) where ENTITY : IReadableObject;
         IEnumerable<ENTITY> ExecuteSproc<ENTITY>();
     }
 }
