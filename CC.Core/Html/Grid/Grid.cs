@@ -54,10 +54,12 @@ namespace CC.Core.Html.Grid
 
         public GridDefinition GetGridDefinition(string url, IUser user)
         {
+            Grid<T> buildGrid = BuildGrid();
             return new GridDefinition
             {
                 Url = url,
-                Columns = BuildGrid().GetGridColumns(user)
+                Columns = buildGrid.GetGridColumns(user),
+                SearchField = GridBuilder.SearchField
             };
         }
 
