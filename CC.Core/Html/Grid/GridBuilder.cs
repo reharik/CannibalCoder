@@ -14,7 +14,6 @@ namespace CC.Core.Html.Grid
         List<IGridColumn> columns { get; }
         IList<IDictionary<string, string>> ToGridColumns(IUser user);
         string[] ToGridRow(ENTITY item, IUser user, IEnumerable<Action<IGridColumn, ENTITY>> modifications, string gridName = "");
-        string SearchField { get; set; }
         DisplayColumn<ENTITY> DisplayFor(Expression<Func<ENTITY, object>> expression);
         HiddenColumn<ENTITY> HideColumnFor(Expression<Func<ENTITY, object>> expression);
         ImageColumn<ENTITY> ImageColumn();
@@ -22,6 +21,7 @@ namespace CC.Core.Html.Grid
         LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "");
         GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression);
         void SetSearchField(Expression<Func<ENTITY, object>> func);
+        string GetSearchField();
     }
 
     public class GridBuilder<ENTITY> : IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
@@ -29,7 +29,7 @@ namespace CC.Core.Html.Grid
         private readonly IAuthorizationService _authorizationService;
         private readonly IInjectableSiteConfig _config;
 
-        public string SearchField { get; set; }
+        private string _searchField;
 
         public GridBuilder(IAuthorizationService authorizationService, IInjectableSiteConfig config)
         {
@@ -105,7 +105,12 @@ namespace CC.Core.Html.Grid
         public void SetSearchField(Expression<Func<ENTITY, object>> expression)
         {
             var name = LocalizationManager.GetLocalString(expression);
-            SearchField = name;
+            this._searchField = name;
+        }
+
+        public string GetSearchField()
+        {
+            return _searchField;
         }
 
         public COLUMN AddColumn<COLUMN>(COLUMN column) where COLUMN : ColumnBase<ENTITY>
