@@ -88,8 +88,11 @@ namespace CC.Core.Services
         {
             var mapPath = _sessionContext.MapPath(url);
             File.Delete(mapPath);
-            File.Delete(mapPath.AddImageSizeToName("thumb"));
-            File.Delete(mapPath.AddImageSizeToName("large"));
+            if (url.EndsWith(".jpg"))
+            {
+                File.Delete(mapPath.AddImageSizeToName("thumb"));
+                File.Delete(mapPath.AddImageSizeToName("large"));
+            }
         }
 
         public void GenerateVersions(HttpPostedFile file, string pathForFile, string origFileName)

@@ -353,6 +353,19 @@ namespace CC.Security.Services
 			group.Users.Remove(user);
 		}
 
+        /// <summary>
+        /// Removes the user from all groups
+        /// </summary>
+        /// <param name="user">The user.</param>
+        public void DetachUserFromAllGroups(IUser user)
+        {
+            var usersGroups = GetAssociatedUsersGroupFor(user);
+            foreach (var group in usersGroups)
+            {
+                group.Users.Remove(user);
+            }
+        }
+
 		/// <summary>
 		/// Removes the user from rhino security.
 		/// This does NOT delete the user itself, merely reset all the

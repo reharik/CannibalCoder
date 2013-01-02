@@ -69,6 +69,7 @@
     <Compile Include="CoreViewModelAndDTOs\PhotoDto.cs" />
     <Compile Include="CoreViewModelAndDTOs\TokenInputDto.cs" />
     <Compile Include="CoreViewModelAndDTOs\ViewModel.cs" />
+    <Compile Include="CustomAttributes\ValidateFileNotEmptyAttribute.cs" />
     <Compile Include="CustomAttributes\LinkDisplayAttribute.cs" />
     <Compile Include="CustomAttributes\LogAttribute.cs" />
     <Compile Include="CustomAttributes\TextAreaAttribute.cs" />
@@ -180,9 +181,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y $(TargetFileName) $(SolutionDir)\lib
-xcopy /y $(TargetName).pdb $(SolutionDir)\lib
-</PostBuildEvent>
+    <PostBuildEvent>xcopy /y CC.Core.dll ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Core.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Core.dll ..\..\..\..\MethodFitness\src\lib\
+xcopy /y CC.Core.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

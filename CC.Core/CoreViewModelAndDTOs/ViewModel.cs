@@ -12,6 +12,7 @@ namespace CC.Core.CoreViewModelAndDTOs
         public int RootId { get; set; }
         public string _Title { get; set; }
         public string addUpdateUrl { get; set; }
+        public string displayUrl { get; set; }
         public string _saveUrl { get; set; }
         public string DateCreated { get; set; }
         public string Var { get; set; }
@@ -28,7 +29,5 @@ namespace CC.Core.CoreViewModelAndDTOs
         public string deleteMultipleUrl { get; set; }
         public GridDefinition gridDef { get; set; }
         public List<string> headerButtons { get; set; }
-
-        public string searchField { get; set; }
     }
 }

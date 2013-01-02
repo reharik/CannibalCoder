@@ -150,8 +150,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y $(TargetFileName) $(SolutionDir)\lib
-xcopy /y $(TargetName).pdb $(SolutionDir)\lib</PostBuildEvent>
+    <PostBuildEvent>xcopy /y CC.Security.dll ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Security.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Security.dll ..\..\..\..\MethodFitness\src\lib\
+xcopy /y CC.Security.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

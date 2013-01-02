@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CC.Core.CoreViewModelAndDTOs;
+using CC.Core.Domain;
 using CC.Security;
 
 namespace CC.Core.Html.Grid
@@ -53,10 +54,12 @@ namespace CC.Core.Html.Grid
 
         public GridDefinition GetGridDefinition(string url, IUser user)
         {
+            Grid<T> buildGrid = BuildGrid();
             return new GridDefinition
             {
                 Url = url,
-                Columns = BuildGrid().GetGridColumns(user)
+                Columns = buildGrid.GetGridColumns(user),
+                SearchField = GridBuilder.SearchField
             };
         }
 
@@ -67,9 +70,9 @@ namespace CC.Core.Html.Grid
             var model = new GridItemsViewModel
             {
                 items = BuildGrid().GetGridRows(pageAndSort.Items, user),
-                page = pageAndSort.Page,
+//                page = pageAndSort.Page,
                 records = pageAndSort.TotalRows,
-                total = pageAndSort.TotalPages
+//                total = pageAndSort.TotalPages
             };
             return model;
         }
@@ -80,7 +83,7 @@ namespace CC.Core.Html.Grid
         }
     }
 
-    public interface IGridEnabledClass
+    public interface IGridEnabledClass:IReadableObject
     {
         int EntityId { get; set; }
     }

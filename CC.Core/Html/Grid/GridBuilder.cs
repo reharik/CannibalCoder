@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CC.Core.Localization;
 using CC.Core.Services;
+using CC.Core.Utilities;
 using CC.Security;
 using CC.Security.Interfaces;
 
@@ -12,19 +14,22 @@ namespace CC.Core.Html.Grid
         List<IGridColumn> columns { get; }
         IList<IDictionary<string, string>> ToGridColumns(IUser user);
         string[] ToGridRow(ENTITY item, IUser user, IEnumerable<Action<IGridColumn, ENTITY>> modifications, string gridName = "");
-
+        string SearchField { get; set; }
         DisplayColumn<ENTITY> DisplayFor(Expression<Func<ENTITY, object>> expression);
         HiddenColumn<ENTITY> HideColumnFor(Expression<Func<ENTITY, object>> expression);
         ImageColumn<ENTITY> ImageColumn();
         ImageButtonColumn<ENTITY> ImageButtonColumn();
         LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "");
         GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression);
+        void SetSearchField(Expression<Func<ENTITY, object>> func);
     }
 
     public class GridBuilder<ENTITY> : IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly IInjectableSiteConfig _config;
+
+        public string SearchField { get; set; }
 
         public GridBuilder(IAuthorizationService authorizationService, IInjectableSiteConfig config)
         {
@@ -53,6 +58,7 @@ namespace CC.Core.Html.Grid
             }
             return cellValues.ToArray();
         }
+
 
         public IList<IDictionary<string, string>> ToGridColumns(IUser user)
         {
@@ -94,6 +100,12 @@ namespace CC.Core.Html.Grid
         public GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression)
         {
             return AddColumn(new GroupingColumn<ENTITY>(expression));
+        }
+
+        public void SetSearchField(Expression<Func<ENTITY, object>> expression)
+        {
+            var name = LocalizationManager.GetLocalString(expression);
+            SearchField = name;
         }
 
         public COLUMN AddColumn<COLUMN>(COLUMN column) where COLUMN : ColumnBase<ENTITY>
@@ -161,5 +173,7 @@ namespace CC.Core.Html.Grid
         public string GridName { get; set; }
         public IList<IDictionary<string, string>> Columns { get; set; }
         public string Title { get; set; }
+        public string SearchField { get; set; }
+        
     }
 }

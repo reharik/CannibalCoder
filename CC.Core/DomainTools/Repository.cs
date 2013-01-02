@@ -53,7 +53,7 @@ namespace CC.Core.DomainTools
             _unitOfWork.CurrentSession.SaveOrUpdate(entity);
         }
 
-        public IEnumerable<T> FindAll<T>() where T : IPersistableObject
+        public IEnumerable<T> FindAll<T>() where T : IReadableObject
         {
             return _unitOfWork.CurrentSession.Query<T>();
         }
@@ -69,19 +69,38 @@ namespace CC.Core.DomainTools
             _unitOfWork.CurrentSession.Delete(target);
         }
 
-        public ENTITY Load<ENTITY>(int id) where ENTITY : IPersistableObject
+        public ENTITY Load<ENTITY>(int id) where ENTITY : IReadableObject
         {
             return _unitOfWork.CurrentSession.Load<ENTITY>(id);
         }
 
-        public IQueryable<ENTITY> Query<ENTITY>() where ENTITY : IPersistableObject
+        public IQueryable<ENTITY> Query<ENTITY>() where ENTITY : IReadableObject
         {
             return _unitOfWork.CurrentSession.Query<ENTITY>();
         }
 
-        public IQueryable<ENTITY> Query<ENTITY>(Expression<Func<ENTITY, bool>> where)
+        public IQueryable<ENTITY> Query<ENTITY>(Expression<Func<ENTITY, bool>> where) 
         {
             return _unitOfWork.CurrentSession.Query<ENTITY>().Where(where);
+        }
+
+        public IEnumerable<ENTITY> ExecuteQueryOver<ENTITY>(QueryOver<ENTITY> query) where ENTITY : IReadableObject
+        {
+            return query.GetExecutableQueryOver(_unitOfWork.CurrentSession).List();
+        }
+
+        public IFutureValue<ENTITY> CreateQueryOverFuture<ENTITY>(QueryOver<ENTITY> query) where ENTITY : IReadableObject
+        {
+            return query.GetExecutableQueryOver(_unitOfWork.CurrentSession).FutureValue();
+        }
+
+        public IEnumerable<ENTITY> ExecuteSproc<ENTITY>()
+        {
+            return _unitOfWork.CurrentSession
+                .GetNamedQuery("GetTrainerSessions")
+                .SetInt32("trainerId", 1)
+                .SetDateTime("appDate", DateTime.Now)
+                .List<ENTITY>().ToList();
         }
 
         public T FindBy<T>(Expression<Func<T, bool>> where)
@@ -89,12 +108,12 @@ namespace CC.Core.DomainTools
             return _unitOfWork.CurrentSession.Query<T>().FirstOrDefault(where);
         }
 
-        public T Find<T>(int id) where T : IPersistableObject
+        public T Find<T>(int id) where T : IReadableObject
         {
             return _unitOfWork.CurrentSession.Get<T>(id);
         }
 
-        public IList<ENTITY> ExecuteCriteria<ENTITY>(DetachedCriteria criteria) where ENTITY : IPersistableObject
+        public IList<ENTITY> ExecuteCriteria<ENTITY>(DetachedCriteria criteria) where ENTITY : IReadableObject
         {
             ICriteria executableCriteria = criteria.GetExecutableCriteria(_unitOfWork.CurrentSession);
             return executableCriteria.List<ENTITY>();

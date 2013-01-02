@@ -152,12 +152,16 @@ namespace CC.Core.Html.CCUI.Builders
             var container = new HtmlTag("div").AddClass("imageInputContainer");
             var imageContainer = new HtmlTag("div").AddClass("imageContainer");
             var name = CCHtmlConventions2.DeriveElementName(request);
-            var thumb = new HtmlTag("img").Attr("data-bind", "attr: { src: " + name + " }").Attr("alt", request.Accessor.FieldName);
+            var thumb = new HtmlTag("img").Attr("data-bind", "attr: { src: " + name + " }").Id("image").Attr("alt", request.Accessor.FieldName);
+            var linkImage = new HtmlTag("img").Attr("src",@"/content/images/document.png").Attr("alt", request.Accessor.FieldName);
+            var link = new HtmlTag("a").Attr("data-bind", "attr: { href: " + name + "} ").Id("link").Attr("target", "_blank");
+            link.Children.Add(linkImage);
             var delete = new HtmlTag("input").Attr("type", "button").AddClass("deleteImage").Attr("value", "     Delete");
 
             var inputContainer = new HtmlTag("div").AddClass("inputContainer");
             var file = new HtmlTag("input").Attr("type", "file").Attr("size", 45).Attr("id", name).Attr("name", name);
             imageContainer.Children.Add(thumb);
+            imageContainer.Children.Add(link);
             imageContainer.Children.Add(delete);
             inputContainer.Children.Add(file);
             container.Children.Add(imageContainer);

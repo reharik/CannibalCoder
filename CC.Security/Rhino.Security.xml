@@ -310,6 +310,12 @@
             <param name="usersGroup"></param>
             <returns></returns>
         </member>
+        <member name="M:CC.Security.Interfaces.IAuthorizationRepository.DetachUserFromAllGroups(CC.Security.IUser)">
+            <summary>
+            Removes the user from all groups
+            </summary>
+            <param name="user">The user.</param>
+        </member>
         <member name="M:CC.Security.Services.AuthorizationRepository.#ctor(NHibernate.ISession)">
             <summary>
             Initializes a new instance of the <see cref="T:CC.Security.Services.AuthorizationRepository"/> class.
@@ -437,6 +443,12 @@
             </summary>
             <param name="user">The user.</param>
             <param name="usersGroupName">Name of the users group.</param>
+        </member>
+        <member name="M:CC.Security.Services.AuthorizationRepository.DetachUserFromAllGroups(CC.Security.IUser)">
+            <summary>
+            Removes the user from all groups
+            </summary>
+            <param name="user">The user.</param>
         </member>
         <member name="M:CC.Security.Services.AuthorizationRepository.RemoveUser(CC.Security.IUser)">
             <summary>
