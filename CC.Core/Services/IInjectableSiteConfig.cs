@@ -15,5 +15,6 @@ namespace CC.Core.Services
         public virtual string ImagesPath { get; set; }
         public virtual string WebSiteRoot { get; set; }
         public virtual string jsApplicationName { get; set; }
+        public virtual string SMTPServer { get; set; }
     }
 }
