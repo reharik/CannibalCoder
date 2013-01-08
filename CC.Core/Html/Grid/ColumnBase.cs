@@ -104,17 +104,6 @@ namespace CC.Core.Html.Grid
             return this;
         }
 
-        public ColumnBase<ENTITY> DefaultSortColumn()
-        {
-            string fullname = propertyAccessor.Name;
-            if (propertyAccessor is PropertyChain)
-            {
-                fullname = propertyAccessor.PropertyNames.Aggregate((current, next) => current + "." + next);
-            }
-            Properties[GridColumnProperties.sortColumn.ToString()] = fullname;
-            return this;
-        }
-
 
         #region IEquatable
 

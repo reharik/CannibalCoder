@@ -21,7 +21,9 @@ namespace CC.Core.Html.Grid
         LinkColumn<ENTITY> LinkColumnFor(Expression<Func<ENTITY, object>> expression, string gridName = "");
         GroupingColumn<ENTITY> GroupingColumnFor(Expression<Func<ENTITY, object>> expression);
         void SetSearchField(Expression<Func<ENTITY, object>> func);
+        void SetDefaultSortColumn(Expression<Func<ENTITY, object>> func);
         string GetSearchField();
+        string GetDefaultSortColumn();
     }
 
     public class GridBuilder<ENTITY> : IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
@@ -30,6 +32,7 @@ namespace CC.Core.Html.Grid
         private readonly IInjectableSiteConfig _config;
 
         private string _searchField;
+        private string _defaultSortColumn;
 
         public GridBuilder(IAuthorizationService authorizationService, IInjectableSiteConfig config)
         {
@@ -108,9 +111,20 @@ namespace CC.Core.Html.Grid
             this._searchField = name;
         }
 
+        public void SetDefaultSortColumn(Expression<Func<ENTITY, object>> expression)
+        {
+            var name = LocalizationManager.GetLocalString(expression);
+            this._defaultSortColumn = name;
+        }
+
         public string GetSearchField()
         {
             return _searchField;
+        }
+
+        public string GetDefaultSortColumn()
+        {
+            return _defaultSortColumn;
         }
 
         public COLUMN AddColumn<COLUMN>(COLUMN column) where COLUMN : ColumnBase<ENTITY>
@@ -179,6 +193,6 @@ namespace CC.Core.Html.Grid
         public IList<IDictionary<string, string>> Columns { get; set; }
         public string Title { get; set; }
         public string SearchField { get; set; }
-        
+        public string DefaultSortColumn { get; set; }
     }
 }

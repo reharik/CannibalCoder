@@ -59,7 +59,8 @@ namespace CC.Core.Html.Grid
             {
                 Url = url,
                 Columns = buildGrid.GetGridColumns(user),
-                SearchField = GridBuilder.GetSearchField()
+                SearchField = GridBuilder.GetSearchField(),
+                DefaultSortColumn = GridBuilder.GetDefaultSortColumn()
             };
         }
 
