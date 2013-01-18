@@ -147,6 +147,17 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             return this;
         }
 
+        public ViewExpression<VIEWMODEL> Size(string cssClass)
+        {
+            if (_rootClasses == null)
+            {
+                _rootClasses = new List<string>();
+            }
+          
+            _rootClasses.Add("span"+cssClass);
+            return this;
+        }
+
         public ViewExpression<VIEWMODEL> AddClassToLabelRoot(string cssClass)
         {
             _labelRootClass = cssClass;

@@ -42,13 +42,7 @@ namespace CC.Core.Html.CCUI.HtmlConventionRegistries
             Displays.Builder<DateDisplayBuilder2>();
             Displays.Builder<TimeDisplayBuilder2>();
             Displays.Builder<ImageFileDisplayBuilder>();
-            Displays.Always.BuildBy(req =>
-                                        {
-                                            var placeHolder = new HtmlTag("span").Text(" ");
-                                            placeHolder.Children.Add(new HtmlTag("span").Attr("data-bind",
-                                                                                              "text:" + DeriveElementName(req)));
-                                            return placeHolder;
-                                        });
+            Displays.Always.BuildBy(req => new HtmlTag("span").Attr("data-bind", "text:" + DeriveElementName(req)));
         }
 
         public virtual void EditorsChain()

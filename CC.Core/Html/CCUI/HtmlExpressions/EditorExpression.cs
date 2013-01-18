@@ -260,6 +260,17 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
             _dropdownWithItems = enumerable;
             return this;
         }
+
+        public EditorExpression<VIEWMODEL> Size(string cssClass)
+        {
+            if (_rootClasses == null)
+            {
+                _rootClasses = new List<string>();
+            }
+            _rootClasses.Add("span"+cssClass);
+            return this;
+        }
+
         public EditorExpression<VIEWMODEL> AddClassToRoot(string cssClass)
         {
             if (_rootClasses == null)
