@@ -121,6 +121,7 @@ namespace CC.Core.Enumerations
     public class AreaName : Enumeration
     {
         public static readonly AreaName Empty = new AreaName { IsActive = false, Key = "" };
+        public static readonly AreaName Permissions = new AreaName { IsActive = false, Key = "Permissions" };
     }
 
     [Serializable]

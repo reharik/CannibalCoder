@@ -83,6 +83,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y HtmlTags.dll ..\..\..\..\KnowYourTurf\lib\
 xcopy /y HtmlTags.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y HtmlTags.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
+xcopy /y HtmlTags.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
 xcopy /y HtmlTags.dll ..\..\..\..\MethodFitness\src\lib\
 xcopy /y HtmlTags.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>

@@ -152,6 +152,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y CC.Security.dll ..\..\..\..\KnowYourTurf\lib\
 xcopy /y CC.Security.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Security.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
+xcopy /y CC.Security.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
 xcopy /y CC.Security.dll ..\..\..\..\MethodFitness\src\lib\
 xcopy /y CC.Security.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>

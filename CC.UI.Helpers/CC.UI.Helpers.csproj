@@ -91,6 +91,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y CC.UI.Helpers.dll ..\..\..\..\KnowYourTurf\lib\
 xcopy /y CC.UI.Helpers.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.UI.Helpers.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
+xcopy /y CC.UI.Helpers.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\ib\
 xcopy /y CC.UI.Helpers.dll ..\..\..\..\MethodFitness\src\lib\
 xcopy /y CC.UI.Helpers.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>
