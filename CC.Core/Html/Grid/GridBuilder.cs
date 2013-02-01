@@ -9,6 +9,8 @@ using CC.Security.Interfaces;
 
 namespace CC.Core.Html.Grid
 {
+    using System.Linq;
+
     public interface IGridBuilder<ENTITY> where ENTITY : IGridEnabledClass
     {
         List<IGridColumn> columns { get; }
@@ -107,13 +109,21 @@ namespace CC.Core.Html.Grid
 
         public void SetSearchField(Expression<Func<ENTITY, object>> expression)
         {
-            var name = LocalizationManager.GetLocalString(expression);
+            var name = expression.ToAccessor().Name;
+            if (expression.ToAccessor() is PropertyChain)
+            {
+                name = ((PropertyChain)(expression.ToAccessor())).PropertyNames.Aggregate((current, next) => current + "." + next);
+            }
             this._searchField = name;
         }
 
         public void SetDefaultSortColumn(Expression<Func<ENTITY, object>> expression)
         {
-            var name = LocalizationManager.GetLocalString(expression);
+            var name = expression.ToAccessor().Name;
+            if (expression.ToAccessor() is PropertyChain)
+            {
+                name = ((PropertyChain)(expression.ToAccessor())).PropertyNames.Aggregate((current, next) => current + "." + next);
+            }
             this._defaultSortColumn = name;
         }
 
