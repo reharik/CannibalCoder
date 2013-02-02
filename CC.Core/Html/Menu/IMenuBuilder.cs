@@ -189,5 +189,6 @@ namespace CC.Core.Html.Menu
         public string CssClass { get; set; }
         public string Operation { get; set; }
         public IList<MenuItem> Children { get; set; }
+        public string Operation { get; set; }
     }
 }

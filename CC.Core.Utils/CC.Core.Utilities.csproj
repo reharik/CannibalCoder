@@ -65,6 +65,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y CC.Core.Utilities.dll ..\..\..\..\KnowYourTurf\lib\
 xcopy /y CC.Core.Utilities.pdb ..\..\..\..\KnowYourTurf\lib\
+xcopy /y CC.Core.Utilities.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
+xcopy /y CC.Core.Utilities.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
 xcopy /y CC.Core.Utilities.dll ..\..\..\..\MethodFitness\src\lib\
 xcopy /y CC.Core.Utilities.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
   </PropertyGroup>

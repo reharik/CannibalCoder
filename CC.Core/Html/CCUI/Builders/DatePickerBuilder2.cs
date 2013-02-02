@@ -156,7 +156,7 @@ namespace CC.Core.Html.CCUI.Builders
             var linkImage = new HtmlTag("img").Attr("src",@"/content/images/document.png").Attr("alt", request.Accessor.FieldName);
             var link = new HtmlTag("a").Attr("data-bind", "attr: { href: " + name + "} ").Id("link").Attr("target", "_blank");
             link.Children.Add(linkImage);
-            var delete = new HtmlTag("input").Attr("type", "button").AddClass("deleteImage").Attr("value", "     Delete");
+            var delete = new HtmlTag("input").Attr("type", "button").AddClass("deleteImage").Attr("value", "Delete");
 
             var inputContainer = new HtmlTag("div").AddClass("inputContainer");
             var file = new HtmlTag("input").Attr("type", "file").Attr("size", 45).Attr("id", name).Attr("name", name);
