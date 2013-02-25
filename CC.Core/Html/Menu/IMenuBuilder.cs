@@ -143,13 +143,14 @@ namespace CC.Core.Html.Menu
         {
             var permittedItems = new List<MenuItem>();
             _items.ForEachItem(x =>
-            {
-                var operationName = "/MenuItem/" + x.Text.RemoveWhiteSpace();
-                if (_authorizationService.IsAllowed(user, operationName))
                 {
-                    permittedItems.Add(x);
-                }
-            });
+                    var operationKey = x.Operation.IsNotEmpty() ? x.Operation : x.Text.RemoveWhiteSpace();
+                    var operationName = "/MenuItem/" + operationKey;
+                    if (_authorizationService.IsAllowed(user, operationName))
+                    {
+                        permittedItems.Add(x);
+                    }
+                });
             return permittedItems;
         }
 
@@ -186,7 +187,7 @@ namespace CC.Core.Html.Menu
         public string Text { get; set; }
         public string Url { get; set; }
         public string CssClass { get; set; }
-        public IList<MenuItem> Children { get; set; }
         public string Operation { get; set; }
+        public IList<MenuItem> Children { get; set; }
     }
 }
