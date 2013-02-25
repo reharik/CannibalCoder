@@ -43,6 +43,9 @@ namespace CC.Core.Html.Grid
         }
 
         private List<IGridColumn> _columns = new List<IGridColumn>();
+
+        private string _SortOnProperty;
+
         public List<IGridColumn> columns
         {
             get { return _columns; }
@@ -107,6 +110,7 @@ namespace CC.Core.Html.Grid
             return AddColumn(new GroupingColumn<ENTITY>(expression));
         }
 
+        
         public void SetSearchField(Expression<Func<ENTITY, object>> expression)
         {
             var name = expression.ToAccessor().Name;
@@ -130,6 +134,11 @@ namespace CC.Core.Html.Grid
         public string GetSearchField()
         {
             return _searchField;
+        }
+
+        public string GetSortOnProperty()
+        {
+            return this._SortOnProperty;
         }
 
         public string GetDefaultSortColumn()
