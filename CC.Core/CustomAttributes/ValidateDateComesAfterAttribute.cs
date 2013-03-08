@@ -54,7 +54,7 @@ namespace CC.Core.CustomAttributes
 
         public override bool IsValid(object instance, object fieldValue)
         {
-            object obj = GetFieldOrPropertyValue(instance, propertyToCompare);
+            object obj = Property.GetValue(instance, null);
             if (fieldValue == null) return true;
             if(!(fieldValue is DateTime?) && !(fieldValue is DateTime))
             {
