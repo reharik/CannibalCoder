@@ -34,6 +34,7 @@
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Components.Validator.2.5.0\lib\NET40\Castle.Components.Validator.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="HtmlTags">
       <HintPath>..\HtmlTags\HtmlTags\bin\Debug\HtmlTags.dll</HintPath>

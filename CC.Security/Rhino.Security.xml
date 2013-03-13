@@ -4,52 +4,77 @@
         <name>CC.Security</name>
     </assembly>
     <members>
-        <member name="T:CC.Security.Interfaces.IPermissionsService">
+        <member name="T:CC.Security.Impl.Guard">
             <summary>
-            Allow to retrieve and remove permissions
-            on users, user groups, entities groups and entities.
+            Helper class for guard statements, which allow prettier
+            code for guard clauses
             </summary>
         </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.IUser)">
+        <member name="M:CC.Security.Impl.Guard.Against(System.Boolean,System.String)">
             <summary>
-            Gets the permissions for the specified user
+            Will throw a <see cref="T:System.InvalidOperationException"/> if the assertion
+            is true, with the specificied message.
             </summary>
-            <param name="user">The user.</param>
-            <returns></returns>
+            <param name="assertion">if set to <c>true</c> [assertion].</param>
+            <param name="message">The message.</param>
+            <example>
+            Sample usage:
+            <code>
+            Guard.Against(string.IsNullOrEmpty(name), "Name must have a value");
+            </code>
+            </example>
         </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetGlobalPermissionsFor(CC.Security.IUser,System.String)">
+        <member name="M:CC.Security.Impl.Guard.Against``1(System.Boolean,System.String)">
             <summary>
-            Gets the permissions for the specified entity
+            Will throw exception of type <typeparamref name="TException"/>
+            with the specified message if the assertion is true
             </summary>
-            <param name="user">The user.</param>
-            <param name="operationName">Name of the operation.</param>
-            <returns></returns>
+            <typeparam name="TException"></typeparam>
+            <param name="assertion">if set to <c>true</c> [assertion].</param>
+            <param name="message">The message.</param>
+            <example>
+            Sample usage:
+            <code>
+            <![CDATA[
+            Guard.Against<ArgumentException>(string.IsNullOrEmpty(name), "Name must have a value");
+            ]]>
+            </code>
+            </example>
         </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(System.String)">
+        <member name="T:CC.Security.Impl.MappingRewriting.SchemaChanger">
             <summary>
-            Gets all permissions for the specified operation
+            Modify the NH configuration to set the correct schema
             </summary>
-            <param name="operationName">Name of the operation.</param>
-            <returns></returns>
         </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.Model.UsersGroup)">
+        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.#ctor(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
             <summary>
-            Gets the permissions for the specified usergroup
+            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.SchemaChanger"/> class.
             </summary>
-            <param name="userGroup">The usersGroup.</param>
-            <returns></returns>
+            <param name="cfg">The NHibernte configuration.</param>
+            <param name="tableStructure">The table structure.</param>
         </member>
-        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermission(System.Int32)">
+        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.Change">
             <summary>
-            RH 4/9/12
-            Gets permissions By Permission id
+            Modify the configuration so it would set the schema or prefix based on the selected
+            table structure
             </summary>
-            <param name="permissionId">Guid EntityId for Permission </param>
-            <returns></returns>
         </member>
-        <member name="T:CC.Security.Model.Operation">
+        <member name="T:CC.Security.Impl.MappingRewriting.UserMapper">
             <summary>
-            Represent an operation in the system
+            Map <seealso cref="T:CC.Security.IUser"/> to the domain model implementation of the User entity.
+            </summary>
+        </member>
+        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.#ctor(NHibernate.Cfg.Configuration,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.UserMapper"/> class.
+            </summary>
+            <param name="cfg">The NHibernate configuration.</param>
+            <param name="userType">Type of the user.</param>
+        </member>
+        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.Map">
+            <summary>
+            Modify the configuration so it would set all the references to <see cref="T:CC.Security.IUser"/>
+            to userEntityName.
             </summary>
         </member>
         <member name="T:CC.Security.Model.NamedEntity`1">
@@ -127,163 +152,9 @@
             afterward.
             </remarks>
         </member>
-        <member name="M:CC.Security.Model.Operation.#ctor">
+        <member name="T:CC.Security.Services.SecurityCriterions">
             <summary>
-             Create instance of <c>Operation</c>
-            </summary>
-        </member>
-        <member name="P:CC.Security.Model.Operation.Comment">
-            <summary>
-            Gets or sets the comment for this operation
-            </summary>
-            <value>The comment.</value>
-        </member>
-        <member name="P:CC.Security.Model.Operation.Parent">
-            <summary>
-            Gets or sets the parent of this operation
-            </summary>
-            <value>The parent.</value>
-        </member>
-        <member name="P:CC.Security.Model.Operation.Children">
-            <summary>
-            Gets or sets the children of this operation
-            </summary>
-            <value>The children.</value>
-        </member>
-        <member name="T:CC.Security.SecurityInfo">
-            <summary>
-            Contains the information about the user that
-            rhino security requires.
-            </summary>
-        </member>
-        <member name="M:CC.Security.SecurityInfo.#ctor(System.String,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.SecurityInfo"/> class.
-            </summary>
-            <param name="name">The name.</param>
-            <param name="identifier">The identifier.</param>
-        </member>
-        <member name="P:CC.Security.SecurityInfo.Identifier">
-            <summary>
-            Gets the identifier.
-            </summary>
-            <value>The identifier.</value>
-        </member>
-        <member name="P:CC.Security.SecurityInfo.Name">
-            <summary>
-            Gets the name.
-            </summary>
-            <value>The name.</value>
-        </member>
-        <member name="T:CC.Security.Impl.Util.Strings">
-            <summary>
-            String utility methods
-            </summary>
-        </member>
-        <member name="M:CC.Security.Impl.Util.Strings.GetParentOperationName(System.String)">
-            <summary>
-            Gets the name of the parent operation.
-            </summary>
-            <param name="operationName">Name of the operation.</param>
-            <remarks>
-            Assumes that there is a '/' in the string
-            </remarks>
-        </member>
-        <member name="M:CC.Security.Impl.Util.Strings.GetHierarchicalOperationNames(System.String)">
-            <summary>
-            Gets the names of all the parent operations (including the current one)
-            </summary>
-            <param name="operationName">Name of the operation.</param>
-            <remarks>
-            Assumes that there is a '/' in the string
-            </remarks>
-        </member>
-        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[],System.String)">
-            <summary>
-            Joins the names of all the specified entities.
-            </summary>
-            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
-            <param name="entities">The entities.</param>
-            <param name="separator">The separator.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[])">
-            <summary>
-            Joins the names of all the specified entities.
-            </summary>
-            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
-            <param name="entities">The entities.</param>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.EntityWithGroups">
-            <summary>
-              Looks up a localized string similar to &apos;{0}&apos; (&apos;{1}&apos; is a member of &apos;{2}&apos;).
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.Everything">
-            <summary>
-              Looks up a localized string similar to everything.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.NonUniqueName">
-            <summary>
-              Looks up a localized string similar to Names must be unique.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.NotAssociatedWithAnyGroup">
-            <summary>
-              Looks up a localized string similar to not assoicated with any group.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.OperationNotDefined">
-            <summary>
-              Looks up a localized string similar to Operation &apos;{0}&apos; was not defined.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.PermissionDeniedForUser">
-            <summary>
-              Looks up a localized string similar to Permission (level {3}) for operation &apos;{0}&apos; was denied to &apos;{1}&apos; on &apos;{2}&apos;.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.PermissionDeniedForUsersGroup">
-            <summary>
-              Looks up a localized string similar to Permission (level {4}) for operation &apos;{0}&apos; was denied to group &apos;{1}&apos; on &apos;{2}&apos; (&apos;{3}&apos; is a member of &apos;{5}&apos;).
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.PermissionForOperationNotGrantedToUser">
-            <summary>
-              Looks up a localized string similar to Permission for operation &apos;{0}&apos; was not granted to user &apos;{1}&apos; or to the groups &apos;{1}&apos; is associated with (&apos;{2}&apos;).
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.PermissionForOperationNotGrantedToUserOnEntity">
-            <summary>
-              Looks up a localized string similar to Permission for operation &apos;{0}&apos; was not granted to user &apos;{1}&apos; or to the groups &apos;{1}&apos; is associated with (&apos;{2}&apos;) on &apos;{3}&apos; or any of the groups &apos;{3}&apos; is associated with (&apos;{4}&apos;).
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.PermissionGrantedForUser">
-            <summary>
-              Looks up a localized string similar to Permission (level {3}) for operation &apos;{0}&apos; was granted to &apos;{1}&apos; on &apos;{2}&apos;.
-            </summary>
-        </member>
-        <member name="P:CC.Security.Properties.Resources.PermissionGrantedForUsersGroup">
-            <summary>
-              Looks up a localized string similar to Permission (level {4}) for operation &apos;{0}&apos; was granted to group &apos;{1}&apos; on &apos;{2}&apos; (&apos;{3}&apos; is a member of &apos;{5}&apos;).
+            A factory for common DetachedCriteria.
             </summary>
         </member>
         <member name="T:CC.Security.Services.AuthorizationRepository">
@@ -595,39 +466,41 @@
             </summary>
             <param name="permission">The permission.</param>
         </member>
-        <member name="T:CC.Security.Impl.MappingRewriting.SchemaChanger">
+        <member name="T:CC.Security.AuthorizationInformation">
             <summary>
-            Modify the NH configuration to set the correct schema
+            Authorization Information relating to a specific 
+            user/operation/entity.
+            Allows to display the reasons for granting/denying permissions
             </summary>
         </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.#ctor(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
+        <member name="M:CC.Security.AuthorizationInformation.ToString">
             <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.SchemaChanger"/> class.
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
             </summary>
-            <param name="cfg">The NHibernte configuration.</param>
-            <param name="tableStructure">The table structure.</param>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
         </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.SchemaChanger.Change">
+        <member name="M:CC.Security.AuthorizationInformation.AddAllow(System.String,System.Object[])">
             <summary>
-            Modify the configuration so it would set the schema or prefix based on the selected
-            table structure
+            Adds the specified formatted message that explains 
+            why permission was allowed
             </summary>
+            <param name="format">The format.</param>
+            <param name="args">The args.</param>
         </member>
-        <member name="T:CC.Security.Security">
+        <member name="M:CC.Security.AuthorizationInformation.AddDeny(System.String,System.Object[])">
             <summary>
-            This class allows to configure the security system
+            Adds the specified formatted message that explains 
+            why permission was denied
             </summary>
+            <param name="format">The format.</param>
+            <param name="args">The args.</param>
         </member>
-        <member name="M:CC.Security.Security.GetSecurityKeyProperty(System.Type)">
+        <member name="T:CC.Security.Services.AuthorizationService">
             <summary>
-            Gets the security key property for the specified entity type
-            </summary>
-            <param name="entityType">Type of the entity.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Security.Configure``1(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
-            <summary>
-             Setup NHibernate to include Rhino Security configuration
+            Answers authorization questions as well as enhance Criteria
+            queries
             </summary>
         </member>
         <member name="T:CC.Security.Interfaces.IAuthorizationService">
@@ -657,111 +530,108 @@
             <param name="operation">The operation.</param>
             <returns></returns>
         </member>
-        <member name="T:CC.Security.Impl.Guard">
+        <member name="M:CC.Security.Services.AuthorizationService.#ctor(CC.Security.Interfaces.IPermissionsService,CC.Security.Interfaces.IAuthorizationRepository)">
             <summary>
-            Helper class for guard statements, which allow prettier
-            code for guard clauses
+            Initializes a new instance of the <see cref="T:CC.Security.Services.AuthorizationService"/> class.
+            </summary>
+            <param name="permissionsService">The permissions service.</param>
+            <param name="authorizationRepository">The authorization editing service.</param>
+        </member>
+        <member name="M:CC.Security.Services.AuthorizationService.IsAllowed(CC.Security.IUser,System.String)">
+            <summary>
+            Determines whether the specified user is allowed to perform the
+            specified operation on the entity.
+            </summary>
+            <param name="user">The user.</param>
+            <param name="operation">The operation.</param>
+            <returns>
+            	<c>true</c> if the specified user is allowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CC.Security.Services.AuthorizationService.GetAuthorizationInformation(CC.Security.IUser,System.String)">
+            <summary>
+            Gets the authorization information for the specified user and operation,
+            allows to easily understand why a given operation was granted / denied.
+            </summary>
+            <param name="user">The user.</param>
+            <param name="operation">The operation.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CC.Security.Interfaces.IForPermissionBuilder">
+            <summary>
+            Define who this permission is for
             </summary>
         </member>
-        <member name="M:CC.Security.Impl.Guard.Against(System.Boolean,System.String)">
+        <member name="M:CC.Security.Interfaces.IForPermissionBuilder.For(CC.Security.IUser)">
             <summary>
-            Will throw a <see cref="T:System.InvalidOperationException"/> if the assertion
-            is true, with the specificied message.
+            Set the user that this permission is built for
             </summary>
-            <param name="assertion">if set to <c>true</c> [assertion].</param>
-            <param name="message">The message.</param>
-            <example>
-            Sample usage:
-            <code>
-            Guard.Against(string.IsNullOrEmpty(name), "Name must have a value");
-            </code>
-            </example>
+            <param name="user">The user.</param>
+            <returns></returns>
         </member>
-        <member name="M:CC.Security.Impl.Guard.Against``1(System.Boolean,System.String)">
+        <member name="M:CC.Security.Interfaces.IForPermissionBuilder.For(CC.Security.Model.UsersGroup)">
             <summary>
-            Will throw exception of type <typeparamref name="TException"/>
-            with the specified message if the assertion is true
+            Set the users group that this permission is built for
             </summary>
-            <typeparam name="TException"></typeparam>
-            <param name="assertion">if set to <c>true</c> [assertion].</param>
-            <param name="message">The message.</param>
-            <example>
-            Sample usage:
-            <code>
-            <![CDATA[
-            Guard.Against<ArgumentException>(string.IsNullOrEmpty(name), "Name must have a value");
-            ]]>
-            </code>
-            </example>
+            <param name="group">The group.</param>
+            <returns></returns>
         </member>
-        <member name="T:CC.Security.Impl.MappingRewriting.UserMapper">
+        <member name="M:CC.Security.Interfaces.IForPermissionBuilder.For(System.String)">
             <summary>
-            Map <seealso cref="T:CC.Security.IUser"/> to the domain model implementation of the User entity.
+            Set the users group that this permission is built for
+            </summary>
+            <param name="usersGroupName">Name of the users group.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CC.Security.Interfaces.ILevelPermissionBuilder">
+            <summary>
+            Define what is the level of this permission
             </summary>
         </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.#ctor(NHibernate.Cfg.Configuration,System.Type)">
+        <member name="M:CC.Security.Interfaces.ILevelPermissionBuilder.Level(System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.Impl.MappingRewriting.UserMapper"/> class.
+            Define the level of this permission
             </summary>
-            <param name="cfg">The NHibernate configuration.</param>
-            <param name="userType">Type of the user.</param>
+            <param name="level">The level.</param>
+            <returns></returns>
         </member>
-        <member name="M:CC.Security.Impl.MappingRewriting.UserMapper.Map">
+        <member name="M:CC.Security.Interfaces.ILevelPermissionBuilder.DefaultLevel">
             <summary>
-            Modify the configuration so it would set all the references to <see cref="T:CC.Security.IUser"/>
-            to userEntityName.
+            Define the default level;
             </summary>
+            <returns></returns>
         </member>
-        <member name="T:CC.Security.Model.UsersGroup">
+        <member name="T:CC.Security.Interfaces.IOnPermissionBuilder">
             <summary>
-            A named group for users, which we 
-            can define operations on.
-            </summary>
-        </member>
-        <member name="M:CC.Security.Model.UsersGroup.#ctor">
-            <summary>
-             Create a new instance of <c>UsersGroup</c>
+            Define who this permission is on
             </summary>
         </member>
-        <member name="P:CC.Security.Model.UsersGroup.Users">
+        <member name="M:CC.Security.Interfaces.IOnPermissionBuilder.OnEverything">
             <summary>
-            Gets or sets the users.
+            Set this permission to be application to everything
             </summary>
-            <value>The users.</value>
+            <returns></returns>
         </member>
-        <member name="P:CC.Security.Model.UsersGroup.Parent">
+        <member name="T:CC.Security.Interfaces.IPermissionBuilder">
             <summary>
-            Gets or sets the parent of this group
+            Save the created permission
             </summary>
-            <value>The parent.</value>
         </member>
-        <member name="P:CC.Security.Model.UsersGroup.DirectChildren">
+        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Description(System.String)">
             <summary>
-            Gets or sets the direct children of this group (nested one level)
+            
             </summary>
-            <value>The directChildren.</value>
+            <param name="description">the description for this permission</param>
+            <returns>IPermissionBuilder</returns>
         </member>
-        <member name="P:CC.Security.Model.UsersGroup.AllChildren">
+        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Save">
             <summary>
-            Gets or sets all children of this users group, at all nesting levels
+            Save the created permission
             </summary>
-            <value>All children.</value>
         </member>
-        <member name="P:CC.Security.Model.UsersGroup.AllParents">
+        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Build">
             <summary>
-            Gets or sets all parent of this users group, at all nesting levels
-            </summary>
-            <value>All children.</value>
-        </member>
-        <member name="P:CC.Security.Model.UsersGroup.Description">
-            <summary>
-            Gets or sets the Description of this users group
-            </summary>
-            <value>The Description.</value>
-        </member>
-        <member name="T:CC.Security.Services.PermissionsBuilderService">
-            <summary>
-            Allow to define permissions using a fluent interface
+            Builds a permission without saving
             </summary>
         </member>
         <member name="T:CC.Security.Interfaces.IPermissionsBuilderService">
@@ -814,6 +684,54 @@
             Save Permission with out using fluent interface
             </summary>
             <param name="permission">The permission.</param>
+        </member>
+        <member name="T:CC.Security.Interfaces.IPermissionsService">
+            <summary>
+            Allow to retrieve and remove permissions
+            on users, user groups, entities groups and entities.
+            </summary>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.IUser)">
+            <summary>
+            Gets the permissions for the specified user
+            </summary>
+            <param name="user">The user.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetGlobalPermissionsFor(CC.Security.IUser,System.String)">
+            <summary>
+            Gets the permissions for the specified entity
+            </summary>
+            <param name="user">The user.</param>
+            <param name="operationName">Name of the operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(System.String)">
+            <summary>
+            Gets all permissions for the specified operation
+            </summary>
+            <param name="operationName">Name of the operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermissionsFor(CC.Security.Model.UsersGroup)">
+            <summary>
+            Gets the permissions for the specified usergroup
+            </summary>
+            <param name="userGroup">The usersGroup.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Interfaces.IPermissionsService.GetPermission(System.Int32)">
+            <summary>
+            RH 4/9/12
+            Gets permissions By Permission id
+            </summary>
+            <param name="permissionId">Guid EntityId for Permission </param>
+            <returns></returns>
+        </member>
+        <member name="T:CC.Security.Services.PermissionsBuilderService">
+            <summary>
+            Allow to define permissions using a fluent interface
+            </summary>
         </member>
         <member name="M:CC.Security.Services.PermissionsBuilderService.#ctor(NHibernate.ISession,CC.Security.Interfaces.IAuthorizationRepository)">
             <summary>
@@ -874,83 +792,6 @@
             <summary>
             Builds a permission
             </summary>
-        </member>
-        <member name="T:CC.Security.Interfaces.IPermissionBuilder">
-            <summary>
-            Save the created permission
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Description(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="description">the description for this permission</param>
-            <returns>IPermissionBuilder</returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Save">
-            <summary>
-            Save the created permission
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IPermissionBuilder.Build">
-            <summary>
-            Builds a permission without saving
-            </summary>
-        </member>
-        <member name="T:CC.Security.Interfaces.IForPermissionBuilder">
-            <summary>
-            Define who this permission is for
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IForPermissionBuilder.For(CC.Security.IUser)">
-            <summary>
-            Set the user that this permission is built for
-            </summary>
-            <param name="user">The user.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IForPermissionBuilder.For(CC.Security.Model.UsersGroup)">
-            <summary>
-            Set the users group that this permission is built for
-            </summary>
-            <param name="group">The group.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.IForPermissionBuilder.For(System.String)">
-            <summary>
-            Set the users group that this permission is built for
-            </summary>
-            <param name="usersGroupName">Name of the users group.</param>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.Interfaces.IOnPermissionBuilder">
-            <summary>
-            Define who this permission is on
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.IOnPermissionBuilder.OnEverything">
-            <summary>
-            Set this permission to be application to everything
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:CC.Security.Interfaces.ILevelPermissionBuilder">
-            <summary>
-            Define what is the level of this permission
-            </summary>
-        </member>
-        <member name="M:CC.Security.Interfaces.ILevelPermissionBuilder.Level(System.Int32)">
-            <summary>
-            Define the level of this permission
-            </summary>
-            <param name="level">The level.</param>
-            <returns></returns>
-        </member>
-        <member name="M:CC.Security.Interfaces.ILevelPermissionBuilder.DefaultLevel">
-            <summary>
-            Define the default level;
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:CC.Security.Services.PermissionsBuilderService.FluentPermissionBuilder.#ctor(CC.Security.Services.PermissionsBuilderService,System.Boolean,CC.Security.Model.Operation)">
             <summary>
@@ -1017,76 +858,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:CC.Security.Services.SecurityCriterions">
-            <summary>
-            A factory for common DetachedCriteria.
-            </summary>
-        </member>
-        <member name="T:CC.Security.TextAreaAttribute">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:CC.Security.SecurityTableStructure">
-            <summary>
-            A flag that determains how the security tables should be treated.
-            In a separate schema or using a naming convention.
-            The default is to put them in a separate schema.
-            </summary>
-        </member>
-        <member name="F:CC.Security.SecurityTableStructure.Schema">
-            <summary>
-            Use a "security" schema
-            </summary>
-        </member>
-        <member name="F:CC.Security.SecurityTableStructure.Prefix">
-            <summary>
-            Use a "security_" prefix
-            </summary>
-        </member>
-        <member name="T:CC.Security.Model.Permission">
-            <summary>
-            Represent a permission on the system, allow (or denying) 
-            [operation] for [someone] on [something]
-            </summary>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Operation">
-            <summary>
-            Gets or sets the operation this permission applies to
-            </summary>
-            <value>The operation.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Allow">
-            <summary>
-            Gets or sets a value indicating whether this <see cref="T:CC.Security.Model.Permission"/> is allowing 
-            or denying the operation.
-            </summary>
-            <value><c>true</c> if allow; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.User">
-            <summary>
-            Gets or sets the user this permission belongs to.
-            </summary>
-            <value>The user.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.UsersGroup">
-            <summary>
-            Gets or sets the users group this permission belongs to
-            </summary>
-            <value>The users group.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Level">
-            <summary>
-            Gets or sets the level of this permission
-            </summary>
-            <value>The level.</value>
-        </member>
-        <member name="P:CC.Security.Model.Permission.Description">
-            <summary>
-            Gets or sets the Description of this permission
-            </summary>
-            <value>The Description.</value>
-        </member>
         <member name="T:CC.Security.Services.PermissionsService">
             <summary>
             Allow to retrieve and remove permissions
@@ -1137,6 +908,238 @@
             <param name="operationName">Name of the operation.</param>
             <returns></returns>
         </member>
+        <member name="T:CC.Security.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.EntityWithGroups">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; (&apos;{1}&apos; is a member of &apos;{2}&apos;).
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.Everything">
+            <summary>
+              Looks up a localized string similar to everything.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.NonUniqueName">
+            <summary>
+              Looks up a localized string similar to Names must be unique.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.NotAssociatedWithAnyGroup">
+            <summary>
+              Looks up a localized string similar to not assoicated with any group.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.OperationNotDefined">
+            <summary>
+              Looks up a localized string similar to Operation &apos;{0}&apos; was not defined.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.PermissionDeniedForUser">
+            <summary>
+              Looks up a localized string similar to Permission (level {3}) for operation &apos;{0}&apos; was denied to &apos;{1}&apos; on &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.PermissionDeniedForUsersGroup">
+            <summary>
+              Looks up a localized string similar to Permission (level {4}) for operation &apos;{0}&apos; was denied to group &apos;{1}&apos; on &apos;{2}&apos; (&apos;{3}&apos; is a member of &apos;{5}&apos;).
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.PermissionForOperationNotGrantedToUser">
+            <summary>
+              Looks up a localized string similar to Permission for operation &apos;{0}&apos; was not granted to user &apos;{1}&apos; or to the groups &apos;{1}&apos; is associated with (&apos;{2}&apos;).
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.PermissionForOperationNotGrantedToUserOnEntity">
+            <summary>
+              Looks up a localized string similar to Permission for operation &apos;{0}&apos; was not granted to user &apos;{1}&apos; or to the groups &apos;{1}&apos; is associated with (&apos;{2}&apos;) on &apos;{3}&apos; or any of the groups &apos;{3}&apos; is associated with (&apos;{4}&apos;).
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.PermissionGrantedForUser">
+            <summary>
+              Looks up a localized string similar to Permission (level {3}) for operation &apos;{0}&apos; was granted to &apos;{1}&apos; on &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:CC.Security.Properties.Resources.PermissionGrantedForUsersGroup">
+            <summary>
+              Looks up a localized string similar to Permission (level {4}) for operation &apos;{0}&apos; was granted to group &apos;{1}&apos; on &apos;{2}&apos; (&apos;{3}&apos; is a member of &apos;{5}&apos;).
+            </summary>
+        </member>
+        <member name="T:CC.Security.Security">
+            <summary>
+            This class allows to configure the security system
+            </summary>
+        </member>
+        <member name="M:CC.Security.Security.GetSecurityKeyProperty(System.Type)">
+            <summary>
+            Gets the security key property for the specified entity type
+            </summary>
+            <param name="entityType">Type of the entity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Security.Configure``1(NHibernate.Cfg.Configuration,CC.Security.SecurityTableStructure)">
+            <summary>
+             Setup NHibernate to include Rhino Security configuration
+            </summary>
+        </member>
+        <member name="T:CC.Security.SecurityInfo">
+            <summary>
+            Contains the information about the user that
+            rhino security requires.
+            </summary>
+        </member>
+        <member name="M:CC.Security.SecurityInfo.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CC.Security.SecurityInfo"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="identifier">The identifier.</param>
+        </member>
+        <member name="P:CC.Security.SecurityInfo.Identifier">
+            <summary>
+            Gets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:CC.Security.SecurityInfo.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="T:CC.Security.SecurityKeyType">
+            <summary>
+            What type the security key is
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityKeyType.Type">
+            <summary>
+            A type
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityKeyType.Instance">
+            <summary>
+            An instance
+            </summary>
+        </member>
+        <member name="T:CC.Security.SecurityTableStructure">
+            <summary>
+            A flag that determains how the security tables should be treated.
+            In a separate schema or using a naming convention.
+            The default is to put them in a separate schema.
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityTableStructure.Schema">
+            <summary>
+            Use a "security" schema
+            </summary>
+        </member>
+        <member name="F:CC.Security.SecurityTableStructure.Prefix">
+            <summary>
+            Use a "security_" prefix
+            </summary>
+        </member>
+        <member name="T:CC.Security.Impl.Util.Strings">
+            <summary>
+            String utility methods
+            </summary>
+        </member>
+        <member name="M:CC.Security.Impl.Util.Strings.GetParentOperationName(System.String)">
+            <summary>
+            Gets the name of the parent operation.
+            </summary>
+            <param name="operationName">Name of the operation.</param>
+            <remarks>
+            Assumes that there is a '/' in the string
+            </remarks>
+        </member>
+        <member name="M:CC.Security.Impl.Util.Strings.GetHierarchicalOperationNames(System.String)">
+            <summary>
+            Gets the names of all the parent operations (including the current one)
+            </summary>
+            <param name="operationName">Name of the operation.</param>
+            <remarks>
+            Assumes that there is a '/' in the string
+            </remarks>
+        </member>
+        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[],System.String)">
+            <summary>
+            Joins the names of all the specified entities.
+            </summary>
+            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
+            <param name="entities">The entities.</param>
+            <param name="separator">The separator.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CC.Security.Impl.Util.Strings.Join``1(CC.Security.Model.NamedEntity{``0}[])">
+            <summary>
+            Joins the names of all the specified entities.
+            </summary>
+            <typeparam name="TNamedEntity">The type of the named entity.</typeparam>
+            <param name="entities">The entities.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CC.Security.Model.UsersGroup">
+            <summary>
+            A named group for users, which we 
+            can define operations on.
+            </summary>
+        </member>
+        <member name="M:CC.Security.Model.UsersGroup.#ctor">
+            <summary>
+             Create a new instance of <c>UsersGroup</c>
+            </summary>
+        </member>
+        <member name="P:CC.Security.Model.UsersGroup.Users">
+            <summary>
+            Gets or sets the users.
+            </summary>
+            <value>The users.</value>
+        </member>
+        <member name="P:CC.Security.Model.UsersGroup.Parent">
+            <summary>
+            Gets or sets the parent of this group
+            </summary>
+            <value>The parent.</value>
+        </member>
+        <member name="P:CC.Security.Model.UsersGroup.DirectChildren">
+            <summary>
+            Gets or sets the direct children of this group (nested one level)
+            </summary>
+            <value>The directChildren.</value>
+        </member>
+        <member name="P:CC.Security.Model.UsersGroup.AllChildren">
+            <summary>
+            Gets or sets all children of this users group, at all nesting levels
+            </summary>
+            <value>All children.</value>
+        </member>
+        <member name="P:CC.Security.Model.UsersGroup.AllParents">
+            <summary>
+            Gets or sets all parent of this users group, at all nesting levels
+            </summary>
+            <value>All children.</value>
+        </member>
+        <member name="P:CC.Security.Model.UsersGroup.Description">
+            <summary>
+            Gets or sets the Description of this users group
+            </summary>
+            <value>The Description.</value>
+        </member>
         <member name="T:CC.Security.IUser">
             <summary>
             Provide a way to get the security information from a user instance.
@@ -1155,84 +1158,81 @@
             </summary>
             <value>The security info.</value>
         </member>
-        <member name="T:CC.Security.AuthorizationInformation">
+        <member name="T:CC.Security.Model.Operation">
             <summary>
-            Authorization Information relating to a specific 
-            user/operation/entity.
-            Allows to display the reasons for granting/denying permissions
+            Represent an operation in the system
             </summary>
         </member>
-        <member name="M:CC.Security.AuthorizationInformation.ToString">
+        <member name="M:CC.Security.Model.Operation.#ctor">
             <summary>
-            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-            </summary>
-            <returns>
-            A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-            </returns>
-        </member>
-        <member name="M:CC.Security.AuthorizationInformation.AddAllow(System.String,System.Object[])">
-            <summary>
-            Adds the specified formatted message that explains 
-            why permission was allowed
-            </summary>
-            <param name="format">The format.</param>
-            <param name="args">The args.</param>
-        </member>
-        <member name="M:CC.Security.AuthorizationInformation.AddDeny(System.String,System.Object[])">
-            <summary>
-            Adds the specified formatted message that explains 
-            why permission was denied
-            </summary>
-            <param name="format">The format.</param>
-            <param name="args">The args.</param>
-        </member>
-        <member name="T:CC.Security.SecurityKeyType">
-            <summary>
-            What type the security key is
+             Create instance of <c>Operation</c>
             </summary>
         </member>
-        <member name="F:CC.Security.SecurityKeyType.Type">
+        <member name="P:CC.Security.Model.Operation.Comment">
             <summary>
-            A type
+            Gets or sets the comment for this operation
+            </summary>
+            <value>The comment.</value>
+        </member>
+        <member name="P:CC.Security.Model.Operation.Parent">
+            <summary>
+            Gets or sets the parent of this operation
+            </summary>
+            <value>The parent.</value>
+        </member>
+        <member name="P:CC.Security.Model.Operation.Children">
+            <summary>
+            Gets or sets the children of this operation
+            </summary>
+            <value>The children.</value>
+        </member>
+        <member name="T:CC.Security.Model.Permission">
+            <summary>
+            Represent a permission on the system, allow (or denying) 
+            [operation] for [someone] on [something]
             </summary>
         </member>
-        <member name="F:CC.Security.SecurityKeyType.Instance">
+        <member name="P:CC.Security.Model.Permission.Operation">
             <summary>
-            An instance
+            Gets or sets the operation this permission applies to
             </summary>
+            <value>The operation.</value>
         </member>
-        <member name="T:CC.Security.Services.AuthorizationService">
+        <member name="P:CC.Security.Model.Permission.Allow">
             <summary>
-            Answers authorization questions as well as enhance Criteria
-            queries
+            Gets or sets a value indicating whether this <see cref="T:CC.Security.Model.Permission"/> is allowing 
+            or denying the operation.
             </summary>
+            <value><c>true</c> if allow; otherwise, <c>false</c>.</value>
         </member>
-        <member name="M:CC.Security.Services.AuthorizationService.#ctor(CC.Security.Interfaces.IPermissionsService,CC.Security.Interfaces.IAuthorizationRepository)">
+        <member name="P:CC.Security.Model.Permission.User">
             <summary>
-            Initializes a new instance of the <see cref="T:CC.Security.Services.AuthorizationService"/> class.
+            Gets or sets the user this permission belongs to.
             </summary>
-            <param name="permissionsService">The permissions service.</param>
-            <param name="authorizationRepository">The authorization editing service.</param>
+            <value>The user.</value>
         </member>
-        <member name="M:CC.Security.Services.AuthorizationService.IsAllowed(CC.Security.IUser,System.String)">
+        <member name="P:CC.Security.Model.Permission.UsersGroup">
             <summary>
-            Determines whether the specified user is allowed to perform the
-            specified operation on the entity.
+            Gets or sets the users group this permission belongs to
             </summary>
-            <param name="user">The user.</param>
-            <param name="operation">The operation.</param>
-            <returns>
-            	<c>true</c> if the specified user is allowed; otherwise, <c>false</c>.
-            </returns>
+            <value>The users group.</value>
         </member>
-        <member name="M:CC.Security.Services.AuthorizationService.GetAuthorizationInformation(CC.Security.IUser,System.String)">
+        <member name="P:CC.Security.Model.Permission.Level">
             <summary>
-            Gets the authorization information for the specified user and operation,
-            allows to easily understand why a given operation was granted / denied.
+            Gets or sets the level of this permission
             </summary>
-            <param name="user">The user.</param>
-            <param name="operation">The operation.</param>
-            <returns></returns>
+            <value>The level.</value>
+        </member>
+        <member name="P:CC.Security.Model.Permission.Description">
+            <summary>
+            Gets or sets the Description of this permission
+            </summary>
+            <value>The Description.</value>
+        </member>
+        <member name="T:CC.Security.TextAreaAttribute">
+            <summary>
+            
+            </summary>
         </member>
     </members>
 </doc>
