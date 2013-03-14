@@ -6,6 +6,8 @@ using CC.Core.Utilities;
 
 namespace CC.Core.Html.Grid
 {
+    using System.Linq.Expressions;
+
     public interface IGridColumn
     {
         Accessor propertyAccessor { get; set; }
@@ -18,6 +20,8 @@ namespace CC.Core.Html.Grid
     public class ColumnBase<ENTITY> : IGridColumn, IEquatable<ColumnBase<ENTITY>> where ENTITY : IGridEnabledClass
     {
         protected string _toolTip;
+
+        private string _searchField;
 
         public ColumnBase()
         {
@@ -95,6 +99,17 @@ namespace CC.Core.Html.Grid
         public ColumnBase<ENTITY> IsSortable(bool isSortable)
         {
             Properties[GridColumnProperties.sortable.ToString()] = isSortable.ToString().ToLowerInvariant();
+            return this;
+        }
+
+        public ColumnBase<ENTITY> SortOnProperty(Expression<Func<ENTITY, object>> expression)
+        {
+            var name = expression.ToAccessor().Name;
+            if (expression.ToAccessor() is PropertyChain)
+            {
+                name = ((PropertyChain)(expression.ToAccessor())).PropertyNames.Aggregate((current, next) => current + "." + next);
+            }
+            Properties[GridColumnProperties.sortColumn.ToString()] = name;
             return this;
         }
 
