@@ -195,12 +195,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y CC.Core.dll ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.Core.pdb ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.Core.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y CC.Core.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y CC.Core.dll ..\..\..\..\MethodFitness\src\lib\
-xcopy /y CC.Core.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

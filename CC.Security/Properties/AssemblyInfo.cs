@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CCUIHelpers")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CC.Security")]
+[assembly: AssemblyDescription("CC.Security")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CannibalCoder")]
-[assembly: AssemblyProduct("CCUIHelpers")]
+[assembly: AssemblyProduct("CC.Security")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9abee8a5-5439-445a-a65a-1caf00ecad3b")]
+[assembly: Guid("825F31C0-A5C4-4835-9F82-1C565BE5B59F")]
 
 // Version information for an assembly consists of the following four values:
 //

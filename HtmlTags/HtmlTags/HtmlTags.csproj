@@ -70,23 +70,18 @@
     <Compile Include="JsonUtil.cs" />
     <Compile Include="LinkTag.cs" />
     <Compile Include="NoTag.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectTag.cs" />
     <Compile Include="SharedExtensions.cs" />
     <Compile Include="TableTag.cs" />
     <Compile Include="TagList.cs" />
     <Compile Include="TextboxTag.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y HtmlTags.dll ..\..\..\..\..\..\KnowYourTurf\lib\
-xcopy /y HtmlTags.pdb ..\..\..\..\..\KnowYourTurf\lib\
-xcopy /y HtmlTags.dll ..\..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y HtmlTags.pdb ..\..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y HtmlTags.dll ..\..\..\..\..\MethodFitness\src\lib\
-xcopy /y HtmlTags.pdb ..\..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
