@@ -13,7 +13,7 @@
     <tags></tags>
     <dependencies>
         <dependency id="CC.Core.Utilities" version="[$version$]" />
-        <dependency id="CC.HtmlTags" version="[$version$]" />
+        <dependency id="HtmlTags" version="[$version$]" />
     </dependencies>   
   </metadata>
 </package>
