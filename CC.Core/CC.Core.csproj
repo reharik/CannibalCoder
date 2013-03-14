@@ -38,10 +38,6 @@
       <HintPath>..\packages\Castle.Components.Validator.2.5.0\lib\NET40\Castle.Components.Validator.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HtmlTags, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\HtmlTags.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -185,6 +181,10 @@
     <ProjectReference Include="..\CC.UI.Helpers\CC.UI.Helpers.csproj">
       <Project>{0DBFB19C-E106-4807-AA4B-FC8D128A3438}</Project>
       <Name>CC.UI.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlTags\HtmlTags\HtmlTags.csproj">
+      <Project>{f01c84f2-6e41-404c-ac8d-bf189a9ec05b}</Project>
+      <Name>HtmlTags</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
