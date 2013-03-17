@@ -12,9 +12,7 @@
     <copyright>Copyright 2013</copyright>
     <tags></tags>
     <dependencies>
-        <dependency id="CC.Security" version="[$version$]" />
-        <dependency id="CC.UI.Helpers" version="[$version$]" />
-        <dependency id="HtmlTags" version="[$version$]" />
+      
     </dependencies>   
   </metadata>
 </package>
