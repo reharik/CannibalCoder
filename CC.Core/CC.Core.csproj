@@ -12,6 +12,8 @@
     <AssemblyName>CC.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,9 +36,7 @@
     <Reference Include="Castle.Components.Validator, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Components.Validator.2.5.0\lib\NET40\Castle.Components.Validator.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlTags">
-      <HintPath>..\HtmlTags\HtmlTags\bin\Debug\HtmlTags.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
@@ -182,6 +182,10 @@
       <Project>{0DBFB19C-E106-4807-AA4B-FC8D128A3438}</Project>
       <Name>CC.UI.Helpers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HtmlTags\HtmlTags\HtmlTags.csproj">
+      <Project>{f01c84f2-6e41-404c-ac8d-bf189a9ec05b}</Project>
+      <Name>HtmlTags</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ActionFilters\" />
@@ -191,13 +195,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y CC.Core.dll ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.Core.pdb ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.Core.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y CC.Core.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y CC.Core.dll ..\..\..\..\MethodFitness\src\lib\
-xcopy /y CC.Core.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

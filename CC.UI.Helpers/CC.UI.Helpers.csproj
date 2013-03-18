@@ -89,12 +89,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y CC.UI.Helpers.dll ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.UI.Helpers.pdb ..\..\..\..\KnowYourTurf\lib\
-xcopy /y CC.UI.Helpers.dll ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y CC.UI.Helpers.pdb ..\..\..\..\KnowYourTurf.SystemSupport\src\lib\
-xcopy /y CC.UI.Helpers.dll ..\..\..\..\MethodFitness\src\lib\
-xcopy /y CC.UI.Helpers.pdb ..\..\..\..\MethodFitness\src\lib\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

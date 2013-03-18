@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ReflectionHelper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CC.Core.Utilities")]
+[assembly: AssemblyDescription("CC.Core.Utilities")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ReflectionHelper")]
+[assembly: AssemblyCompany("CannibalCoder")]
+[assembly: AssemblyProduct("CC.Core.Utilities")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

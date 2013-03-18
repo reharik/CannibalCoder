@@ -15,3 +15,5 @@ CustomerDocuments
 [Ll]ogs/
 [Ll]og/
 TestResult.xml
+packages/*
+!packages/repositories.config
