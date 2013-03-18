@@ -12,7 +12,7 @@
     <copyright>Copyright 2013</copyright>
     <tags></tags>
     <dependencies>
-      
+        <dependency id="CC.UI.Helpers" version="[$version$]" />
     </dependencies>   
   </metadata>
 </package>
