@@ -15,15 +15,15 @@
   <files>
      <file src="CC.Core\bin\Debug\CC.Security.dll" target="lib" />
      <file src="CC.Core\bin\Debug\CC.Security.pdb" target="lib" />
-     <file src="..\..\src\CC.Security\**\*.cs" target="src\CC.Security" />
+     <file src="CC.Security\**\*.cs" target="src\CC.Security" />
      <file src="CC.Core\bin\Debug\CC.Core.Utilities.dll" target="lib" />
      <file src="CC.Core\bin\Debug\CC.Core.Utilities.pdb" target="lib" />
-     <file src="..\..\src\CC.Core.Utils\**\*.cs" target="src\CC.Core.Utilities" />
+     <file src="CC.Core.Utils\**\*.cs" target="src\CC.Core.Utilities" />
      <file src="CC.Core\bin\Debug\CC.HtmlHelpers.dll" target="lib" />
      <file src="CC.Core\bin\Debug\CC.HtmlHelpers.pdb" target="lib" />
-     <file src="..\..\src\CC.HtmlHelpers\**\*.cs" target="src\CC.HtmlHelpers" />
+     <file src="CC.HtmlHelpers\**\*.cs" target="src\CC.HtmlHelpers" />
      <file src="CC.Core\bin\Debug\HtmlTags.dll" target="lib\HtmlTags.dll" />
     <file src="CC.Core\bin\Debug\HtmlTags.pdb" target="lib\HtmlTags.pdb" />
-    <file src="..\..\src\HtmlTags\HtmlTags\**\*.cs" target="src\HtmlTags" />
+    <file src="HtmlTags\HtmlTags\**\*.cs" target="src\HtmlTags" />
   </files> 
   </package>
