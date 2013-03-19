@@ -19,9 +19,9 @@
      <file src="CC.Core\bin\Debug\CC.Core.Utilities.dll" target="lib" />
      <file src="CC.Core\bin\Debug\CC.Core.Utilities.pdb" target="lib" />
      <file src="CC.Core.Utils\**\*.cs" target="src\CC.Core.Utilities" />
-     <file src="CC.Core\bin\Debug\CC.HtmlHelpers.dll" target="lib" />
-     <file src="CC.Core\bin\Debug\CC.HtmlHelpers.pdb" target="lib" />
-     <file src="CC.HtmlHelpers\**\*.cs" target="src\CC.HtmlHelpers" />
+     <file src="CC.Core\bin\Debug\CC.UI.Helpers.dll" target="lib" />
+     <file src="CC.Core\bin\Debug\CC.UI.Helpers.pdb" target="lib" />
+     <file src="CC.UI.Helpers\**\*.cs" target="src\CC.UI.Helpers" />
      <file src="CC.Core\bin\Debug\HtmlTags.dll" target="lib\HtmlTags.dll" />
     <file src="CC.Core\bin\Debug\HtmlTags.pdb" target="lib\HtmlTags.pdb" />
     <file src="HtmlTags\HtmlTags\**\*.cs" target="src\HtmlTags" />
