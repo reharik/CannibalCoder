@@ -11,10 +11,11 @@
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags></tags>
-    <dependencies>
-        <dependency id="CC.Security" version="[$version$]" />
-        <dependency id="CC.Core.Utilities" version="[$version$]" />
-        <dependency id="HtmlTags" version="[$version$]" />
-   </dependencies>   
+   <files>
+     <file src="bin\Debug\CC.Security.dll" target="lib\CC.Security.dll" />
+     <file src="bin\Debug\CC.Core.Utilities.dll" target="lib\CC.Core.Utilities.dll" />
+     <file src="bin\Debug\CC.HtmlHelpers.dll" target="lib\CC.HtmlHelpers.dll" />
+     <file src="bin\Debug\HtmlTags.dll" target="lib\HtmlTags.dll" />
+  </files> 
   </metadata>
 </package>
