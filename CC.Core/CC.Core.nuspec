@@ -12,10 +12,18 @@
     <copyright>Copyright 2013</copyright>
     <tags></tags>
    <files>
-     <file src="bin\Debug\CC.Security.dll" target="lib\CC.Security.dll" />
-     <file src="bin\Debug\CC.Core.Utilities.dll" target="lib\CC.Core.Utilities.dll" />
-     <file src="bin\Debug\CC.HtmlHelpers.dll" target="lib\CC.HtmlHelpers.dll" />
+     <file src="bin\Debug\CC.Security.dll" target="lib" />
+     <file src="bin\Debug\CC.Security.pdb" target="lib" />
+     <file src="..\..\src\CC.Security\**\*.cs" target="src\CC.Security" />
+     <file src="bin\Debug\CC.Core.Utilities.dll" target="lib" />
+     <file src="bin\Debug\CC.Core.Utilities.pdb" target="lib" />
+     <file src="..\..\src\CC.Core.Utils\**\*.cs" target="src\CC.Core.Utilities" />
+     <file src="bin\Debug\CC.HtmlHelpers.dll" target="lib" />
+     <file src="bin\Debug\CC.HtmlHelpers.pdb" target="lib" />
+     <file src="..\..\src\CC.HtmlHelpers\**\*.cs" target="src\CC.HtmlHelpers" />
      <file src="bin\Debug\HtmlTags.dll" target="lib\HtmlTags.dll" />
+    <file src="bin\Debug\HtmlTags.pdb" target="lib\HtmlTags.pdb" />
+    <file src="..\..\src\HtmlTags\HtmlTags\**\*.cs" target="src\HtmlTags" />
   </files> 
   </metadata>
 </package>
