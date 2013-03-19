@@ -11,7 +11,8 @@
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags></tags>
-   <files>
+  </metadata>
+  <files>
      <file src="bin\Debug\CC.Security.dll" target="lib" />
      <file src="bin\Debug\CC.Security.pdb" target="lib" />
      <file src="..\..\src\CC.Security\**\*.cs" target="src\CC.Security" />
@@ -25,5 +26,4 @@
     <file src="bin\Debug\HtmlTags.pdb" target="lib\HtmlTags.pdb" />
     <file src="..\..\src\HtmlTags\HtmlTags\**\*.cs" target="src\HtmlTags" />
   </files> 
-  </metadata>
-</package>
+  </package>
