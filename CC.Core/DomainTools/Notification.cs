@@ -28,6 +28,7 @@ namespace CC.Core.DomainTools
         public bool Redirect { get; set; }
         public long EntityId { get; set; }
         public string Variable { get; set; }
+        public object Payload { get; set; }
 
     }
 }
