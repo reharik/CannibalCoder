@@ -133,7 +133,7 @@ namespace CC.Core.Html.CCUI.Builders
         public override HtmlTag Build(ElementRequest request)
         {
             var div = new HtmlTag("div").AddClass("gallery").Attr("data-bind", "foreach:" + CCHtmlConventions2.DeriveElementName(request));
-            var a = new HtmlTag("a").Attr("data-bind", "attr:{href:FileUrl_Large}");
+            var a = new HtmlTag("a").Attr("data-bind", "attr:{href:FileUrl_Large,imageId:ImageId}");
             a.Children.Add(new HtmlTag("image").Attr("data-bind", "attr:{src:FileUrl_Thumb}"));
             div.Children.Add(a);
             return div;
