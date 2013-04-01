@@ -161,6 +161,11 @@ namespace CC.Core.Html.CCUI.HtmlExpressions
                 _htmlRoot.Attr("eltype", "FileSubmission");
                 return;
             }
+            if (input.HasClass("gallery"))
+            {
+                _htmlRoot.Attr("eltype", "PictureGallery");
+                return;
+            }
 
         }
 
