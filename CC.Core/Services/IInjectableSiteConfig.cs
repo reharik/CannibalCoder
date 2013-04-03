@@ -26,7 +26,7 @@ namespace CC.Core.Services
             SMTPServer = ConfigurationSettings.AppSettings["SMTPServer"];
             SMTPUserName = ConfigurationSettings.AppSettings["SMTPUserName"];
             SMTPPassword = ConfigurationSettings.AppSettings["SMTPPassword"];
-            SMTPPort = ConfigurationSettings.AppSettings["SMTPPort"];
+            SMTPPort = ConfigurationSettings.AppSettings["SMTPPort"].IsNotEmpty() ? Int32.Parse(ConfigurationSettings.AppSettings["SMTPPort"]) : 0;
             CreatedDate = DateTime.Now;
         }
 
@@ -44,6 +44,6 @@ namespace CC.Core.Services
         public virtual string SMTPServer { get; set; }
         public virtual string SMTPUserName { get; set; }
         public virtual string SMTPPassword { get; set; }
-        public virtual string SMTPPort { get; set; }
+        public virtual int SMTPPort { get; set; }
     }
 }
