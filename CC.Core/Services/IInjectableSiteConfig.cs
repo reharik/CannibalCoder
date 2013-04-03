@@ -24,6 +24,8 @@ namespace CC.Core.Services
             WebSiteRoot = ConfigurationSettings.AppSettings["WebSiteRoot"];
             jsApplicationName = ConfigurationSettings.AppSettings["jsApplicationName"];
             SMTPServer = ConfigurationSettings.AppSettings["SMTPServer"];
+            SMTPUserName = ConfigurationSettings.AppSettings["SMTPUserName"];
+            SMTPPassword = ConfigurationSettings.AppSettings["SMTPPassword"];
             CreatedDate = DateTime.Now;
         }
 
@@ -39,5 +41,7 @@ namespace CC.Core.Services
         public virtual string WebSiteRoot { get; set; }
         public virtual string jsApplicationName { get; set; }
         public virtual string SMTPServer { get; set; }
+        public virtual string SMTPUserName { get; set; }
+        public virtual string SMTPPassword { get; set; }
     }
 }
