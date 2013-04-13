@@ -22,6 +22,7 @@ namespace CC.Core.Html.Grid
         protected string _toolTip;
 
         private string _searchField;
+        private string _dateFormat;
 
         public ColumnBase()
         {
@@ -48,11 +49,19 @@ namespace CC.Core.Html.Grid
             {
                 var instanceOfEnum = propertyAccessor.GetLocalizedEnum(propertyValue.ToString());
                 value = instanceOfEnum != null ? instanceOfEnum.Key : propertyValue;
-                if (value.GetType() == typeof(DateTime) || value.GetType() == typeof(DateTime?))
+                if (value is DateTime || value.GetType() == typeof(DateTime?))
                 {
-                    value = propertyAccessor.Name.ToLowerInvariant().Contains("time")
-                                ? ((DateTime)value).ToShortTimeString()
-                                : ((DateTime)value).ToShortDateString();
+                    var _value = (DateTime) value;
+                    if (propertyAccessor.Name.ToLowerInvariant().Contains("time"))
+                    {
+                        value = _dateFormat.IsNotEmpty()
+                            ? _value.ToString(_dateFormat)
+                            : _value.ToShortTimeString();
+                    }
+                    else
+                    {
+                        value = _value.ToShortDateString();
+                    }
                 }
             }
             return value == null ? null : value.ToString();
@@ -87,6 +96,12 @@ namespace CC.Core.Html.Grid
         public ColumnBase<ENTITY> ToolTip(StringToken toolTip)
         {
             _toolTip = toolTip.ToString();
+            return this;
+        }
+
+        public ColumnBase<ENTITY> DateFormat(string dateFormat)
+        {
+            _dateFormat = dateFormat;
             return this;
         }
 
