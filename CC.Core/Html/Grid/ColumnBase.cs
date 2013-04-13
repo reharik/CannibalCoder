@@ -60,7 +60,9 @@ namespace CC.Core.Html.Grid
                     }
                     else
                     {
-                        value = _value.ToShortDateString();
+                        value = _dateFormat.IsNotEmpty()
+                         ? _value.ToString(_dateFormat)
+                         : _value.ToShortDateString();
                     }
                 }
             }
