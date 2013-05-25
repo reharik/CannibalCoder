@@ -3,7 +3,7 @@ using HtmlTags;
 
 namespace CC.UI.Helpers.Configuration
 {
-    public class DefaultHtmlConventions : HtmlConventionRegistry
+    public class DefaultHtmlConventions : TagProfileExpression
     {
         public DefaultHtmlConventions()
         {

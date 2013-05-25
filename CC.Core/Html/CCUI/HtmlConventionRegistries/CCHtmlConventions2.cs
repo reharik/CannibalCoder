@@ -10,7 +10,7 @@ using HtmlTags;
 
 namespace CC.Core.Html.CCUI.HtmlConventionRegistries
 {
-    public class CCHtmlConventions2 : HtmlConventionRegistry
+    public class CCHtmlConventions2 : TagProfileExpression
     {
         public CCHtmlConventions2()
         {

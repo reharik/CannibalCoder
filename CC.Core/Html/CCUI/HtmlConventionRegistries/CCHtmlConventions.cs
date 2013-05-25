@@ -12,7 +12,7 @@ using HtmlTags;
 
 namespace CC.Core.Html.CCUI.HtmlConventionRegistries
 {
-    public class CCHtmlConventions : HtmlConventionRegistry
+    public class CCHtmlConventions : TagProfileExpression
     {
         public CCHtmlConventions()
         {

@@ -9,22 +9,17 @@ namespace CC.UI.Helpers.Tags
 {
     public class TagGenerator<T> : ITagGenerator<T> where T : class
     {
-        private readonly TagProfileLibrary _library;
         private readonly IElementNamingConvention _namingConvention;
-        private readonly IServiceLocator _services;
         private readonly Stringifier _stringifier;
         private T _model;
         private TagProfile _profile;
 
-        public TagGenerator(TagProfileLibrary library, IElementNamingConvention namingConvention,
-                             Stringifier stringifier)
+        public TagGenerator(IElementNamingConvention namingConvention, Stringifier stringifier)
         {
             ElementPrefix = string.Empty;
-            _library = library;
             _namingConvention = namingConvention;
-//            _services = services;
             _stringifier = stringifier;
-            _profile = _library.DefaultProfile;
+            _profile = new TagProfile("default");
         }
 
         #region ITagGenerator<T> Members
@@ -35,17 +30,7 @@ namespace CC.UI.Helpers.Tags
             set { _model = value; }
         }
 
-        public string CurrentProfile
-        {
-            get { return _profile.Name; }
-        }
-
         public string ElementPrefix { get; set; }
-
-        public void SetProfile(string profileName)
-        {
-            _profile = _library[profileName];
-        }
 
         public ElementRequest GetRequest(Expression<Func<T, object>> expression)
         {
@@ -69,10 +54,10 @@ namespace CC.UI.Helpers.Tags
             return request;
         }
 
-        public HtmlTag DisplayFor(Expression<Func<T, object>> expression, string profile)
-        {
-            return buildTag(expression, _library[profile].Display);
-        }
+//        public HtmlTag DisplayFor(Expression<Func<T, object>> expression, string profile)
+//        {
+//            return buildTag(expression, _library[profile].Display);
+//        }
 
         public HtmlTag LabelFor(ElementRequest request)
         {
@@ -94,20 +79,20 @@ namespace CC.UI.Helpers.Tags
             return buildTag(expression, _profile.Label);
         }
 
-        public HtmlTag LabelFor(Expression<Func<T, object>> expression, string profile)
-        {
-            return buildTag(expression, _library[profile].Label);
-        }
+//        public HtmlTag LabelFor(Expression<Func<T, object>> expression, string profile)
+//        {
+//            return buildTag(expression, _library[profile].Label);
+//        }
 
         public HtmlTag InputFor(Expression<Func<T, object>> expression)
         {
             return buildTag(expression, _profile.Editor);
         }
 
-        public HtmlTag InputFor(Expression<Func<T, object>> expression, string profile)
-        {
-            return buildTag(expression, _library[profile].Editor);
-        }
+//        public HtmlTag InputFor(Expression<Func<T, object>> expression, string profile)
+//        {
+//            return buildTag(expression, _library[profile].Editor);
+//        }
 
         public HtmlTag DisplayFor(Expression<Func<T, object>> expression)
         {
