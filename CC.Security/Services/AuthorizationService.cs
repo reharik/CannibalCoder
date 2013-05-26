@@ -42,7 +42,7 @@ namespace CC.Security.Services
 		public bool IsAllowed(IUser user, string operation)
 		{
 			Permission[] permissions = permissionsService.GetGlobalPermissionsFor(user, operation);
-			if (permissions.Length == 0)
+            if (permissions==null || permissions.Length == 0)
 				return false;
 			return permissions[0].Allow;
 		}
