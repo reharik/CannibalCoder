@@ -73,6 +73,7 @@
     <Compile Include="Tags\TagFactoryExpression.cs" />
     <Compile Include="Tags\TagGenerator.cs" />
     <Compile Include="Tags\TagProfile.cs" />
+    <Compile Include="Tags\TagProfileContainer.cs" />
     <Compile Include="Tags\TagProfileExpression.cs" />
     <Compile Include="Tags\TagProfileLibrary.cs" />
   </ItemGroup>

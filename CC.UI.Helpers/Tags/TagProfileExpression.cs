@@ -6,9 +6,9 @@
         public TagProfileExpression()
         {
             Profile = new TagProfile("default");
-            Labels = new TagFactoryExpression(new TagFactory());
-            Editors = new TagFactoryExpression(new TagFactory());
-            Displays = new TagFactoryExpression(new TagFactory());
+            Labels = new TagFactoryExpression(Profile.Label);
+            Editors = new TagFactoryExpression(Profile.Label);
+            Displays = new TagFactoryExpression(Profile.Label);
         }
 
         public TagProfile Profile { get; set; }
