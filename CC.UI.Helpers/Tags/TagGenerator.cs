@@ -10,15 +10,13 @@ namespace CC.UI.Helpers.Tags
     public class TagGenerator<T> : ITagGenerator<T> where T : class
     {
         private readonly IElementNamingConvention _namingConvention;
-        private readonly Stringifier _stringifier;
         private T _model;
         private TagProfile _profile;
 
-        public TagGenerator(IElementNamingConvention namingConvention, Stringifier stringifier)
+        public TagGenerator(IElementNamingConvention namingConvention)
         {
             ElementPrefix = string.Empty;
             _namingConvention = namingConvention;
-            _stringifier = stringifier;
             _profile = new TagProfile("default");
         }
 
@@ -39,17 +37,14 @@ namespace CC.UI.Helpers.Tags
 
         public ElementRequest GetRequest(Accessor accessor)
         {
-            var request = new ElementRequest(_model, accessor,
-                                             _stringifier);
+            var request = new ElementRequest(_model, accessor);
             determineElementName(request);
             return request;
         }
 
         public ElementRequest GetRequest<TProperty>(Expression<Func<T, TProperty>> expression)
         {
-            var request = new ElementRequest(_model,
-                                             ReflectionHelper.GetAccessor(expression),
-                                             _stringifier);
+            var request = new ElementRequest(_model, ReflectionHelper.GetAccessor(expression));
             determineElementName(request);
             return request;
         }
