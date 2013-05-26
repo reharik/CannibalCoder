@@ -7,8 +7,8 @@
         {
             Profile = new TagProfile("default");
             Labels = new TagFactoryExpression(Profile.Label);
-            Editors = new TagFactoryExpression(Profile.Label);
-            Displays = new TagFactoryExpression(Profile.Label);
+            Editors = new TagFactoryExpression(Profile.Editor);
+            Displays = new TagFactoryExpression(Profile.Display);
         }
 
         public TagProfile Profile { get; set; }

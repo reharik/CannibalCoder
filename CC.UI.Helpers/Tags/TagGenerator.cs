@@ -12,7 +12,7 @@ namespace CC.UI.Helpers.Tags
         private T _model;
         private TagProfile _profile;
 
-        public TagGenerator(IElementNamingConvention namingConvention, ITagProfileContainer tagProfile)
+        public TagGenerator(IElementNamingConvention namingConvention, TagProfileExpression tagProfile)
         {
             ElementPrefix = string.Empty;
             _namingConvention = namingConvention;

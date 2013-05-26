@@ -7,6 +7,11 @@
 
     public class TagProfileContainer : ITagProfileContainer
     {
-        public TagProfile Profile { get; set; } 
+        private TagProfile _profile;
+        public TagProfile Profile
+        {
+            get { return _profile; }
+            set { _profile = value; }
+        }
     }
 }
