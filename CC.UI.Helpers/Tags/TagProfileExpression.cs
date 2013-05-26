@@ -2,20 +2,14 @@
 {
     public class TagProfileExpression
     {
-        private readonly TagProfile _profile;
 
-        public TagProfileExpression(TagProfile profile)
+        public TagProfileExpression()
         {
-            _profile = profile;
-            Labels = new TagFactoryExpression(profile.Label);
-            Editors = new TagFactoryExpression(profile.Editor);
-            Displays = new TagFactoryExpression(profile.Display);
+            Labels = new TagFactoryExpression(new TagFactory());
+            Editors = new TagFactoryExpression(new TagFactory());
+            Displays = new TagFactoryExpression(new TagFactory());
         }
 
-        protected TagProfile profile
-        {
-            get { return _profile; }
-        }
 
         public TagFactoryExpression Labels { get; private set; }
 

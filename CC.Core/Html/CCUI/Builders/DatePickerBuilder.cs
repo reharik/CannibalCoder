@@ -30,7 +30,7 @@ namespace CC.Core.Html.CCUI.Builders
 
         public override HtmlTag Build(ElementRequest request)
         {
-            var isChecked =request.RawValue!=null ? (bool) request.RawValue:false;
+            var isChecked =request.RawValue!=null && (bool) request.RawValue;
             return new CheckboxTag(isChecked);
         }
     }

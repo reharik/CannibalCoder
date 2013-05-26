@@ -67,7 +67,6 @@
     <Compile Include="Configuration\TagModifier.cs" />
     <Compile Include="HtmlConventionRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stringifier.cs" />
     <Compile Include="Tags\ ITagGenerator.cs" />
     <Compile Include="Tags\TagActionExpression.cs" />
     <Compile Include="Tags\TagFactory.cs" />

@@ -10,23 +10,13 @@ namespace CC.UI.Helpers.Tags
     {
         string ElementPrefix { get; set; }
 
-        string CurrentProfile { get; }
-
         T Model { get; set; }
-
-        void SetProfile(string profileName);
 
         HtmlTag LabelFor(Expression<Func<T, object>> expression);
 
-        HtmlTag LabelFor(Expression<Func<T, object>> expression, string profile);
-
         HtmlTag InputFor(Expression<Func<T, object>> expression);
 
-        HtmlTag InputFor(Expression<Func<T, object>> expression, string profile);
-
         HtmlTag DisplayFor(Expression<Func<T, object>> expression);
-
-        HtmlTag DisplayFor(Expression<Func<T, object>> expression, string profile);
 
         ElementRequest GetRequest(Expression<Func<T, object>> expression);
 

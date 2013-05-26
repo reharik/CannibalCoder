@@ -6,17 +6,13 @@ namespace CC.UI.Helpers.Configuration
 {
     public class ElementRequest
     {
-        private readonly IServiceLocator _services;
-        private readonly Stringifier _stringifier;
         private bool _hasFetched;
         private object _rawValue;
 
-        public ElementRequest(object model, Accessor accessor, Stringifier stringifier)
+        public ElementRequest(object model, Accessor accessor)
         {
-            _stringifier = stringifier;
             Model = model;
             Accessor = accessor;
-//            _services = services;
         }
 
         public string ElementId { get; set; }
@@ -47,31 +43,11 @@ namespace CC.UI.Helpers.Configuration
                 };
         }
 
-        public T Get<T>()
-        {
-            return ServiceLocator.Current.GetInstance<T>();
-        }
-
-        public T Value<T>()
-        {
-            return (T) RawValue;
-        }
-
         public string StringValue()
         {
-            return _stringifier.GetString(Accessor.InnerProperty, RawValue);
-        }
-
-        public bool ValueIsEmpty()
-        {
-            return RawValue == null || (string.Empty).Equals(RawValue);
-        }
-
-        public void ForValue<T>(Action<T> action)
-        {
-            if (ValueIsEmpty())
-                return;
-            action((T) RawValue);
+            if (RawValue == null || RawValue as string == string.Empty) return string.Empty;
+            var type = RawValue.GetType();
+            return type.IsNullable() ? type.GetInnerTypeFromNullable().ToString() : type.ToString();
         }
     }
 }
