@@ -5,11 +5,13 @@
 
         public TagProfileExpression()
         {
+            Profile = new TagProfile("default");
             Labels = new TagFactoryExpression(new TagFactory());
             Editors = new TagFactoryExpression(new TagFactory());
             Displays = new TagFactoryExpression(new TagFactory());
         }
 
+        public TagProfile Profile { get; set; }
 
         public TagFactoryExpression Labels { get; private set; }
 

@@ -114,7 +114,6 @@
     <Compile Include="Html\CCUI\Builders\TextAreaBuilder.cs" />
     <Compile Include="Html\CCUI\Builders\TextAreaBuilder2.cs" />
     <Compile Include="Html\CCUI\Builders\ValidationModifier.cs" />
-    <Compile Include="Html\CCUI\CCUIHtmlExtensions.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CustomTagActionExpressions.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CCElementNamingConvention.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CCHtmlConventions.cs" />

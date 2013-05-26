@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using CC.Core.Utilities;
 using CC.UI.Helpers.Configuration;
 using HtmlTags;
-using Microsoft.Practices.ServiceLocation;
 
 namespace CC.UI.Helpers.Tags
 {
@@ -13,11 +12,11 @@ namespace CC.UI.Helpers.Tags
         private T _model;
         private TagProfile _profile;
 
-        public TagGenerator(IElementNamingConvention namingConvention)
+        public TagGenerator(IElementNamingConvention namingConvention, TagProfileExpression tagProfile)
         {
             ElementPrefix = string.Empty;
             _namingConvention = namingConvention;
-            _profile = new TagProfile("default");
+            _profile = tagProfile.Profile;
         }
 
         #region ITagGenerator<T> Members
