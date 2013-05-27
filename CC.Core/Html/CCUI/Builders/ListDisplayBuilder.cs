@@ -14,7 +14,7 @@ namespace CC.Core.Html.CCUI.Builders
 
         public override HtmlTag Build(ElementRequest request)
         {
-            var ul = new HtmlTag("ul").Attr("data-bind", "foreach:" + CCHtmlConventions2.DeriveElementName(request));
+            var ul = new HtmlTag("ul").Attr("data-bind", "foreach:" + CCHtmlConventionsKO.DeriveElementName(request));
             var li = new HtmlTag("li");
             li.Children.Add(new HtmlTag("span").Attr("data-bind", "text:$data"));
             ul.Children.Add(li);

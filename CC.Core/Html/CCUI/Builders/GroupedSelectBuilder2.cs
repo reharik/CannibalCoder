@@ -22,7 +22,7 @@ namespace CC.Core.Html.CCUI.Builders
         {
             Action<SelectTag> action = x =>
                                            {
-                                               var elementName = CCHtmlConventions2.DeriveElementName(request);
+                                               var elementName = CCHtmlConventionsKO.DeriveElementName(request);
                                                x.Attr("data-bind", "groupedSelect:_" + elementName + "List," +
                                                                     "optionsText:'Text'," +
                                                                     "optionsValue:'Value'," +

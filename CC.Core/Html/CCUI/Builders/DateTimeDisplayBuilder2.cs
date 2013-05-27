@@ -16,7 +16,7 @@ namespace CC.Core.Html.CCUI.Builders
 
         public override HtmlTag Build(ElementRequest request)
         {
-            return new HtmlTag("span").Attr("data-bind", "dateString:" + CCHtmlConventions2.DeriveElementName(request));
+            return new HtmlTag("span").Attr("data-bind", "dateString:" + CCHtmlConventionsKO.DeriveElementName(request));
         }
     }
 
@@ -31,7 +31,7 @@ namespace CC.Core.Html.CCUI.Builders
 
         public override HtmlTag Build(ElementRequest request)
         {
-            return new HtmlTag("span").Attr("data-bind", "timeString:" + CCHtmlConventions2.DeriveElementName(request));
+            return new HtmlTag("span").Attr("data-bind", "timeString:" + CCHtmlConventionsKO.DeriveElementName(request));
         }
     }
 }

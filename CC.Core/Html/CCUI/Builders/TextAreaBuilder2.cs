@@ -16,7 +16,7 @@ namespace CC.Core.Html.CCUI.Builders
 
         public override HtmlTag Build(ElementRequest request)
         {
-            return new HtmlTag("textarea").Attr("data-bind", "value:" + CCHtmlConventions2.DeriveElementName(request)).AddClass("textArea").Attr("name", request.ElementId);
+            return new HtmlTag("textarea").Attr("data-bind", "value:" + CCHtmlConventionsKO.DeriveElementName(request)).AddClass("textArea").Attr("name", request.ElementId);
         }
     }
 }

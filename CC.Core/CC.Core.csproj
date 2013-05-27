@@ -118,7 +118,7 @@
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CustomTagActionExpressions.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CCElementNamingConvention.cs" />
     <Compile Include="Html\CCUI\HtmlConventionRegistries\CCHtmlConventions.cs" />
-    <Compile Include="Html\CCUI\HtmlConventionRegistries\CCHtmlConventions2.cs" />
+    <Compile Include="Html\CCUI\HtmlConventionRegistries\CCHtmlConventionsKO.cs" />
     <Compile Include="Html\CCUI\HtmlExpressions\DropdownInputExpression.cs" />
     <Compile Include="Html\CCUI\HtmlExpressions\EditorExpression.cs" />
     <Compile Include="Html\CCUI\HtmlExpressions\EditorInputExpression.cs" />

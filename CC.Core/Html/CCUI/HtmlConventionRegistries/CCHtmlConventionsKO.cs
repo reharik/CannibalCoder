@@ -10,9 +10,9 @@ using HtmlTags;
 
 namespace CC.Core.Html.CCUI.HtmlConventionRegistries
 {
-    public class CCHtmlConventions2 : TagProfileExpression
+    public class CCHtmlConventionsKO : TagProfileExpression
     {
-        public CCHtmlConventions2()
+        public CCHtmlConventionsKO()
         {
             EditorsChain();
             DisplaysChain();

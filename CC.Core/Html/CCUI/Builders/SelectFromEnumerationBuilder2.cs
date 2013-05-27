@@ -18,7 +18,7 @@ namespace CC.Core.Html.CCUI.Builders
         public override HtmlTag Build(ElementRequest request)
         {
             var selectTag = new SelectTag();
-            var elementName = CCHtmlConventions2.DeriveElementName(request);
+            var elementName = CCHtmlConventionsKO.DeriveElementName(request);
             selectTag.Attr("data-bind", "options:_" + elementName + "List," +
                                         "optionsText:'Text'," +
                                         "optionsValue:'Value'," +
@@ -39,7 +39,7 @@ namespace CC.Core.Html.CCUI.Builders
         public override HtmlTag Build(ElementRequest request)
         {
             var selectTag = new SelectTag();
-            var elementName = CCHtmlConventions2.DeriveElementName(request);
+            var elementName = CCHtmlConventionsKO.DeriveElementName(request);
             var elementRoot = elementName.Contains("EntityId") ? elementName.Replace(".EntityId", "") : elementName;
             selectTag.Attr("data-bind", "options:_" + elementRoot +"List," +
                                         "optionsValue:'Value'," +
